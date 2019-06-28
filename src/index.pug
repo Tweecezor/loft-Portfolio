@@ -9,7 +9,38 @@ html(lang="en")
     title Portfolio | main page
   body
     .wrapper
-      .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
+      main.main-section
+        //- include ./header.pug
+        header.header
+        .initials НЕ
+        +nav('nav', ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться'])
+        ul.social__list
+          li.social__item
+            a.social__link(href="#")
+              +icon('insta','link-class')
+          li.social__item
+            a.social__link(href="#")
+              +icon('vk','link-class')
+          li.social__item
+            a.social__link(href="#")
+              +icon('github','link-class')
+
+            //- header.header
+            //-     .initials НЕ
+            //-     +nav('nav', ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться'])
+            //-     ul.social__list
+            //-         li.social__item
+            //-             a.social__link(href="#")
+            //-                 +icon('insta','link-class')
+            //-         li.social__item
+            //-             a.social__link(href="#")
+            //-                     +icon('vk','link-class')
+            //-         li.social__item
+            //-             a.social__link(href="#")
+            //-                 +icon('github','link-class')
+            //- .maincontent
+        //-     +image('content/user.jpg', 'user-pic')
+        //-     +icon('link', 'link-class')
+    
+        //- .classTest пробую печатать текст
+    
