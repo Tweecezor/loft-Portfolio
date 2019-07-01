@@ -8,8 +8,30 @@ mixin image(path, className)
 
 
 mixin nav(className,items)
-    nav(class=className)
-        ul(class=className+'__list')
-            each val, ndx in items
-                li(class=className+'__item')
-                    a(class=className+'__link' href="#")=val 
+  nav(class=className)
+    ul(class=className+'__list')
+      each val, ndx in items
+        li(class=className+'__item')
+          a(class=className+'__link' href="#")=val 
+
+
+mixin skill(className,items)
+  ul(class=className+'_list')
+    each item in items 
+      li(class=className+'_item').skill
+        .skill__item-wrap
+          svg.skill__item(viewBox='0 0 100 100' preserveAspectRatio='none')
+            circle(cx='50' cy='50' r='40').skill__item_circle-under.skill__item_circle
+            circle(cx='50' cy='50' r='40' style=''+`${item.value}`).skill__item_circle-above.skill__item_circle
+            linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0")
+              stop(offset="0%" stop-color="#ea7400")
+              stop(offset="100%" stop-color="#f29400")
+            .skill__item-tech=item.tech
+
+
+//- mixin reviews(obj)    
+//-   ul.reviews__slider  
+//-     -for(var i=0; i<2;i++)
+//-       li.reviews__item
+//-         .text 
+//-           p #{obj.text}

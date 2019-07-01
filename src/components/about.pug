@@ -1,0 +1,21 @@
+section.about-section
+  .container
+    .about__wrap
+      .about__info
+        .about__info-user
+          .about__avatar
+            +image('content/user.jpg', 'about__avatar-img')
+          .about__data
+            table.about__table
+              -var data = [['Проживаю','Москва'],['Возраст','21 год'],['Родился','21 декабря 1997']]
+              each row in data
+                tr 
+                  td.about__data-ask.text #{row[0]}
+                  td.about__data-answer #{row[1]}
+      .about__desc
+        .about__desc-main
+          .about__welcome.text Привет, меня зовут 
+          h1.about__name-title.title Никита Еремеев
+          .about__text.text
+            p Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
+        .about__desc-remark.text Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!

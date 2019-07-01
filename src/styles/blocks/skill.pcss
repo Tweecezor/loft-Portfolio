@@ -1,0 +1,104 @@
+.skills{
+  background:url('../images/content/background-skills.png') center center no-repeat;
+  background-size:cover;
+  padding:150px 0px;
+  position: relative;
+  &:before{
+    content: "";
+    position: absolute;
+    background-image:url('../images/content/hands.png');
+    width: 35.625rem; 
+    height: 52.4375rem;
+    background-size: cover;
+    background-position: center center;
+    top: 305px;
+    left: 0;
+  }
+}
+.skills__wrap{
+
+}
+.skills__text-wrap{
+  display: flex;
+  justify-content:center;
+  margin-bottom: 96px;
+}
+.skills__text{
+  width:42%;
+  margin-left: 10%;
+}
+.skills__block-caption-wrap{
+  margin-bottom: 50px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+.skills__text-title{
+  margin-bottom:60px;
+  font-size: 1.875rem;
+}
+.skills__block{
+  display: flex;
+  padding-left: 25.25rem;
+  justify-content: center;
+}
+.skill__item-wrap{
+  position: relative;
+}
+.skill__item{
+  display: flex;
+  width: 134px;
+  height: 134px;
+  transform: rotate(-180deg);
+}
+.skills__bars_list{
+  display: flex;
+}
+.skill__item_circle{
+  fill: transparent;
+  stroke-width: 3px;
+  stroke: #3f3b3a;
+ 
+  /* opacity: .3; */
+}
+.skills_block_item{
+  margin-bottom: 58px;
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.skills__bars_item{
+  margin-right: 40px;
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.skill__item_circle-above{
+  stroke-width: 9px;
+  stroke:url('#gradient');
+  stroke-dasharray:251;
+  stroke-dashoffset:251;
+  animation: fill 100s linear infinite;
+  animation-play-state: paused;
+}
+.skill__item-tech{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  font-size: 15px;
+  font-weight: 700;
+  color:white;
+  opacity: .5;
+}
+
+@keyframes fill {
+  from{
+    stroke-dashoffset:251;
+  }
+  to{
+    stroke-dashoffset:0;
+  }
+}

@@ -1,0 +1,21 @@
+footer.footer
+  .container.container-footer
+    .footer__copyright
+      .footer__copyright-year-wrap
+        .footer__copyright-year © 2019
+      .footer__copyright-myinfo
+        .footer__copyright-name Никита Еремеев
+        .footer__copyright-desc.text Личный сайт веб разработчика
+    .footer__content
+      .footer__main-menu
+        include main-menu.pug
+      .footer__content-desc
+        .footer__content-block
+          p.footer__block-text.text Этот сайт я сделал в рамках обучения в Школе онлайн образования Loftschool
+          .footer__socials
+            +socials('footer')
+            include socials
+        .footer__content-block
+          blockquote.footer__blockquote
+            p.footer__blockquote-text.text Всегда пишите код так, будто сопровождать его будет склонный к насилию психопат, который знает где вы живете
+            cite.footer__author Martin Golding

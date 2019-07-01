@@ -1,0 +1,21 @@
+section.contact
+  //- .container
+  h3.contact__title.title Связаться со мной
+  form.contact__form(action="" method="GET")
+    .contact__user-data
+      label.contact__user-data__label
+        .contact__user-data__label-title Введите ваше имя
+        .contact__user-data__label-wrap
+          +icon('user','form-icon')
+          input.contact__user-data__input(type="text" name="name" required placeholder='Никита Еремеев')
+      label.contact__user-data__label
+        .contact__user-data__label-wrap
+          .contact__user-data__label-title Введите ваш email
+          +icon('envelope','form-icon')
+        input.contact__user-data__input(type="email" name="email" required placeholder='clien@yandex.ru')
+    .contact__user-text
+      label.contact__user-text__label
+        .contact__user-data__label-title Сообщение к письму
+        +icon('message','form-icon')
+        textarea.contact__user-text__textarea(name="comment" placeholder='Требуется ваша помощь в создании сайта. Интересуют сроки и цена вопроса')
+    input.contact__form-submit(type="submit" value="Отправить" name="send")

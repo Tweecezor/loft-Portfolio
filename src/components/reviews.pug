@@ -1,0 +1,32 @@
+section.reviews
+  //- .container
+  .reviews__block-wrap
+    h2.reviews__title.title Что обо мне говорят
+    .reviews__slider-controls
+      button(type="button").reviews__btn--prev.reviews__btn <
+      button(type="button").reviews__btn--next.reviews__btn >
+  .reviews__content
+    ul.reviews__slider  
+      -var reviews_data = [{name:'Дмитрий Ковальчук',text:'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!',avatar:'dima_avatar.jpg',status:'Основатель lofschool'},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '}]
+      each item in reviews_data
+        li.reviews__item-wrap
+          .reviews__item
+            .reviews__text.text 
+              p=item.text
+            .reviews__user  
+              .reviews__user-avatar
+                +image('content/'+`${item.avatar}`, 'reviews__avatar')
+              .reviews__user-data
+                h3.reviews__user-name_title=item.name
+                .reviews__user-status_title=item.status
+//- mixin reviews(obj)    
+//-   ul.reviews__slider  
+//-   each item in obj
+//-       li.reviews__item
+//-         .text 
+//-           p=item.name
+//-   +reviews([{name:'vova',text:'lorem1'},{name:'vova',text:'lorem1'}])
+
+
+  
+        
