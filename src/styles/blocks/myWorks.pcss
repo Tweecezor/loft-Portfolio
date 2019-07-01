@@ -1,0 +1,140 @@
+.myWorks{
+  padding:204px 0px;
+}
+.myWorks__title-text{
+  color:$text-color;
+}
+.myWorks__title{
+  margin-bottom: 92px;
+}
+.myWorks__slider{
+  display: flex;
+  justify-content: space-between;
+  /* align-items:center; */
+}
+ .myWorks__slider-pics-wrap{
+  width:66%;
+  position: relative;
+  height: 510px;
+ }
+/* .myWorks__slider-pics{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+} */
+.myWorks__slider-current-pic-wrap{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.myWorks__slider-current-pic{
+  width: 100%;
+  height: 100%;
+}
+.myWorks__slider-controls{
+    position: absolute;
+    left: 100%;
+    right: 10%;
+    top: 72.5%;
+    display: flex;
+    flex-direction:column;
+    z-index:2;
+}
+.myWorks__slider-btn{
+  width: 50px;
+  height: 50px;
+  background-color: #2d3c4e;
+  color:white;
+  &:hover{
+    background-color: #344559;
+  }
+}
+.myWorks__slider-preview{
+  position: absolute;
+  right: 0;
+  bottom: 8%;
+  z-index: 2;
+  display: flex;
+}
+.myWorks__slider-preview_item{
+  height: 100px;
+}
+.myWorks__slider-preview_item--active{
+  outline: 3px solid #f29400;
+  margin-right: 3px;
+}
+.myWorks__slider-number-wrap{
+  position: absolute;
+  top: 50%;
+  right: -150px;
+  transform: translateY(-60%);
+  line-height: 1;
+  font-size: 25rem;
+  font-weight: 800;
+  color: rgba(65,76,99,.05);
+}
+.myWorks__slider-number{
+    font-size: 25rem;
+    font-weight: 800;
+    color: #f0f0f0;
+    line-height: 1;
+}
+.myWorks__slider-desc{
+  width:25%;
+}
+.myWorks__slider-tags-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+.myWorks__slider-tags-item{
+  margin-right: 30px;
+  padding: 12px 18px;
+  background: #f1f5f9;
+  font-size: .9375rem;
+  font-weight: 600;
+  color: rgba(65,76,99,.7);
+  border-radius: 50px;
+  &:last-child{
+    margin-right: 0;
+  }
+}
+.myWorks__slider-title-wrap{
+  padding-right:20px;
+  margin-bottom: 44px;
+}
+.myWorks__slider-title{
+  font-size: 1.875rem;
+  margin-bottom: 2.625rem;
+  font-weight: 700;
+}
+.myWorks__slider-text{
+    font-weight: 600;
+    color: rgba(65,76,99,.7);
+    /* line-height: 1.8; */
+    margin-bottom: 2.375rem;
+}
+.myWorks__slider-link{
+    color: #4b6fd7;
+    font-size: 18px;
+    font-weight: 700;
+    /* line-height: 48px; */
+    text-decoration:none;
+    &:hover{
+      color:#4466a6;
+      myWorks__slider-link-icon{
+         fill: #446666;
+      }
+    }
+}
+.myWorks__slider-link-icon{
+  width: 15px;
+  height: 15px;
+  fill: #4b6fd7;
+  margin-right: 20px;
+}

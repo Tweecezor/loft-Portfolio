@@ -23,6 +23,14 @@
   transform: translate(-50%);
   cursor: pointer;
   left: 50%;
+  &:hover{
+      .welcome-section__scroll-icon{
+        animation-name: move;
+        animation-duration: .7s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+      }
+  }
 }
 .welcome-section__scroll-link{
       text-decoration:none;
@@ -66,12 +74,6 @@
   fill: white;
   /* position: inherit; */
   bottom: 20%;
-  &:hover{
-    animation-name: move;
-    animation-duration: .7s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: backwards;
-  }
 }
 @keyframes move{
   from{

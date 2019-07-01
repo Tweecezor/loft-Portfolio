@@ -1,15 +1,66 @@
 section.myWorks
-  h2.myWorks__title Мои работы
-  ul.myWorks__slider.example__list
-    li.example-item
-      .example.image 
-        +image('content/work_example.jpg', 'example_img')
-      .example__next 2
-      .example__desc
-        ul.example__desc-skills_list.mySkills_list
-          li.mySkills__item HTML
-          li.mySkills__item CSS
-          li.mySkills__item JavaScript
-        h3.example__desc-title Сайт Школы Образованиия
-        p.example__desc-txt Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
-        a.example__desc-link(href="#") Посмотреть сайт
+  .container.myWorks-container
+    .myWorks__title
+      .myWorks__title-wrap
+        h2.myWorks__title-text.title Мои работы
+    .myWorks__content
+      .myWorks__slider
+        .myWorks__slider-pics-wrap
+          .myWorks__slider-pics
+            .myWorks__slider-current-pic-wrap
+              +image('content/work_example.jpg', 'myWorks__slider-current-pic')
+            .myWorks__slider-controls
+              button.myWorks__slider-btn.myWorks__slider-next >
+              button.myWorks__slider-btn.myWorks__slider-prev <
+            ul.myWorks__slider-preview
+              li.myWorks__slider-preview_item.myWorks__slider-preview_item--active
+                a(href="#").myWorks__slider-img
+                  +image('content/work_example.jpg', 'myWorks__slider-image')
+              li.myWorks__slider-preview_item
+                a(href="#").myWorks__slider-img
+                  +image('content/example_second.jpg', 'myWorks__slider-image')
+              li.myWorks__slider-preview_item
+                a(href="#").myWorks__slider-img
+                  +image('content/example_third.jpg', 'myWorks__slider-image')
+              li.myWorks__slider-preview_item
+                a(href="#").myWorks__slider-img
+                  +image('content/example_fourth.jpg', 'myWorks__slider-image')
+            .myWorks__slider-number-wrap
+              .myWorks__slider-number 1
+        .myWorks__slider-desc
+          ul.myWorks__slider-tags-list
+            li.myWorks__slider-tags-item
+              .myWorks__slider-tag HTML
+            li.myWorks__slider-tags-item
+              .myWorks__slider-tag CSS
+            li.myWorks__slider-tags-item
+              .myWorks__slider-tag JavaScript
+          .myWorks__slider-title-wrap
+            .myWorks__slider-title Сайт школы образования
+          .myWorks__slider-text
+            p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
+          .myWorks__slider-link-wrap
+            +icon('link','myWorks__slider-link-icon')
+            a(href="#").myWorks__slider-link Посмотреть сайт
+
+
+
+              
+
+
+
+
+
+          //- ul.myWorks__slider.example__list
+          //-   li.example-item
+          //-     .example.image 
+          //-       +image('content/work_example.jpg', 'example_img')
+          //-     .example__next 2
+          //-     .example__desc
+          //-       ul.example__desc-skills_list.mySkills_list
+          //-         li.mySkills__item HTML
+          //-         li.mySkills__item CSS
+          //-         li.mySkills__item JavaScript
+          //-       h3.example__desc-title Сайт Школы Образованиия
+          //-       p.example__desc-txt Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
+          //-       a.example__desc-link(href="#") Посмотреть сайт
