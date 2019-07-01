@@ -132,5 +132,18 @@ img {
   background:url('../images/content/background-autumn.jpg');
   background-size:cover;
   padding:160px 0px;
-  padding-right:35%
+  padding-right:35%;
+  position: relative;
+  &:before{
+    content:'';
+        content: "";
+    background: url('../images/content/leafs.png');
+    width: 36.15rem;
+    height: 88.5rem;
+    position: absolute;
+    right: 0;
+    background-size: cover;
+    background-position: 95%;
+    top: -140px;
+  }
 }
