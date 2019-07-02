@@ -14,21 +14,16 @@
 }
 .welcome-section__scroll{
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   bottom: 20%;
-  -webkit-transform: translate(-50%);
   transform: translate(-50%);
   cursor: pointer;
   left: 50%;
-  &:hover{
-      .welcome-section__scroll-icon{
-        animation-name: move;
-        animation-duration: .7s;
-        animation-iteration-count: infinite;
-        animation-fill-mode: backwards;
-      }
+  &:hover > .welcome-section__scroll-icon{
+    animation-name: move;
+    animation-duration: .7s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
   }
 }
 .welcome-section__scroll-link{
@@ -72,7 +67,7 @@
   height: 30px;
   fill: white;
   /* position: inherit; */
-  bottom: 20%;
+  bottom: 10%;
 }
 @keyframes move{
   from{
