@@ -51,7 +51,8 @@
   background-color: #2d3c4e;
   color:white;
   &:hover{
-    background-color: #344559;
+    /* background-color: #344559; */
+    background-color:#ff9a00;
   }
 }
 .myWorks__slider-preview{
@@ -63,7 +64,30 @@
 }
 .myWorks__slider-preview_item{
   height: 100px;
+  &:hover{
+    opacity: .8;
+    &:before{
+      content:'';
+      width:100%;
+      height: 100%;
+      position: absolute;
+      top:0;
+      left:0;
+      background-color:#ff9a00;
+      opacity:.1;
+  }
+  &:before{
+    content:'';
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    }
+  }
+  
 }
+
 .myWorks__slider-preview_item--active{
   outline: 3px solid #f29400;
   margin-right: 3px;
@@ -126,7 +150,8 @@
     /* line-height: 48px; */
     text-decoration:none;
     &:hover{
-      color:#4466a6;
+      /* color:#4466a6; */
+      text-decoration:underline;
       myWorks__slider-link-icon{
          fill: #446666;
       }
