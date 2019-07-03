@@ -1,8 +1,14 @@
 .myWorks{
   padding:204px 0px;
+  @include phones{
+    padding:100px 0px;
+  }
 }
 .myWorks__title-text{
   color:$text-color;
+  @include phones{
+    text-align: center;
+  }
 }
 .myWorks__title{
   margin-bottom: 92px;
@@ -25,6 +31,10 @@
     position: relative;
     height: 25.3rem;
     margin-bottom: 65px;
+  }
+  @include phones{
+    width: 100%;
+    height: 213px;
   }
  }
 /* .myWorks__slider-pics{
@@ -54,6 +64,10 @@
     display: flex;
     flex-direction:column;
     z-index:2;
+    @include phones{
+      left: 87%;
+      top: 53%;
+    }
 }
 .myWorks__slider-btn{
   width: 50px;
@@ -71,6 +85,9 @@
   bottom: 8%;
   z-index: 2;
   display: flex;
+  @include phones{
+    display: none;
+  }
 }
 .myWorks__slider-preview_item{
   height: 100px;
@@ -93,6 +110,9 @@
   font-size: 25rem;
   font-weight: 800;
   color: rgba(65,76,99,.05);
+  @include phones{
+    display: none;
+  }
 }
 .myWorks__slider-number{
     font-size: 25rem;
@@ -107,6 +127,10 @@
     width: 60%;
     margin: 0 auto;
   }
+  @include phones{
+    width:84%;
+    text-align:left;
+  }
 }
 .myWorks__slider-tags-list{
     display: flex;
@@ -114,6 +138,9 @@
     margin-bottom: 50px;
     @include tablets{
       justify-content: center;
+    }
+    @include phones{
+      justify-content: flex-start;
     }
 }
 .myWorks__slider-tags-item{

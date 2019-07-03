@@ -116,6 +116,14 @@ img {
 .container-footer{
   display: flex;
   justify-content:space-between;
+  @include phones{
+    flex-direction:column;
+  }
+}
+.myWorks-container{
+  @include phones{
+    width: 100%;
+  }
 }
 .text{
   font-size: 16px;
@@ -130,7 +138,11 @@ img {
   font-size: 36px;
   font-weight: 700;
   color:white;
+  @include phones{
+    font-size: 26px;
+  }
 }
+
 .maincontent__autumn-bg{
   background:url('../images/content/background-autumn.jpg');
   background-size:cover;
@@ -161,6 +173,11 @@ img {
       background-size: cover;
       background-position: 95%;
       top: -0.75rem;
+    }
+  }
+  @include phones{
+    &:before{
+     display: none;
     }
   }
 }

@@ -12,6 +12,9 @@
     flex-direction:column;
      justify-content:initial;
   }
+  @include phones{
+    width: 100%;
+  }
 }
 .footer__copyright-year-wrap{
   flex:1;
@@ -33,6 +36,9 @@
   @include tablets{
     width:65%;
   }
+  @include phones{
+    width: 100%;
+  }
 }
 .footer__copyright-name{
   font-size: 18px;
@@ -41,6 +47,10 @@
   text-transform: uppercase;
   color:white;
   margin-bottom: 2.125rem;
+  @include phones{
+    margin-bottom: 0;
+    width: 100%;
+  }
 }
 .footer__copyright-desc{
   margin-bottom: 1.5625rem;
@@ -48,6 +58,9 @@
 
 .footer__content{
   width:65%;
+  @include phones{
+    width: 100%;
+  }
 }
 .footer__content-desc{
   display: flex;
@@ -71,6 +84,9 @@
 }
 .footer__main-menu{
   margin-bottom: 70px;
+  @include phones{
+        margin-bottom: 40px;
+  }
 }
 .footer__author{
   color:white;

@@ -30,6 +30,15 @@
       transform: rotate(270deg);
     }  
   }
+  @include phones{
+     padding-bottom: 259px;
+     &:before{
+      width: 15.125rem;
+      height: 21.6875rem;
+      top: 81%;
+      left: 21%;
+     }
+  }
 }
 .skills__wrap{
 
@@ -49,6 +58,10 @@
     flex-direction: column;
     align-items: center;
   }
+  @include phones{
+    width: 100%;
+    align-items: flex-start;
+  }
 }
 .skills__block-caption-wrap{
   margin-bottom: 50px;
@@ -65,11 +78,20 @@
   @include tablets{
     text-align: center;
     width: 65%;
-
+  }
+  @include phones{
+    width: 100%;
+    text-align: initial;
   }
 }
 .skills__desc{
-  text-align: center;
+  @include tablets{
+    text-align: center;
+  }
+  @include phones{
+    text-align: left;
+    width: 90%;
+  }
 }
 .skills__block{
   display: flex;
@@ -90,6 +112,10 @@
 }
 .skills__bars_list{
   display: flex;
+  flex-wrap:wrap;
+  @include phones{
+    justify-content:center;
+  }
 }
 .skill__item_circle{
   fill: transparent;
@@ -108,6 +134,11 @@
   margin-right: 40px;
   &:last-child{
     margin-right: 0;
+  }
+  @include phones{
+    &:nth-child(2n){
+       margin-right: 0px;
+    }
   }
 }
 

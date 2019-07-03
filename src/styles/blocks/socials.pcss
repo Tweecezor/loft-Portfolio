@@ -1,6 +1,14 @@
 .socials__list{
   display: flex;
   flex-wrap:wrap;
+  @include phones{
+    display: none;
+  }
+  &--footer{
+    @include phones{
+      display: flex;
+    }
+  }
 }
 .socials__item{
   margin-right: 40px;
