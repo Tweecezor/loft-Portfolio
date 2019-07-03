@@ -14,6 +14,22 @@
     top: 305px;
     left: 0;
   }
+  @include tablets{
+    padding-bottom: 450px;
+    &:before{
+      content: "";
+      position: absolute;
+      width: 26.625rem;
+      height: 39.4375rem;
+      background-size: cover;
+      background-position: 50%;
+      top: 62.5%;
+      left: 21%;
+      transform: translate();
+      transform: translate(10px, 10px);
+      transform: rotate(270deg);
+    }  
+  }
 }
 .skills__wrap{
 
@@ -26,21 +42,42 @@
 .skills__text{
   width:42%;
   margin-left: 10%;
+  @include tablets{
+    width: 59%;
+    margin-left: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .skills__block-caption-wrap{
   margin-bottom: 50px;
   color: white;
   font-size: 24px;
   font-weight: 700;
+  @include tablets{
+    text-align: center;
+  }
 }
 .skills__text-title{
   margin-bottom:60px;
   font-size: 1.875rem;
+  @include tablets{
+    text-align: center;
+    width: 65%;
+
+  }
+}
+.skills__desc{
+  text-align: center;
 }
 .skills__block{
   display: flex;
   padding-left: 25.25rem;
   justify-content: center;
+  @include tablets{
+    padding-left: 0;
+  }
 }
 .skill__item-wrap{
   position: relative;

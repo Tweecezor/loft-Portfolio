@@ -2,8 +2,13 @@ header.header
   include ./logo.pug
   //- +nav('nav', ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться'])
   include ./main-menu.pug
-  include ./socials.pug
-  +socials('header')
+  +main-menu('header')
+  .header__links-wrap
+    include ./socials.pug
+    +socials('header')
+    a(href="#" id='hamburger-menu-open').hamburger-menu-link
+      .hamburger-menu-link__bars
+  include ./hamburger-menu.pug
 
   //- ul.social__list
   //-   li.social__item

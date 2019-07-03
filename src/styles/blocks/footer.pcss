@@ -8,10 +8,18 @@
   flex-direction: row;
   justify-content: space-between;
   width:25%;
+  @include tablets{
+    flex-direction:column;
+     justify-content:initial;
+  }
 }
 .footer__copyright-year-wrap{
   flex:1;
   margin-top: 15px;
+  @include tablets{
+    flex:initial;
+    margin-bottom: 20px;
+  }
 }
 .footer__copyright-year{
   font-size: 48px;
@@ -22,6 +30,9 @@
 }
 .footer__copyright-myinfo{
   width:41%;
+  @include tablets{
+    width:65%;
+  }
 }
 .footer__copyright-name{
   font-size: 18px;
@@ -41,9 +52,16 @@
 .footer__content-desc{
   display: flex;
   justify-content: space-between;
+  @include tablets{
+    flex-direction:column;
+  }
 }
 .footer__content-block{
   flex-basis:46%;
+  @include tablets{
+    margin-bottom: 60px;
+    padding-right: 80px;
+  }
 }
 .footer__block-text{
   margin-bottom: 25px;

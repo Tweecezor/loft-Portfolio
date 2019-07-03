@@ -1,0 +1,6 @@
+nav.hamburger-nav(id='hamburger-menu')
+  ul.hamburger-nav__list
+    -var menu = ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться']
+    each item in menu 
+      li.hamburger-nav__item
+        a(href="#").hamburger-nav__link=item

@@ -1,0 +1,83 @@
+.hamburger-menu-link {
+	vertical-align: middle;
+	position: relative;
+	height: 1.375rem;
+	align-items: center;
+	margin-left: 1.875rem;
+	display: none;
+    cursor:pointer;
+	@include tablets {
+		display: inline-flex;
+	}
+}
+
+.hamburger-menu-link__bars {
+	&, &:before, &:after {
+		background: #fff;
+		width: 1.5rem;
+		height: 0.3125rem;
+		border-radius: 0.1875rem;
+	}
+
+	&:before, &:after {
+		content: "";
+		display: block;
+		position: absolute;
+	}
+
+	&:before {
+		top: 0;
+	}
+
+	&:after {
+		bottom: 0;
+    }
+}
+
+.hamburger-nav{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top:-100%;
+    left:0;
+    background-color:rgba(47,50,52,.99);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    //display: none;
+}
+.hamburger-nav__list{
+   font-size: 1.5rem;
+   
+    font-family: 'Ubuntu';
+    text-align: center;
+    @include phones{
+        font-size: 0.8125rem;
+    }
+}
+.hamburger-nav__item{
+    margin-bottom: 3.75rem;
+    position: relative;
+    &:after{
+        content:'';
+        width:0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: white;
+        position: absolute;
+        top:180%;
+        left:50%;
+    }
+    &:last-child{
+        &:after{
+           display: none;
+        }
+    }
+}
+.hamburger-nav__link{
+    text-decoration: none;
+    color:white;
+    text-transform: uppercase;
+}

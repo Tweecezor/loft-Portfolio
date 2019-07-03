@@ -25,6 +25,9 @@
     animation-iteration-count: infinite;
     animation-fill-mode: backwards;
   }
+  @include tablets{
+    display: none;
+  }
 }
 .welcome-section__scroll-link{
       text-decoration:none;
@@ -41,6 +44,11 @@
 .welcome-section__content-wrap{
   display: flex;
   justify-content: flex-end;
+  @include tablets{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 .welcome-section__title{
@@ -49,8 +57,19 @@
   line-height: 30px;
   opacity: .4;
   /* width:20%; */
+  @include phones{
+    font-size: 14px;
+  }
   &-wrap{
     width:17%;
+    @include tablets{
+        width: 40%;
+        align-self: center;
+        text-align: center;
+    }
+    @include phones{
+      width:48%;
+    }
   }
 }
 .welcome-section__name-title{
@@ -58,9 +77,27 @@
   font-weight: 800;
   line-height: 60px;
   width:30%;
+  @include tablets{
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 3.75rem;
+    width: 50%;
+  }
+  @include phones{
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 3.75rem;
+    width: 60%;
+    text-align: center;
+  }
 }
 .welcome-section__name-title-wrap{
   width:65%;
+  @include tablets{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 .welcome-section__scroll-icon{
   width:  30px;

@@ -6,6 +6,9 @@
   display: flex;
   justify-content:space-between;
   padding:160px 17% 270px;
+  @include tablets{
+    padding:160px 5% 270px;
+  }
 }
 .about__avatar-img{
   border-radius:50%;
@@ -64,6 +67,9 @@
   display: flex;
   justify-content: center;
   margin-bottom: 75px;
+  @include tablets{
+    justify-content: flex-start;
+  }
 }
 .about__table{
   width:100%;
