@@ -32,33 +32,42 @@
 	&:after {
 		bottom: 0;
     }
+  &:hover{
+    	&, &:before, &:after {
+        background: #ff9a00;
+	  } 
+  }
 }
 
 .hamburger-nav{
-    width: 100%;
+    width: 45%;
     height: 100vh;
     position: absolute;
-    top:-100%;
-    left:0;
-    background-color:rgba(47,50,52,.99);
+    top:0%;
+    /* left:58%; */
+    left:100%;
+    background-color:white;
     z-index: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     transition: 1s;
-    //display: none;
+    flex-direction: column;
+   
+    /* display: none; */
 }
 .hamburger-nav__list{
-   font-size: 1.5rem;
-   
+    font-size: 1.5rem;
+    margin-left: 20%;
     font-family: 'Ubuntu';
-    text-align: center;
+    margin-bottom: 40px;
+    /* text-align: center; */
     @include phones{
         font-size: 0.8125rem;
     }
 }
 .hamburger-nav__item{
-    margin-bottom: 3.75rem;
+    margin-bottom: 1.75rem; 
     position: relative;
     &:after{
         content:'';
@@ -78,6 +87,45 @@
 }
 .hamburger-nav__link{
     text-decoration: none;
-    color:white;
-    text-transform: uppercase;
+    color:#ff9a00;
+    /* text-transform: uppercase; */
+}
+.hamburger-close{
+    cursor:pointer;
+    position: absolute;
+    top: 5.2rem;
+    right: 4.9rem;
+    width: 1.125rem;    
+    height: 1.125rem;       
+    cursor: pointer;
+    opacity: 1;
+   
+    &:before{
+        transform: rotate(-40deg);
+        content: "";
+        width: 0.4875rem;
+        height: 2.1375rem;
+        background-color: orange;
+        position: absolute;
+        /* border-radius: .1875rem; */
+        top: .0625rem;
+        left: .5rem;
+        color: orange;
+    }
+   &:after{
+
+    transform: rotate(40deg);
+    content: "";
+    width: 0.4875rem;
+    height: 2.1375rem;
+    background-color: orange;
+    position: absolute;
+    /* border-radius: .1875rem; */
+    top: .0625rem;
+    left: .5rem;
+    color: orange;
+}
+}
+.close-menu{
+    display: none;
 }

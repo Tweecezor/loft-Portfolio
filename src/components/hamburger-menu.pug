@@ -4,3 +4,7 @@ nav.hamburger-nav(id='hamburger-menu')
     each item in menu 
       li.hamburger-nav__item
         a(href="#").hamburger-nav__link=item
+  +socials('hamburger')
+  include ./socials.pug
+  .hamburger-close(id="close-hamburger")
+    a.close-menu(href="#")

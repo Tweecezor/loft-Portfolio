@@ -147,7 +147,7 @@ img {
   background:url('../images/content/background-autumn.jpg');
   background-size:cover;
   padding:160px 0px;
-  padding-right:35%;
+  padding-right:25%;
   position: relative;
   &:before{
     content:'';
@@ -160,6 +160,9 @@ img {
     background-size: cover;
     background-position: 95%;
     top: -140px;
+  }
+  @include desktop{
+    padding: 10rem 10% 10rem 0;
   }
   @include tablets{
     padding-right:0;

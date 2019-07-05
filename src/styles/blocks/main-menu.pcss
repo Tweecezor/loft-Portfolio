@@ -12,7 +12,7 @@
   }
 }
 .main-menu__item{
-  margin-right: 60px;
+  margin-right: 2.85rem;
   @include tablets{
     line-height: 3;
   }
@@ -25,5 +25,12 @@
   color:white;
   &:hover{
   color:#ff9a00;
+  }
+}
+.main-menu--footer{
+  .main-menu__item{
+    @include desktop{
+      margin-right: 22px;
+    }
   }
 }

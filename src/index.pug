@@ -10,92 +10,15 @@ html(lang="ru")
   body
     .wrapper
       main.maincontent
-        include ./components/welcome-section.pug
-        //- section.main-section
-        //-   include ./components/header.pug
-        //-   .main_content
-        //-     .main_content__text
-        //-       h2.main_desc Личный сайт веб разработчика
-        //-       h1.main_text Никита Еремеев
-        //-     .scroll-down скролл
-        //-       a.scroll-down__link(href='#') 
-        //-         +icon('scroll', 'link-class')
-        include ./components/about.pug
-        //- section.about-me
-        //-   .profile
-        //-     .profile__icon
-        //-       +image('content/user.jpg', 'user-pic')
-        //-     .profile__desc
-        //-       .left__column
-        //-         .live Проживаю
-        //-         .age Возраст
-        //-         .born Родился
-        //-       .right__column 
-        //-         .currentCity Москва
-        //-         .Currentage 21
-        //-         .bornCity 21 декабря 1997
-        //-   .information
-        //-     .information__desc
-        //-       h3.information__desc-title Привет, меня зовут
-        //-       h1.information__desc-name Никита Еремеев
-        //-       p.information__desc-txt Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
-        //-     .information__remark
-        //-       p.information__remark-text Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+        .parallax-wrap
+          include ./components/parallax.pug
+          include ./components/welcome-section.pug
+          include ./components/about.pug
         include ./components/skills.pug
         include ./components/myWorks.pug
         .maincontent__autumn-bg
           .container.autumn-container
             include ./components/reviews.pug
             include ./components/contact.pug
-
-          //- section.contant
-          //-   h3.contact__title Связаться со мной
-          //-   form.contact__form(action="" method="GET")
-          //-     .user-data
-          //-       label.user-data__label
-          //-         .user-data__label-name Введите ваше имя
-          //-         input.user-data__input(type="text" name="name" required placeholder='Никита Еремеев')
-          //-       label.user-data__label
-          //-         .user-data__label-email Введите ваш email
-          //-         input.user-data__input(type="email" name="email" required placeholder='clien@yandex.ru')
-          //-     .user-text
-          //-       label.user-text__label
-          //-         .user-dtext__label-message Сообщение к письму
-          //-         textarea.user-text__textarea(name="comment" placeholder='Требуется ваша помощь в создании сайта')
-          //-     input.contact__form-submit(type="submit" value="Отправить" name="send")
         include ./components/footer.pug
-
-
-
-          //- .myWorks__content
-          //-   .myWorks__Examples
-          //-     .myWorks__Examples-image
-          //-       +image('content/work_example.jpg', 'example_img')
-          //-     .myWorks__Examples-slider
-          //-       ul.Examples-slider__list
-          //-         li.Examples-slider__item  
-          //-           a.Examples-slider__link(href="#") 1
-          //-         li.Examples-slider__item  
-          //-           a.Examples-slider__link(href="#") 2
-          //-         li.Examples-slider__item  
-          //-           a.Examples-slider__link(href="#") 3
-          //-         li.Examples-slider__item  
-          //-           a.Examples-slider__link(href="#") 4
-          //-       .Examples-slider__scroll
-          //-         a.Examples-slider__scroll-next(href="#")
-          //-         a.Examples-slider__scroll-prev(href="#")
-          //-     .Examples-slider-number 2
-          //-   .myWorks__desc
-          //-     ul.mySkills__list
-          //-       li.mySkills__item HTML
-          //-       li.mySkills__item CSS
-          //-       li.mySkills__item Javascript
-
-
-
-            //- .maincontent
-        //-     +image('content/user.jpg', 'user-pic')
-        //-     +icon('link', 'link-class')
-    
-        //- .classTest пробую печатать текст
     
