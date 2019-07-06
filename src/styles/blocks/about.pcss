@@ -1,12 +1,21 @@
 .about-section{
   /* background:url('../images/content/background-about.png');
   background-size:cover; */
+  background: url('../images/content/background-about.png') 0% 100% no-repeat transparent;
+  background-size: cover;
   position: relative;
+}
+.about__gradient{
+  background-image: linear-gradient(to top,#1b1f22 55%,rgba(27,31,34,.7) 80%,rgba(27,31,34,0));
+  position: absolute;
+  bottom: 15%;
+  height: 100%;
+  width: 100%;
 }
 .about__wrap{
   display: flex;
   justify-content:space-between;
-  padding:160px 17% 270px;
+  padding:120px 17% 200px;
   @include tablets{
     padding:160px 5% 270px;
   }
