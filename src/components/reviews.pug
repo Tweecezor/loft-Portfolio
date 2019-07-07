@@ -1,13 +1,13 @@
 section.reviews
-  //- .container
+  -var reviews_data = [{name:'Дмитрий Ковальчук',text:'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!',avatar:'dima_avatar.jpg',status:'Основатель lofschool'},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '}]
+
   .reviews__block-wrap
     h2.reviews__title.title Что обо мне говорят
     .reviews__slider-controls
-      button(type="button").reviews__btn--prev.reviews__btn <
-      button(type="button").reviews__btn--next.reviews__btn >
+      button(type="button" @click='previous').reviews__btn--prev.reviews__btn <
+      button(type="button" @click='next').reviews__btn--next.reviews__btn >
   .reviews__content
-    ul.reviews__slider  
-      -var reviews_data = [{name:'Дмитрий Ковальчук',text:'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!',avatar:'dima_avatar.jpg',status:'Основатель lofschool'},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '}]
+    flickity(ref="flickity" :options="flickityOptions").reviews__slider
       each item in reviews_data
         li.reviews__item-wrap
           .reviews__item
