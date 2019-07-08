@@ -5,6 +5,13 @@
   background-size: cover;
   position: relative;
 }
+.background-wrap{
+   background: url('../images/content/background-about.png') 0% 100% no-repeat transparent;
+  background-size: cover;
+  width:100%;
+  height: 100%;
+  position: absolute;
+}
 .about__wrap{
   display: flex;
   justify-content:space-between;
@@ -14,7 +21,8 @@
   }
   @include phones{
       flex-direction: column;
-      padding:160px 5% 110px;
+      /* padding:160px 5% 110px; */
+      padding-bottom:70px;
   }
 
 }

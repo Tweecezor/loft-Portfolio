@@ -53,7 +53,9 @@
     /* align-items: center; */
     transition: 1s;
     flex-direction: column;
-   
+   @include phones{
+     width:100%;
+   }
     /* display: none; */
 }
 .hamburger-nav__list{
@@ -88,6 +90,9 @@
 .hamburger-nav__link{
     text-decoration: none;
     color:#ff9a00;
+    @include phones{
+      font-size: 18px;
+    }
     /* text-transform: uppercase; */
 }
 .hamburger-close{
@@ -99,6 +104,10 @@
     height: 1.125rem;       
     cursor: pointer;
     opacity: 1;
+    @include phones{
+      top: 4.2rem;
+      right: 2.9rem;
+    }
    
     &:before{
         transform: rotate(-40deg);

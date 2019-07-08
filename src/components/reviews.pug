@@ -1,32 +1,23 @@
-section.reviews
-  -var reviews_data = [{name:'Дмитрий Ковальчук',text:'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!',avatar:'dima_avatar.jpg',status:'Основатель lofschool'},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '}]
-
-  .reviews__block-wrap
-    h2.reviews__title.title Что обо мне говорят
-    .reviews__slider-controls
-      button(type="button" @click='previous').reviews__btn--prev.reviews__btn <
-      button(type="button" @click='next').reviews__btn--next.reviews__btn >
-  .reviews__content
-    flickity(ref="flickity" :options="flickityOptions").reviews__slider
-      each item in reviews_data
-        li.reviews__item-wrap
-          .reviews__item
-            .reviews__text.text 
-              p=item.text
-            .reviews__user  
-              .reviews__user-avatar
-                +image('content/'+`${item.avatar}`, 'reviews__avatar')
-              .reviews__user-data
-                h3.reviews__user-name_title=item.name
-                .reviews__user-status_title=item.status
-//- mixin reviews(obj)    
-//-   ul.reviews__slider  
-//-   each item in obj
-//-       li.reviews__item
-//-         .text 
-//-           p=item.name
-//-   +reviews([{name:'vova',text:'lorem1'},{name:'vova',text:'lorem1'}])
-
-
-  
-        
+-var reviews_data = [{name:'Дмитрий Ковальчук',text:'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!',avatar:'dima_avatar.jpg',status:'Основатель lofschool'},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '},{name:'Владимир Сабанцев',text:'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах',avatar:'vova_avatar.jpg',status:'Старший преподаватель '}]
+section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
+  .reviews__container
+    .reviews__block-wrap
+      h2.reviews__title.title Что обо мне говорят
+      .reviews__slider-controls
+        button.reviews__btn--prev.reviews__btn(ref="arrow_left" type="button" @click='previous()' :disabled="true")
+          +icon('arrow-down','reviews__btn--prev_link')
+        button.reviews__btn--next.reviews__btn(ref="arrow_right" type="button" @click='next()' :disabled="false")
+          +icon('arrow-down','reviews__btn--next_link')
+    .reviews__content
+      flickity(ref="flickity" :options="flickityOptions").reviews__slider
+        each item in reviews_data
+          .reviews__item-wrap
+            .reviews__item
+              .reviews__text.text 
+                p=item.text
+              .reviews__user  
+                .reviews__user-avatar
+                  +image('content/'+`${item.avatar}`, 'reviews__avatar')
+                .reviews__user-data
+                  h3.reviews__user-name_title=item.name
+                  .reviews__user-status_title=item.status
