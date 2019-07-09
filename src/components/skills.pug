@@ -7,12 +7,29 @@ section.skills
           .skills__desc 
             p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
       .skills__block
-        ul.skills__block_list
-          li.skills__block_item
-            .skills__block-caption-wrap
-              h3.skills__block-caption Front-end
-            +skill('skills__bars',[{tech:'HTML5',value:'animation-delay: -25s'},{tech:'CSS3',value:'animation-delay: -20s'},{tech:'JavaScript',value:'animation-delay: -75s'},{tech:'jQuery и Vue.js',value:'animation-delay: -25s'}])
-          li.skills_block_item
-            .skills__block-caption-wrap
-              h3.skills__block-caption WorkFlow
-            +skill('skills__bars',[{tech:'GIT',value:'animation-delay: -10s'},{tech:'Terminal',value:'animation-delay: -25s'},{tech:'Gulp',value:'animation-delay: -50s'},{tech:'Webpack',value:'animation-delay: -40s'}])
+        #skills__container
+       
+script(type="text/x-template")#skills__list
+  ul.skills__block_list
+    li.skills__block_item(v-for="skill in skills")
+      skills__block_item(:skill="skill")
+
+script(type="text/x-template")#skills__block-item
+  .skills__block-caption-wrap
+    h3.skills__block-caption {{skill.skillsGroup}}
+    ul.skills__bars_list
+      li.skills__bars_item.skill(v-for="(skillPercent,skillName) in skill.skills")
+        skill(:skillName="skillName",:skillPercent="skillPercent")
+      //- +skill('skills__bars',[{tech:'HTML5',value:'animation-delay: -25s'},{tech:'CSS3',value:'animation-delay: -20s'},{tech:'JavaScript',value:'animation-delay: -75s'},{tech:'jQuery и Vue.js',value:'animation-delay: -25s'}])
+
+
+script(type="text/x-template")#skill
+  .skill__item-wrap
+    svg.skill__item(viewBox='0 0 100 100' preserveAspectRatio='none')
+      circle(cx='50' cy='50' r='40').skill__item_circle-under.skill__item_circle
+      circle(cx='50' cy='50' r='40' ref="circle").skill__item_circle-above.skill__item_circle
+      linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0")
+        stop(offset="0%" stop-color="#ea7400")
+        stop(offset="100%" stop-color="#f29400")
+    .skill__item-tech {{skillName}}
+//- +skill('skills__bars',[{tech:'HTML5',value:'animation-delay: -25s'},{tech:'CSS3',value:'animation-delay: -20s'},{tech:'JavaScript',value:'animation-delay: -75s'},{tech:'jQuery и Vue.js',value:'animation-delay: -25s'}])
