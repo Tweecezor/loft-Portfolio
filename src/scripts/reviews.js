@@ -6,10 +6,15 @@ new Vue({
   components: {
     Flickity
   },
- 
+  props:{
+    infoName : String,
+    infoText : String,
+    infoImage: String,
+    infoStatus : String
+  },
   data() {
-    
     return {
+      info : [],
       flickityOptions: {
       initialIndex: 0,
       prevNextButtons: false,
@@ -19,15 +24,15 @@ new Vue({
       contain:true,
       freeScroll:false,
       selectedAttraction: 0.01,
-      friction: 0.15
+      friction: 0.15,
       // autoPlay: true
       // selectedAttraction:0.1,
       // friction:0.8
       // height: '100%'     
       }
+     
     }
   },
- 
   methods: {
     next() {
       this.$refs.flickity.next();
@@ -46,6 +51,10 @@ new Vue({
         this.$refs.arrow_right.disabled=false;
       }
     }
+  },
+  created(){
+    const data = require('./reviews.json');
+    this.info = data;
   }
 });
 

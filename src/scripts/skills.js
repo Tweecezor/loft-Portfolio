@@ -33,7 +33,7 @@ new Vue({
   },
   data(){
     return {
-      skills : [],
+      skills : []
     }
   },
   created(){

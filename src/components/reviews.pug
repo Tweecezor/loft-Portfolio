@@ -10,14 +10,29 @@ section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
           +icon('arrow-down','reviews__btn--next_link')
     .reviews__content
       flickity(ref="flickity" :options="flickityOptions").reviews__slider
-        each item in reviews_data
-          .reviews__item-wrap
-            .reviews__item
-              .reviews__text.text 
-                p=item.text
-              .reviews__user  
-                .reviews__user-avatar
-                  +image('content/'+`${item.avatar}`, 'reviews__avatar')
-                .reviews__user-data
-                  h3.reviews__user-name_title=item.name
-                  .reviews__user-status_title=item.status
+        .reviews__item-wrap(v-for="item in info")
+          .reviews__item
+            .reviews__text.text 
+              p {{item.text}}
+            .reviews__user  
+              .reviews__user-avatar
+                +image('content/dima_avatar.jpg', 'reviews__avatar')
+              .reviews__user-data
+                h3.reviews__user-name_title {{item.name}}
+                .reviews__user-status_title {{item.status}}
+
+
+
+
+
+//- each item in reviews_data
+//-           .reviews__item-wrap
+//-             .reviews__item
+//-               .reviews__text.text 
+//-                 p=item.text
+//-               .reviews__user  
+//-                 .reviews__user-avatar
+//-                   +image('content/'+`${item.avatar}`, 'reviews__avatar')
+//-                 .reviews__user-data
+//-                   h3.reviews__user-name_title=item.name
+//-                   .reviews__user-status_title=item.status
