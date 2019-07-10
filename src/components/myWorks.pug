@@ -9,22 +9,23 @@ section.myWorks
           .myWorks__slider-pics
             .myWorks__slider-current-pic-wrap
               +image('content/work_example.jpg', 'myWorks__slider-current-pic')
-            .myWorks__slider-controls
-              button.myWorks__slider-btn.myWorks__slider-next >
-              button.myWorks__slider-btn.myWorks__slider-prev <
-            ul.myWorks__slider-preview
-              li.myWorks__slider-preview_item.myWorks__slider-preview_item--active
-                a(href="#").myWorks__slider-img
-                  +image('content/work_example.jpg', 'myWorks__slider-image')
-              li.myWorks__slider-preview_item
-                a(href="#").myWorks__slider-img
-                  +image('content/example_second.jpg', 'myWorks__slider-image')
-              li.myWorks__slider-preview_item
-                a(href="#").myWorks__slider-img
-                  +image('content/example_third.jpg', 'myWorks__slider-image')
-              li.myWorks__slider-preview_item
-                a(href="#").myWorks__slider-img
-                  +image('content/example_fourth.jpg', 'myWorks__slider-image')
+            .myWorks__slider-preview-wrap
+              ul.myWorks__slider-preview
+                li.myWorks__slider-preview_item.myWorks__slider-preview_item--active
+                  a(href="#").myWorks__slider-img
+                    +image('content/work_example.jpg', 'myWorks__slider-image')
+                li.myWorks__slider-preview_item
+                  a(href="#").myWorks__slider-img
+                    +image('content/example_second.jpg', 'myWorks__slider-image')
+                li.myWorks__slider-preview_item
+                  a(href="#").myWorks__slider-img
+                    +image('content/example_third.jpg', 'myWorks__slider-image')
+                li.myWorks__slider-preview_item
+                  a(href="#").myWorks__slider-img
+                    +image('content/example_fourth.jpg', 'myWorks__slider-image')
+              .myWorks__slider-controls
+                button.myWorks__slider-btn.myWorks__slider-next >
+                button.myWorks__slider-btn.myWorks__slider-prev <
             .myWorks__slider-number-wrap
               .myWorks__slider-number 1
         .myWorks__slider-desc
