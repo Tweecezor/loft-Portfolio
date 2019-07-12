@@ -50,11 +50,18 @@ new Vue({
         this.$refs.arrow_left.disabled=false;
         this.$refs.arrow_right.disabled=false;
       }
+    },
+    makeArrayWithRequiredImages(data) {
+      return data.map(item =>{
+        const requirePic = require(`../images/content/${item.avatar}`);
+        item.avatar = requirePic;
+        return item;
+      })
     }
   },
   created(){
     const data = require('./reviews.json');
-    this.info = data;
+    this.info = this.makeArrayWithRequiredImages(data);
   }
 });
 

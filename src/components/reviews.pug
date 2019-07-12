@@ -16,7 +16,8 @@ section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
               p {{item.text}}
             .reviews__user  
               .reviews__user-avatar
-                +image('content/dima_avatar.jpg', 'reviews__avatar')
+                //- +image('content/dima_avatar.jpg', 'reviews__avatar')
+                img(:src="item.avatar").reviews__avatar
               .reviews__user-data
                 h3.reviews__user-name_title {{item.name}}
                 .reviews__user-status_title {{item.status}}

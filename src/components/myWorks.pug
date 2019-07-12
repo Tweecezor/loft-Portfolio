@@ -1,67 +1,71 @@
 section.myWorks
+  #myWorks__component
+      
+script(type="text/x-template")#myWorks__container
   .container.myWorks-container
     .myWorks__title
       .myWorks__title-wrap
         h2.myWorks__title-text.title Мои работы
     .myWorks__content
       .myWorks__slider
-        .myWorks__slider-pics-wrap
-          .myWorks__slider-pics
-            .myWorks__slider-current-pic-wrap
-              +image('content/work_example.jpg', 'myWorks__slider-current-pic')
-            .myWorks__slider-preview-wrap
-              ul.myWorks__slider-preview
-                li.myWorks__slider-preview_item.myWorks__slider-preview_item--active
-                  a(href="#").myWorks__slider-img
-                    +image('content/work_example.jpg', 'myWorks__slider-image')
-                li.myWorks__slider-preview_item
-                  a(href="#").myWorks__slider-img
-                    +image('content/example_second.jpg', 'myWorks__slider-image')
-                li.myWorks__slider-preview_item
-                  a(href="#").myWorks__slider-img
-                    +image('content/example_third.jpg', 'myWorks__slider-image')
-                li.myWorks__slider-preview_item
-                  a(href="#").myWorks__slider-img
-                    +image('content/example_fourth.jpg', 'myWorks__slider-image')
-              .myWorks__slider-controls
-                button.myWorks__slider-btn.myWorks__slider-next >
-                button.myWorks__slider-btn.myWorks__slider-prev <
-            .myWorks__slider-number-wrap
-              .myWorks__slider-number 1
-        .myWorks__slider-desc
-          ul.myWorks__slider-tags-list
-            li.myWorks__slider-tags-item
-              .myWorks__slider-tag HTML
-            li.myWorks__slider-tags-item
-              .myWorks__slider-tag CSS
-            li.myWorks__slider-tags-item
-              .myWorks__slider-tag JavaScript
-          .myWorks__slider-title-wrap
-            .myWorks__slider-title Сайт школы образования
-          .myWorks__slider-text
-            p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
-          .myWorks__slider-link-wrap
-            +icon('link','myWorks__slider-link-icon')
-            a(href="#").myWorks__slider-link Посмотреть сайт
+        display(
+          :works="works",
+          :currentWork="currentWork"
+          @slide="handleSlide"
+          @sliderPreviewClick = "sliderPreviewClick"
+        )
+        info(
+          :currentWork="currentWork"
+        )
+        
+script(type="text/x-template")#myWorks__display
+  .myWorks__slider-pics-wrap
+    .myWorks__slider-pics
+      .myWorks__slider-current-pic-wrap
+        img(:src="currentWork.photo").myWorks__slider-current-pic
+      .myWorks__slider-preview-wrap
+        preview(
+          :works="works",
+          :currentWork="currentWork"
+           @sliderPreviewClick="currentId => $emit('sliderPreviewClick',currentId)"
+        )
+        controls(
+          @slide="direction => $emit('slide',direction)"
+        )
+      .myWorks__slider-number-wrap
+        .myWorks__slider-number {{currentWork.id}}
 
+script(type="text/x-template")#myWorks__preview
+  ul.myWorks__slider-preview
+    li.myWorks__slider-preview_item(
+      ref="slideritems"
+      v-for="work in works"
+      @click.prevent="$emit('sliderPreviewClick',work.id)"
+      :class="{myWorks__slider_preview_active:work.id===currentWork.id}"
+      )
+      a(href="#" ref="slider_link").myWorks__slider-img
+        img(:src="work.photo").myWorks__slider-image
 
+script(type="text/x-template")#myWorks__btn_controls
+  .myWorks__slider-controls
+    button.myWorks__slider-btn.myWorks__slider-next(@click.prevent="$emit('slide','next')") >
+    button.myWorks__slider-btn.myWorks__slider-prev(@click.prevent="$emit('slide','prev')") <
 
-              
+script(type="text/x-template")#myWorks__info
+  .myWorks__slider-desc
+    devStack(
+      :devStack="devStackArray"
+    )
+    .myWorks__slider-title-wrap
+      .myWorks__slider-title {{currentWork.title}}
+    .myWorks__slider-text
+      p {{currentWork.desc}}
+    .myWorks__slider-link-wrap
+      +icon('link','myWorks__slider-link-icon')
+      a(:href="currentWork.link").myWorks__slider-link Посмотреть сайт
 
-
-
-
-
-          //- ul.myWorks__slider.example__list
-          //-   li.example-item
-          //-     .example.image 
-          //-       +image('content/work_example.jpg', 'example_img')
-          //-     .example__next 2
-          //-     .example__desc
-          //-       ul.example__desc-skills_list.mySkills_list
-          //-         li.mySkills__item HTML
-          //-         li.mySkills__item CSS
-          //-         li.mySkills__item JavaScript
-          //-       h3.example__desc-title Сайт Школы Образованиия
-          //-       p.example__desc-txt Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
-          //-       a.example__desc-link(href="#") Посмотреть сайт
+script(type="text/x-template")#myWorks__dev_stack
+  ul.myWorks__slider-tags-list
+    li.myWorks__slider-tags-item(v-for="tag in devStack")
+      .myWorks__slider-tag {{tag}}
+    
