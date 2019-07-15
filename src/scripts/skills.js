@@ -1,4 +1,4 @@
-console.log('this is skills module');
+// console.log('this is skills module');
 
 import Vue from 'vue';
 

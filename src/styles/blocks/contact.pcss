@@ -30,6 +30,12 @@
   }
 }
 
+.input-error{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color:red;
+}
 .contact__form-input{
   width:100%;
   background:transparent;
@@ -53,12 +59,12 @@
      border-bottom:2px solid #f29400;
   }
   &:active{
-    border-bottom:2px solid #f29400;
-    outline-color:#f29400;
+    /* border-bottom:2px solid #f29400; */
+    outline-color:none;
   }
   &:focus{
-     border-bottom:2px solid #f29400;
-     outline-color:#f29400;
+     /* border-bottom:2px solid #f29400; */
+     outline-color:none;
   }
 }
 
@@ -106,4 +112,10 @@
   @include phones{
     width: 100%;
   }
+}
+.contact__form-error{
+  border-bottom:2px solid red;
+}
+.contact__icon-error{
+  fill:red;
 }
