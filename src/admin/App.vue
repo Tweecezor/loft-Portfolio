@@ -1,6 +1,6 @@
 <template lang="pug">
-  .wrapper
-    .wrapper__container
+  .wrapper__container
+    .admin__content
       header.header
         .header-container.container
           .header__info
@@ -23,20 +23,82 @@
         .container.container-about
           .about__content
             .about__title-wrap
-              .about__title "Обо мне"
+              .about__title Блок "Обо мне"
               .about__title-add-new Добавить группу
-            .about__content
-              .container
-                ul.skills__list
+            .about__block
+              ul.skills__list
+                li.skills__item
+                  .skills__form
+                    .skills__new-group-wrap
+                      input.skills__new-group(type='text' name="groupName" placeholder="Название новой группы")
+                      .skills__new-group-actions
+                        .skills__accept 
+                        .skills__decline 
+                    .skills__group.skills__group-hide
+                      .skills__group-row-wrap 
+                        input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                        .skills__group-percent-wrap
+                          input(type="number" name="skill_percent").skills__group-percent
+                        .skills__group-actions
+                          .skills__group-correct
+                          .skills__group-trash
+                      .skills__group-row-wrap 
+                        input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                        .skills__group-percent-wrap
+                          input(type="number" name="skill_percent").skills__group-percent
+                        .skills__group-actions
+                          .skills__group-correct
+                          .skills__group-trash
+                      .skills__group-row-wrap 
+                        input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                        .skills__group-percent-wrap
+                          input(type="number" name="skill_percent").skills__group-percent
+                        .skills__group-actions
+                          .skills__group-correct
+                          .skills__group-trash
+                    .skills__group-new-skill
+                      input(type="text" name="newSkillInput" placeholder="Новый навык").skills__group-new-skill-input
+                      .skills__group-new-skill-percent-wrap
+                        input(type="number" min="0" max="100" name="newSkillPercent").skills__group-new-skill-percent
+                      button(type="button").skills__group-new-btn
+                each item in ['','','']
                   li.skills__item
-                    .skills_card
-                      form.skills__form
-                        .skills__new-group-wrap
-                          input.skills__new-group(type='text' name="groupName" placeholder="Название новой группы")
-                          .skills__new-group-actions
-                            .skills__accept V
-                            .skills__decline X
-                        .skills__group
+                    .skills__form
+                      .skills__new-group-wrap
+                        input.skills__new-group(type='text' name="groupName" placeholder="Название новой группы")
+                        .skills__new-group-actions
+                          .skills__accept 
+                          .skills__decline 
+                      .skills__group
+                        .skills__group-row-wrap 
+                          input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                          .skills__group-percent-wrap
+                            input(type="number" name="skill_percent").skills__group-percent
+                          .skills__group-actions
+                            .skills__group-correct
+                            .skills__group-trash
+                        .skills__group-row-wrap 
+                          input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                          .skills__group-percent-wrap
+                            input(type="number" name="skill_percent").skills__group-percent
+                          .skills__group-actions
+                            .skills__group-correct
+                            .skills__group-trash
+                        .skills__group-row-wrap 
+                          input(type="text" name="skill_title" placeholder="HTML").skills__group-input
+                          .skills__group-percent-wrap
+                            input(type="number" name="skill_percent").skills__group-percent
+                          .skills__group-actions
+                            .skills__group-correct
+                            .skills__group-trash
+                      .skills__group-new-skill
+                        input(type="text" name="newSkillInput" placeholder="Новый навык").skills__group-new-skill-input
+                        .skills__group-new-skill-percent-wrap
+                          input(type="number" min="0" max="100" name="newSkillPercent").skills__group-new-skill-percent
+                        button(type="button").skills__group-new-btn
+
+
+                          
       section.addWorks    
         .container.containerAddWorks
           .addWorks__content
@@ -69,31 +131,32 @@
                 .addWorks__buttons
                   input(type="reset" name="cancel" value="Отменить").addWorks__reset
                   input(type="submit" name="submit" value="Сохранить").btn.addWorks__submit
-            .addWorks__change
-              ul.addWorks__change-list
-                li.addWorks__current.addWorks__change-item
-                  .addWorks__new
-                    .addWorks__new-icon
-                    .addWorks__new-text Добавить работу
-                each item in ['1','2','3','4']
-                  li.addWorks__change-item
-                    .addWorks__preview
-                      img(src="../images/content/slider-1.jpg")
-                      ul.addWorks__tags-list.addWorks__tags-list--preview
-                        li.addWorks__tags-item HTML
-                        li.addWorks__tags-item HTML
-                        li.addWorks__tags-item HTML
-                    .addWorks__desc
-                      .addWorks__desc-title-wrap
-                        h2.addWorks__desc-title Сайт Школы Образования
-                      .addWorks__desc-text
-                        p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-                      .addWorks__desc-link-wrap
-                        a(href="#").addWorks__desc-link http://LoftSchool.ru
-                      .addWorks__desc-controls
-                        .addWorks__desc-correct Править
-    
-                        .addWorks__desc-remove Удалить
+      section.addWorks__change
+        .addWorks__change-container.container
+          ul.addWorks__change-list
+            li.addWorks__current.addWorks__change-item
+              .addWorks__new
+                .addWorks__new-icon
+                .addWorks__new-text Добавить работу
+            each item in ['1','2','3','4']
+              li.addWorks__change-item
+                .addWorks__preview
+                  img(src="../images/content/slider-1.jpg")
+                  ul.addWorks__tags-list.addWorks__tags-list--preview
+                    li.addWorks__tags-item HTML
+                    li.addWorks__tags-item HTML
+                    li.addWorks__tags-item HTML
+                .addWorks__desc
+                  .addWorks__desc-title-wrap
+                    h2.addWorks__desc-title Сайт Школы Образования
+                  .addWorks__desc-text
+                    p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+                  .addWorks__desc-link-wrap
+                    a(href="#").addWorks__desc-link http://LoftSchool.ru
+                  .addWorks__desc-controls
+                    .addWorks__desc-correct Править
+
+                    .addWorks__desc-remove Удалить
       section.reviews
         .container.container-reviews
           .reviews__content.content
@@ -118,42 +181,71 @@
                 .reviews__buttons
                     input(type="reset" name="cancel" value="Отменить").reviews__reset
                     input(type="submit" name="submit" value="Сохранить").btn.reviews__submit
-            .reviews__change
-              ul.reviews__change-list
-                li.reviews__current.reviews__change-item
-                  .reviews__new
-                    .reviews__new-icon
-                    .reviews__new-text Добавить работу
-                each item in ['1','2','3','4']
-                  li.reviews__change-item
-                    .reviews__preview
-                      .reviews__avatar
-                        img(src="../images/content/user2.jpg").user__img
-                      .reviews__preview-info
-                        .reviews__name-wrap 
-                          .reviews__name Владимир Сабанцев
-                        .reviews__status-wrap
-                          .reviews__status Преподаватель
-                    .reviews__desc
-                      .reviews__desc-text
-                        p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-                      .reviews__desc-controls
-                        .reviews__desc-correct Править
-    
-                        .reviews__desc-remove Удалить
+          section.reviews__change
+            ul.reviews__change-list
+              li.reviews__current.reviews__change-item
+                .reviews__new
+                  .reviews__new-icon
+                  .reviews__new-text Добавить работу
+              each item in ['1','2','3','4']
+                li.reviews__change-item
+                  .reviews__preview
+                    .reviews__avatar
+                      img(src="../images/content/user2.jpg").user__img
+                    .reviews__preview-info
+                      .reviews__name-wrap 
+                        .reviews__name Владимир Сабанцев
+                      .reviews__status-wrap
+                        .reviews__status Преподаватель
+                  .reviews__desc
+                    .reviews__desc-text
+                      p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+                  .reviews__desc-controls
+                    .reviews__desc-correct Править
+                    
+                    .reviews__desc-remove Удалить
 
       section.login.fullscreen-section 
         .login__block
-          .login__title-wrap
-            h1.login__title Авторизация
-          form.login__form
-            .login__form-label-wrap
-              label(for="").login__form-label Логин
-              input(type="text" name="login" id="login").login__form-input.login__form-input--login
-            .login__form-label-wrap
-              label(for="").login__form-label Пароль
-              input(type="password" name="passowrd" id="password").login__form-input.login__form-input--password
-            input(type="submit" name="sumbit" value="Войти").login__form-submit
+          .login__block-wrap
+            .login__title-wrap
+              h1.login__title Авторизация
+            form.login__form
+              .login__form-label-wrap
+                label(for="").login__form-label Логин
+                .login__form-input-wrap
+                  input(type="text" name="login" id="login").login__form-input.login__form-input--login
+                  .login__form-input-icon-login.login__form-input-icon
+              .login__form-label-wrap
+                label(for="").login__form-label Пароль
+                .login__form-input-wrap
+                  input(type="password" name="passowrd" id="password").login__form-input.login__form-input--password
+                  .login__form-input-icon-password.login__form-input-icon
+              input(type="submit" name="sumbit" value="Войти").login__form-submit
+            .login__close
+
+  
+      .serverAnswer
+        .serverAnswer-wrap
+          .serverAnswer__title-wrap
+            .serverAnswer__title Письмо отправлено
+          button(type="button" value="Закрыть").serverAnswer__btn Закрыть
+      
+
+      .serverMessage-wrap
+        .serverMessage.serverMessage__success
+          .serverMessage__title Сообщение отправлено
+          .serverMessage__close
+      .serverMessage-wrap
+        .serverMessage.serverMessage__overload
+          .serverMessage__title Сервер перегружен
+          .serverMessage__close
+      .serverMessage-wrap
+        .serverMessage.serverMessage__error
+          .serverMessage__title Сообщение не отправлено
+          .serverMessage__close
+
+
 
               
 
@@ -165,6 +257,297 @@
 @import "../styles/mixins.pcss";
 @import "../styles/layout/base.pcss";
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
+
+
+.about__content{
+  /* padding: 30px; */
+}
+.container-about{
+  margin-bottom: 30px;
+  @include phones{
+    width: 100%;
+  }
+}
+.about__title-wrap{
+  display: flex;
+  margin-bottom: 30px;
+  @include phones{
+    flex-direction: column;
+    width:80%;
+    margin:0 auto;
+     margin-bottom: 30px;
+  }
+}
+.about__title{
+  color: #414c63;
+font-size: 21px;
+font-weight: 700;
+line-height: 34px;
+margin-right: 50px;
+@include phones{
+  margin-bottom: 30px;
+}
+}
+.about__title-add-new{
+  color: $orange;
+font-size: 16px;
+font-weight: 700;
+line-height: 33.89px;
+position: relative;
+cursor: pointer;
+padding-left: 20px;
+&:before{
+  content:'';
+  width:15px;
+  height: 15px;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#ea7400 0,#f29400);
+  position: absolute;
+  top:10px;
+  left:0px;
+}
+&:after{
+  content:'';
+  width:7px;
+  height: 7px;
+   position: absolute;
+  top:10px;
+  left:0px;
+  background: svg-load("remove.svg", fill="white") center center no-repeat / contain;
+  transform:rotate(45deg) translate(5px,0px);
+}
+}
+.skills__new-group-wrap{
+  display: flex;
+}
+.skills__list{
+  display: flex;
+  flex-wrap:wrap;
+}
+.skills__item{
+  background: #fff;
+  width:48%;
+  margin-right: 4%;
+  margin-bottom: 4%;
+   box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.07);
+  &:nth-child(2n){
+     margin-right: 0%;
+  }
+  @include phones{
+    width:100%;
+   margin-right: 0;
+  }
+}
+.skills__form{
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.skills__new-group-wrap{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  position: relative;
+  &:after{
+       content: "";
+    width: 103%;
+    height: 1px;
+   background-color: #1f232d;
+    position: absolute;
+    bottom: 18px;
+    left: -10px;
+  }
+}
+.skills__group-hide{
+  display: none;
+}
+.skills__new-group{
+  border: none;
+  padding-bottom:10px;
+  border-bottom: 2px solid $text-color;
+  width: 70%;
+  background-color: transparent;
+  color: #414c63;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.875rem;
+  border: none;
+  border-bottom: 2px solid #414c63;
+  padding: 0 0.3125rem 0.625rem;
+  margin-bottom: 1.875rem;
+  &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
+}
+.skills__new-group-actions{
+    display: flex;
+    align-items: center;
+    transform: translate(-0px,-20px);
+    width: 10%;
+    justify-content: space-around;
+
+}
+.skills__accept{
+  background: svg-load("tick.svg", fill="#00d70a") center center no-repeat / contain;
+  width:15px;
+  height: 15px;
+  cursor:pointer;
+}
+.skills__decline{
+  background: svg-load("remove.svg", fill="#bf2929") center center no-repeat / contain;
+  width:15px;
+  height: 15px;
+  cursor:pointer;
+}
+.skills__group{
+  margin-bottom: 35px;
+}
+.skills__group-row-wrap{
+  display: flex;
+  margin-bottom: 20px;
+}
+.skills__group-input{
+  border:none;
+  width:60%;
+  margin-right: 5%;
+  padding-bottom: 5px;
+  font-weight: 700;
+    &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
+}
+.skills__group-percent-wrap{
+  width:15%;
+  margin-right: 10%;
+  font-size: 16px;
+  position: relative;
+  &:before{
+    content:'%';
+    color:black;
+    width:20px;
+    height: 20px;
+    position: absolute;
+    right:0;
+    top:0;
+  }
+
+}
+.skills__group-percent{
+   border:none;
+    padding: 0.3125rem 1.875rem 0.3125rem 0.625rem;
+    width:100%;
+}
+
+.skills__group-actions{
+  display: flex;
+  justify-content: space-between;
+  width:10%;
+}
+.skills__group-correct{
+  background: svg-load("pencil.svg", fill="#414c63") center center no-repeat / contain;
+  width:15px;
+  height:15px;
+}
+.skills__group-trash{
+  background: svg-load("trash.svg", fill="#414c63") center center no-repeat / contain;
+  width:15px;
+  height:15px;
+}
+.skills__group-new-skill-input{
+    width: 50%;
+    /* margin-right: 10%; */
+    background-color: transparent;
+    color: #414c63;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.875rem;
+    border: none;
+    border-bottom: 2px solid #414c63;
+   padding: 0.3125rem 1.875rem 0.3125rem 0.625rem;
+    margin-bottom: 1.875rem;
+      &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
+}
+.skills__group-new-skill-percent-wrap{
+    width: 15%;
+    position: relative;
+  &:before{
+    content:'%';
+    color:black;
+    width:20px;
+    height: 20px;
+    position: absolute;
+    right:0;
+    top:10px;
+  }
+  @include phones{
+    width: 21%;
+     &:before{
+       top:8px;
+     }
+  }
+}
+.skills__group-new-skill-percent{
+  width:100%;
+  background-color: transparent;
+    color: #414c63;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.875rem;
+    border: none;
+    border-bottom: 2px solid #414c63;
+   padding: 0.3125rem 1.875rem 0.3125rem 0.625rem;
+    margin-bottom: 1.875rem;
+   
+}
+.skills__group-new-skill{
+  display: flex;
+  padding-left:20%;
+  justify-content: space-between;
+  @include phones{
+    padding-left: 0;
+  }
+}
+.skills__group-new-btn{
+  width: 40px;
+height: 40px;
+border-radius: 50%;
+position: relative;
+ background: linear-gradient(180deg,#ea7400 0,#f29400);
+ &:after{
+  content:'';
+  width:10px;
+  height: 10px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  background: svg-load("remove.svg", fill="white") center center no-repeat / contain;
+  transform:rotate(45deg) translate(-70%,0%);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
 .header{
   background-image: linear-gradient(to right, #3e3e59 0%, #454573 100%);
 }
@@ -247,12 +630,23 @@
   display: block;
   /* padding:0 20px; */
 }
-.container-about{
-  background: #fff;
-  margin-bottom: 30px;
+
+.wrapper__container{
+  background:url('../images/content/background-main.jpg') center center no-repeat;
+  background-size:cover;
+  position: relative;
+  z-index:2;
+  &:before{
+    content:'';
+    width:100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
 }
-.wrapper{
-  background-color: lightgrey;
+.admin__content{
+  position: relative;
+  z-index:5;
 }
 .addWorks__form{
   display: flex;
@@ -358,10 +752,22 @@ font-weight: 700;
   padding:0px 5px 10px 5px;
   padding-bottom:10px;
   margin-bottom: 30px;
+    &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
 
   &--desc{
     border:1px solid black;
     height: 145px;
+      &:hover{
+    border:1px solid $orange;
+  }
+  &:active{
+      border:1px solid $orange;
+  }
   }
  }
  .addWorks__tags-list{
@@ -406,6 +812,7 @@ font-weight: 700;
   flex-wrap: wrap;
 }
 .addWorks__change-item{
+  background: white;
   width:32%;
   margin-right: 2%;
   margin-bottom: 5%;
@@ -441,9 +848,8 @@ font-weight: 700;
 }
 .addWorks__tags-list--preview{
     position: absolute;
-    top: 100;
-    right: 0;
-    top: 100;
+    right: 5px;
+    bottom: -20px;
     transform: translate(0, -100%);
 }
 .addWorks__desc-title{
@@ -477,7 +883,7 @@ margin-bottom: 20px;
 .addWorks__desc-controls{
   display: flex;
   justify-content: space-between;
-  opacity: 0.5;
+  /* opacity: 0.5; */
   color: #414c63;
   font-size: 16px;
   font-weight: 400;
@@ -486,6 +892,32 @@ margin-bottom: 20px;
 .addWorks__desc-correct{
   padding-right:50px;
   position: relative;
+  cursor: pointer;
+  &:before{
+    content:'';
+    background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
+    width:20px;
+    height: 20px;
+    opacity:initial;
+    position: absolute;
+   top: 15%;
+    left: 63%;
+  }
+}
+.addWorks__desc-remove{
+    padding-right:50px;
+    cursor: pointer;
+  position: relative;
+  &:before{
+    content:'';
+    background: svg-load("remove.svg", fill="red") center center no-repeat / contain;
+    width:20px;
+    height: 20px;
+    opacity:initial;
+    position: absolute;
+   top: 15%;
+    left: 63%;
+  }
 }
 .addWorks__desc-correct-icon{
    width:20px;
@@ -499,8 +931,12 @@ margin-bottom: 20px;
   @include phones{
     padding-top:20px;
   }
+  &:hover{
+     background:linear-gradient(to right, #ea7400 0%, #f29400 100%);
+  }
 }
 .addWorks__new{
+  cursor: pointer;
   height: 100%;
       display: flex;
     flex-direction: column;
@@ -521,6 +957,17 @@ margin-bottom: 20px;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
+   &:before{
+    content:'';
+    background: svg-load("remove.svg", fill="#fff") center center no-repeat / contain;
+    width: 2.125rem;
+    height: 2.125rem;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+  }
   @include phones{
     width: 4.375rem;
     height: 4.375rem;
@@ -558,6 +1005,18 @@ text-align: center;
   background-color: #dee4ed;
   border-radius: 50%;
   margin-bottom: 20px;
+  position: relative;
+  &:before{
+    content:'';
+     background: svg-load("user-admin.svg", fill="#fff") center center no-repeat / contain;
+        width: 5.125rem;
+    height: 5.125rem;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+
+  }
 }
 
 .reviews__label{
@@ -581,6 +1040,12 @@ text-align: center;
   padding:0px 5px 10px 5px;
   padding-bottom:10px;
   margin-bottom: 30px;
+    &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
  }
  .reviews__content{
     background-color: white;
@@ -649,6 +1114,12 @@ text-align: center;
  .reviews__input--desc{
   border: 1px solid #414c63;
 height: 180px;
+  &:hover{
+    border:1px solid $orange;
+  }
+  &:active{
+      border:1px solid $orange;
+  }
  }
  .reviews__buttons{
    display: flex;
@@ -672,11 +1143,15 @@ height: 180px;
   flex-wrap: wrap;
  }
  .reviews__change-item{
+   min-height:380px;
    padding:20px;
   width:32%;
   margin-right: 2%;
   margin-bottom: 5%;
+  background:white;
   box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.07);
+      position: relative;
+    padding-bottom: 50px;
   &:nth-child(3n){
     margin-right: 0px;
   }
@@ -706,6 +1181,9 @@ height: 180px;
   @include phones{
       padding-top: 1.25rem;
   }
+  &:hover{
+     background:linear-gradient(to right, #ea7400 0%, #f29400 100%);
+  }
 }
 .reviews__new{
   height: 100%;
@@ -713,6 +1191,7 @@ height: 180px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     @include phones{
           flex-direction: row;
     height: 100%;
@@ -727,6 +1206,18 @@ height: 180px;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
+  &:before{
+    content:'';
+    background: svg-load("remove.svg", fill="#fff") center center no-repeat / contain;
+    width: 2.125rem;
+    height: 2.125rem;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+
+  }
   @include phones{
     width: 4.375rem;
     height: 4.375rem;
@@ -789,11 +1280,13 @@ margin-bottom: 20px;
 }
 .reviews__desc-controls{
       align-items: flex-end;
+      position: absolute;
+      bottom:2%;
 }
 .reviews__desc-controls{
   display: flex;
   justify-content: space-between;
-  opacity: 0.5;
+  /* opacity: 0.5; */
   color: #414c63;
   font-size: 16px;
   font-weight: 400;
@@ -802,30 +1295,37 @@ margin-bottom: 20px;
 .reviews__desc-correct{
   padding-right:50px;
   position: relative;
+  margin-right: 40px;
+  &:before{
+    content:'';
+    background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
+    width:20px;
+    height: 20px;
+    opacity:initial;
+    position: absolute;
+   top: 15%;
+    left: 63%;
+  }
 }
-.about__content{
-  padding: 30px;
+.reviews__desc-remove{
+  padding-right: 3.125rem;
+  position: relative;
+   &:before{
+    content:'';
+    background: svg-load("remove.svg", fill="red") center center no-repeat / contain;
+    width:20px;
+    height: 20px;
+    opacity:initial;
+    position: absolute;
+   top: 15%;
+    left: 63%;
+  }
 }
-.about__title-wrap{
-  display: flex;
-}
-.about__title{
-  color: #414c63;
-font-size: 21px;
-font-weight: 700;
-line-height: 34px;
-margin-right: 20px;
-}
-.about__title-add-new{
-  color: $orange;
-font-family: "Open Sans - Semibold";
-font-size: 16px;
-font-weight: 400;
-line-height: 33.89px;
-}
-.skills__new-group-wrap{
-  display: flex;
-}
+
+
+
+
+
 
 
 .login{
@@ -848,23 +1348,34 @@ line-height: 33.89px;
   left:50%;
   transform: translate(-50%,-50%);
 }
+.login__block-wrap{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0% 15%;
+}
 .login__title{
 color: #414c63;
 font-size: 36px;
-font-weight: 400;
+font-weight: 700;
 line-height: 60px;
 &-wrap{
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 }
 .login__block{
-  padding:60px 80px;
+  /* padding:60px 80px; */
+  width:560px;
+  padding: 40px 0px;
   display: flex;
     flex-direction: column;
     align-items: center;
     @include phones{
-          height: 100%;
+    height: 100vh;
     justify-content: center;
+    width:100%;
     }
 }
 .login__form-submit{
@@ -892,11 +1403,21 @@ line-height: 60px;
   padding:0px 5px 10px 5px;
   padding-bottom:10px;
   margin-bottom: 30px;
+  padding-left: 55px;
+  padding-right:5px;
+    &:hover{
+    border-bottom:2px solid $orange;
+  }
+  &:active{
+      border-bottom:2px solid $orange;
+  }
+  
 }
 .login__form{
       display: flex;
     flex-direction: COLUMN;
     align-items: center;
+        width: 100%;
 }
 .login__form-label-wrap{
   width:100%;
@@ -909,6 +1430,105 @@ line-height: 60px;
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
+  padding-left: 35px;
+}
+.login__close{
+  background: svg-load("remove.svg", fill="$text-color") center center no-repeat / contain;
+  width:20px;
+  height: 20px;
+  position: absolute;
+      top: 20px;
+    right: 15%;
+    cursor: pointer;
+}
+.login__form-input-wrap{
+  display: flex;
+  position: relative;
+}
+.login__form-input-icon{
+  width:40px;
+  height: 40px;
+  position: absolute;
+  top:-5px;
+  left:0;
+  &-login{
+    background: svg-load("user.svg", fill="#414c63") center center no-repeat / contain;
+    opacity: .3;
+  }
+  &-password{
+    background: svg-load("key.svg", fill="$text-color") center center no-repeat / contain;
+     width:50px;
+  }
+}
+
+
+.serverAnswer{
+  /* display: flex; */
+  background: #fff;
+  /* flex-direction: column; */
+  width:50%;
+  margin:0 auto;
+  padding:40px 50px;
+  @include phones{
+    width:100%;
+    padding:40px 30px;
+  }
+}
+.serverAnswer__btn{
+      background: linear-gradient(90deg,#ea7400,#f29400);
+    color: #fff;
+    border: none;
+    padding: 1.25rem 6.25rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 3rem;
+    cursor: pointer;
+}
+.serverAnswer__title{
+  color: #414c63;
+    font-size: 36px;
+font-weight: 700;
+@include phones{
+  font-size: 28px;
+}
+}
+.serverAnswer__title-wrap{
+  margin-bottom: 20px;
+}
+.serverAnswer-wrap{
+      width: 100%;
+    text-align: center;
+}
+
+
+
+.serverMessage-wrap{
+  width:500px;
+  @include phones{
+    width:100%;
+  }
+}
+.serverMessage{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color:#fff;
+  font-weight: 700;
+  padding:20px 25px;
+  &__success{
+   background-color: #4bb133;
+  }
+  &__overload{
+   background-color: #b18333;
+  }
+  &__error{
+  background-color: #b13333;
+  }
+}
+.serverMessage__close{
+   background: svg-load("remove.svg", fill="white") center center no-repeat / contain;
+   width:15px;
+   height: 15px;
 }
 </style>
 
