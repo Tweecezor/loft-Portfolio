@@ -446,6 +446,14 @@ padding-left: 20px;
    border:none;
     padding: 0.3125rem 1.375rem 0.3125rem 0.625rem;
     width:100%;
+     border-bottom: 2px solid transparent;
+
+    &:hover{
+      border-bottom: 2px solid $orange;
+    }
+    &:focus{
+      border-bottom: 2px solid $orange;
+    }
 }
 
 .skills__group-actions{
@@ -483,7 +491,9 @@ padding-left: 20px;
   }
 }
 .skills__group-new-skill-percent-wrap{
-    width: 15%;
+    width: 20%;
+    margin-right: 5%;
+    font-size: 1rem;
     position: relative;
   &:before{
     content:'%';
@@ -502,6 +512,7 @@ padding-left: 20px;
   }
 }
 .skills__group-new-skill-percent{
+  text-align:center;
   width:100%;
   background-color: transparent;
     color: #414c63;
@@ -510,15 +521,21 @@ padding-left: 20px;
     line-height: 1.875rem;
     border: none;
     border-bottom: 2px solid #414c63;
-   padding: 0.3125rem 1.875rem 0.3125rem 0.625rem;
+   padding: 0.3125rem 1.375rem 0.3125rem 0.625rem;
     margin-bottom: 1.875rem;
+    &:hover{
+      border-bottom: 2px solid $orange;
+    }
+    &:focus{
+      border-bottom: 2px solid $orange;
+    }
    
 }
 .skills__group-new-skill{
   display: flex;
   padding-left:20%;
   justify-content: space-between;
-  @include phones{
+  @include tablets{
     padding-left: 0;
   }
 }
