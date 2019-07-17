@@ -25,16 +25,30 @@ inputName.addEventListener('input',e=>{
 })
 inputText.addEventListener('input',e=>{
   if(inputText.value.length<25){
-    inputError[1].classList.add('input-error--vis');
-    inputError[1].innerText ='Слишком короткое сообщение';
+    inputError[2].classList.add('input-error--vis');
+    inputError[2].innerText ='Слишком короткое сообщение';
     inputText.classList.add("contact__form-error");
     formIcon[2].classList.add("contact__icon-error");
   }else{
-    inputError[0].classList.add('input-error--vis');
-    inputError[1].innerText ='';
+    inputError[2].classList.remove('input-error--vis');
+    inputError[2].innerText ='';
     validInput = true;
     inputText.classList.remove("contact__form-error");
     formIcon[2].classList.remove("contact__icon-error");
+  }
+})
+inputEmail.addEventListener('input',e=>{
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(!re.test(inputEmail.value)){
+    inputError[1].classList.add('input-error--vis');
+    inputError[1].innerText ='Неверный email';
+    inputEmail.classList.add("contact__form-error");
+    formIcon[1].classList.add("contact__icon-error");
+  }else{
+    inputError[1].classList.remove('input-error--vis');
+    inputError[1].innerText ='Неверный email';
+    inputEmail.classList.remove("contact__form-error");
+    formIcon[1].classList.remove("contact__icon-error");
   }
 })
 
@@ -83,10 +97,14 @@ function validateField(element,index){
   if(!element.checkValidity()){
     element.classList.add("contact__form-error");
     formIcon[index].classList.add("contact__icon-error");
+    inputError[index].classList.add('input-error--vis');
+    inputError[index].innerText ='Заполните поле';
     return false;
   } else { 
     element.classList.remove("contact__form-error");
     formIcon[index].classList.remove("contact__icon-error");
+    inputError[index].classList.remove('input-error--vis');
+    inputError[index].innerText ='';
     return true;
   }
 }
