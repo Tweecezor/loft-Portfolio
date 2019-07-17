@@ -16,25 +16,50 @@
 }
 .contact__form-wrap{
   width: 47%;
-  margin-bottom: 40px;
+  margin-bottom: 4.5rem;
   position: relative;
   &--name{
     margin-right: 6%;
   }
   &--text{
      width:100%;
-    margin-bottom: 60px;
+    margin-bottom: 5.75rem;
   }
   @include phones{
     width:100%;
   }
+}
+.contact__form-input-wrap{
+  margin-bottom: 22px;
 }
 
 .input-error{
   position: absolute;
   top: 100%;
   left: 0;
-  color:red;
+  color: white;
+  padding: 15px 20px;
+  display:none;
+  /* opacity: 0; */
+   transition: 1s;
+  background-color: #cd1515;
+  &--vis{
+    display: block;
+    /* opacity: 1; */
+    transition: 1s;
+  }
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
 }
 .contact__form-input{
   width:100%;
@@ -115,7 +140,13 @@
 }
 .contact__form-error{
   border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
 }
-.contact__icon-error{
+ .contact__icon-error{
   fill:red;
+}
+.contact__form-input-wrap:hover .contact__icon-error{
+     fill:red;
 }

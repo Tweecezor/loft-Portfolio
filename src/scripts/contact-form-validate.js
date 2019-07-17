@@ -11,10 +11,12 @@ let validInput = false;
 inputName.addEventListener('input',e=>{
   if(inputName.value.length<10){
     console.log(inputName.value.length);
+    inputError[0].classList.add('input-error--vis');
     inputError[0].innerText ='Слишком короткое имя';
     inputName.classList.add("contact__form-error");
     formIcon[0].classList.add("contact__icon-error");
   }else{
+    inputError[0].classList.remove('input-error--vis');
     inputError[0].innerText ='';
     validInput = true;
     inputName.classList.remove("contact__form-error");
@@ -23,14 +25,16 @@ inputName.addEventListener('input',e=>{
 })
 inputText.addEventListener('input',e=>{
   if(inputText.value.length<25){
+    inputError[1].classList.add('input-error--vis');
     inputError[1].innerText ='Слишком короткое сообщение';
     inputText.classList.add("contact__form-error");
     formIcon[2].classList.add("contact__icon-error");
   }else{
+    inputError[0].classList.add('input-error--vis');
     inputError[1].innerText ='';
     validInput = true;
-    inputText.classList.add("contact__form-error");
-    formIcon[2].classList.add("contact__icon-error");
+    inputText.classList.remove("contact__form-error");
+    formIcon[2].classList.remove("contact__icon-error");
   }
 })
 

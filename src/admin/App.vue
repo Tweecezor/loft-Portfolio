@@ -225,11 +225,7 @@
             .login__close
 
   
-      .serverAnswer
-        .serverAnswer-wrap
-          .serverAnswer__title-wrap
-            .serverAnswer__title Письмо отправлено
-          button(type="button" value="Закрыть").serverAnswer__btn Закрыть
+      
       
 
       .serverMessage-wrap
@@ -365,6 +361,7 @@ padding-left: 20px;
 }
 .skills__new-group{
   border: none;
+  border-bottom:2px solid transparent; 
   padding-bottom:10px;
   border-bottom: 2px solid $text-color;
   width: 70%;
@@ -417,16 +414,20 @@ padding-left: 20px;
   margin-right: 5%;
   padding-bottom: 5px;
   font-weight: 700;
+   border-bottom:2px solid transparent;
     &:hover{
     border-bottom:2px solid $orange;
   }
   &:active{
       border-bottom:2px solid $orange;
   }
+   &:focus{
+      border-bottom:2px solid $orange;
+  }
 }
 .skills__group-percent-wrap{
-  width:15%;
-  margin-right: 10%;
+  width:20%;
+  margin-right: 5%;
   font-size: 16px;
   position: relative;
   &:before{
@@ -436,13 +437,14 @@ padding-left: 20px;
     height: 20px;
     position: absolute;
     right:0;
-    top:0;
+    top:3px;
   }
 
 }
 .skills__group-percent{
+  text-align: right;
    border:none;
-    padding: 0.3125rem 1.875rem 0.3125rem 0.625rem;
+    padding: 0.3125rem 1.375rem 0.3125rem 0.625rem;
     width:100%;
 }
 
@@ -632,8 +634,8 @@ position: relative;
 }
 
 .wrapper__container{
-  background:url('../images/content/background-main.jpg') center center no-repeat;
-  background-size:cover;
+  background:url('../images/content/background-main.jpg') no-repeat;
+  background-size:contain;
   position: relative;
   z-index:2;
   &:before{
@@ -684,6 +686,7 @@ position: relative;
   background: linear-gradient(to right, #ea7400 0%, #f29400 100%);
   border-radius: 25px;
   color:white;
+  border: none;
   cursor: pointer;
   &:hover{
      background: linear-gradient(to left, #ea7400 0%, #f29400 100%);
@@ -752,6 +755,7 @@ font-weight: 700;
   padding:0px 5px 10px 5px;
   padding-bottom:10px;
   margin-bottom: 30px;
+
     &:hover{
     border-bottom:2px solid $orange;
   }
@@ -1273,6 +1277,7 @@ margin-bottom: 20px;
 .reviews__desc-controls{
   display: flex;
     justify-content: space-between;
+    min-width: 95%;
 }
 .reviews__desc{
   display: flex;
@@ -1462,43 +1467,6 @@ line-height: 60px;
 }
 
 
-.serverAnswer{
-  /* display: flex; */
-  background: #fff;
-  /* flex-direction: column; */
-  width:50%;
-  margin:0 auto;
-  padding:40px 50px;
-  @include phones{
-    width:100%;
-    padding:40px 30px;
-  }
-}
-.serverAnswer__btn{
-      background: linear-gradient(90deg,#ea7400,#f29400);
-    color: #fff;
-    border: none;
-    padding: 1.25rem 6.25rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-    line-height: 3rem;
-    cursor: pointer;
-}
-.serverAnswer__title{
-  color: #414c63;
-    font-size: 36px;
-font-weight: 700;
-@include phones{
-  font-size: 28px;
-}
-}
-.serverAnswer__title-wrap{
-  margin-bottom: 20px;
-}
-.serverAnswer-wrap{
-      width: 100%;
-    text-align: center;
-}
 
 
 

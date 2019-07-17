@@ -9,7 +9,7 @@ section.contact
         input.contact__form-input.contact__form-input--name(type="text" name="name" required placeholder='Никита Еремеев')
         .contact__form-icon-wrap
           +icon('user','form-icon')
-        span.input-error  
+        div.input-error  
     .contact__form-wrap.contact__form-wrap--email
       label.contact__form-label Ввдите ваш email
       .contact__form-input-wrap
@@ -22,5 +22,5 @@ section.contact
         textarea.contact__form-input.contact__form-input--text(type="text" name="text" required placeholder='Требуется ваша помощь в создании сайта. Интересуют сроки и цена вопроса')
         .contact__form-icon-wrap.contact__form-icon-wrap--text
           +icon('message','form-icon')
-        span.input-error
+        div.input-error
     input.contact__form-submit(type="submit" value="Отправить" name="send")
