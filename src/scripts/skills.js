@@ -24,8 +24,9 @@ const skills__block_item = {
     skill
   }
 }
-new Vue({
 
+
+new Vue({
   el:'#skills__container',
   template:'#skills__list',
   components:{

@@ -10,7 +10,6 @@ const inputError = document.querySelectorAll('.input-error');
 let validInput = false;
 inputName.addEventListener('input',e=>{
   if(inputName.value.length<10){
-    console.log(inputName.value.length);
     inputError[0].classList.add('input-error--vis');
     inputError[0].innerText ='Слишком короткое имя';
     inputName.classList.add("contact__form-error");
