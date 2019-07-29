@@ -6,22 +6,28 @@
           .about__title.title Блок "Работы"
         addNewWork(
           v-if="showAddingForm"
-          @cancelAdding = "cancelAdding"
+          @toogleAddingForm = "toogleAddingForm"
+          :mode="currentMode"
         )
           
     section.addWorks__change
       .addWorks__change-container.container
         ul.addWorks__change-list
           li.addWorks__current.addWorks__change-item
-            .addWorks__new(@click="showAddingForm = true")
+            .addWorks__new(@click="showAddingForm = true;currentMode = 'add'")
               .addWorks__new-icon
               .addWorks__new-text Добавить работу
-          li.addWorks__change-item
-            workItem
+          li.addWorks__change-item(v-for="work in works")
+            workItem(
+              @updateCurrentWork="updateCurrentWork"
+              :work="work"
+            )
+          pre {{works}}
            
 </template>
 
 <script>
+import {mapActions, mapState} from "vuex";
 export default {
   components:{
     addNewWork: () => import('../works-add-new'),
@@ -30,12 +36,32 @@ export default {
   data(){
     return{
       showAddingForm:false,
+      currentMode:'add'
     }
   },
   methods:{
-    cancelAdding(){
-      this.showAddingForm = false;
+    ...mapActions('works',['fecthWorks']),
+    toogleAddingForm(){
+      this.showAddingForm = !this.showAddingForm;
+    },
+    updateCurrentWork(){
+      this.currentMode = 'edit';
+      this.showAddingForm = true;
     }
+  },
+  computed:{
+    ...mapState('works',{
+      works:state=>{return state.works}
+    }),
+
+  },
+  created(){
+    try{
+      this.fecthWorks();
+    } catch(error){
+
+    }
+    
   }
   
 }

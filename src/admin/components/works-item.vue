@@ -1,26 +1,80 @@
 <template lang="pug">
   div
     .addWorks__preview
-      img(src="../../images/content/slider-1.jpg")
+      img(:src="work.photo")
+      //- img(:src="work.photo")
       ul.addWorks__tags-list.addWorks__tags-list--preview
-        li.addWorks__tags-item HTML
-        li.addWorks__tags-item HTML
-        li.addWorks__tags-item HTML
+        li(v-for="item in tagArray").addWorks__tags-item {{item}}
     .addWorks__desc
       .addWorks__desc-title-wrap
-        h2.addWorks__desc-title Сайт Школы Образования
+        h2.addWorks__desc-title {{work.title}}
       .addWorks__desc-text
-        p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+        p {{work.description}}
       .addWorks__desc-link-wrap
-        a(href="#").addWorks__desc-link http://LoftSchool.ru
+        a(:href="work.link").addWorks__desc-link {{work.link}}
       .addWorks__desc-controls
-        .addWorks__desc-correct Править
-        .addWorks__desc-remove Удалить
+        .addWorks__desc-correct(@click="updateCurrentWork") Править
+        .addWorks__desc-remove(@click="removeCurrentWork") Удалить
+      //- pre {{work.photo}}
+      //- pre {{currentWork}}
+      //- pre {{work}}
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { getAbsoluteImgPath } from "@/helpers/photos";
+// import { Validator } from 'simple-vue-validator';
+
 export default {
   
+  props:{
+    work:Object
+  },
+  data(){
+    return{
+      photoURL:'',
+      tagArray:[],
+      currentWork: {...this.work}
+    }
+  },
+  methods:{
+    ...mapActions('works',['removeWork','addCurrentWork']),
+    ...mapActions('tooltips',['showTooltip']),
+    async removeCurrentWork(){
+      try{
+        // console.log(this.work)
+        await this.removeWork(this.work);
+        this.showTooltip({
+        type:'success',
+        text:'Работа успешно удалена'
+      });
+      }catch(error){
+        alert(error.message)
+      }
+    },
+    updateCurrentWork(){
+      this.$emit("updateCurrentWork")
+      this.addCurrentWork(this.currentWork);
+      // console.log(this.work)
+    }
+  },
+  created(){
+    // const reader = new FileReader();
+    // reader.readAsDataURL(this.work.photo);
+    //    reader.onload = () => {
+    //      this.photoUrl = reader.result;
+    //    }
+    this.work.photo = getAbsoluteImgPath(this.work.photo);
+    this.tagArray = this.work.techs.split(',');
+  },
+  computed:{
+  },
+  watch:{
+    work(){
+      this.currentWork = {...this.work};
+      this.work.photo = getAbsoluteImgPath(this.work.photo);
+    }
+  }
 }
 </script>
 <style lang="postcss" scoped>
@@ -78,13 +132,19 @@ margin-bottom: 20px;
   cursor: pointer;
   &:before{
     content:'';
-    background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
+    background: svg-load("pencil.svg", fill="grey") center center no-repeat / contain;
     width:20px;
     height: 20px;
     opacity:initial;
     position: absolute;
    top: 15%;
     left: 63%;
+  }
+  &:hover{
+    &:before{
+    background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
+
+    }
   }
 }
 .addWorks__desc-remove{
@@ -93,7 +153,7 @@ margin-bottom: 20px;
   position: relative;
   &:before{
     content:'';
-    background: svg-load("remove.svg", fill="red") center center no-repeat / contain;
+    background: svg-load("remove.svg", fill="grey") center center no-repeat / contain;
     width:20px;
     height: 20px;
     opacity:initial;
@@ -101,6 +161,12 @@ margin-bottom: 20px;
    top: 15%;
     left: 63%;
   }
+  &:hover{
+    &:before{
+      background: svg-load("remove.svg", fill="red") center center no-repeat / contain;
+    }
+  }
+
 }
 .addWorks__desc-correct-icon{
    width:20px;

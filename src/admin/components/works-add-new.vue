@@ -1,14 +1,16 @@
 <template lang="pug">
   .addWorks__content
     .addWorks__content-caption-wrap
-      h2.addWorks__content-caption Добавление работы
-      form.addWorks__form(method="POST")
+      h2(v-if="mode=='add'").addWorks__content-caption Добавление работы
+      h2(v-else-if="mode=='edit'").addWorks__content-caption Редактирование работы
+      .addWorks__form()
         .addWorks__file(
           :style="{'background-image':`url(${this.photoURl})`}"
         )
           .addWorks__file-upload
             //- input(type="file")
-            .addWorks__load-text(v-if="!hasImage")
+            //- .addWorks__load-text(v-if="!hasImage")
+            .addWorks__load-text()
               p Перетащите или загрузите для загрузки изображения
               input(type="file" id="photoFile" @change="loadPhoto" accept="image/*").addWorks__file-input
               label(for="photoFile").addWorks__file-btn.btn Загрузить
@@ -27,18 +29,50 @@
             input(type="text" name="tag" id="input-tag" v-model='workData.techs').addWorks__input.addWorks__input--tags
           .addWorks__tags-list-wrap
             ul.addWorks__tags-list
-              li.addWorks__tags-item HTML
-              li.addWorks__tags-item HTML
-              li.addWorks__tags-item HTML
+              li(v-for="item in tagsArray" v-if="tagsArray!=0 && item!=''" ).addWorks__tags-item {{item}}
           .addWorks__buttons
-            input(type="reset" name="cancel" value="Отменить" @click="cancelAddingWork").addWorks__reset
-            input(type="submit" name="submit" value="Сохранить" @clicl="addNewWorks").btn.addWorks__submit
-      pre {{workData}}
+            button(type="reset" name="cancel" value="Отменить" @click="toogleAddingForm").addWorks__reset Отменить
+            button(type="submit" name="submit" value="Сохранить" @click='addNewWorks' v-if="mode=='add'").btn.addWorks__submit Сохранить
+            button(type="submit" name="submit" value="Сохранить" @click='updateCurrentWork' v-if="mode=='edit'").btn.addWorks__submit Сохранить
+      //- pre {{photoURl}}
+      //- span WORKDATA
+      //- pre {{workData}}
+      //- span currentWork
+      //- pre {{currentWork}}
+      //- pre {{mode}}
+
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+import { getAbsoluteImgPath } from "@/helpers/photos";
+import {Validator} from 'simple-vue-validator';
+
 export default {
+  mixins:[require('simple-vue-validator').mixin],
+  validators:{
+     'workData.title'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'workData.link'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'workData.description'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'workData.title'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'workData.techs'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    "workData.photo": value => {
+      return Validator.value(value).required("Вставьте файл");
+    }
+  },
+  props:{
+    mode:String
+  },
   data(){
     return{
       workData:{
@@ -49,13 +83,15 @@ export default {
         photo:''
       },
       photoURl:'',
-      hasImage : false
+      hasImage : false,
+      tagsArray:[]
     }
   },
   methods:{
-    ...mapActions('works',['addWork']),
-    cancelAddingWork(){
-      this.$emit('cancelAdding');
+    ...mapActions('works',['addWork','updateWork']),
+    ...mapActions('tooltips',['showTooltip','hideTooltip']),
+    toogleAddingForm(){
+      this.$emit('toogleAddingForm');
     },
     loadPhoto(e){
       const file = e.target.files[0];
@@ -75,9 +111,94 @@ export default {
         console.log(error.message);
       }
     },
-    // async addNewWorks(){
-    //   await this.addWork(this.workData);
-    // } 
+    async addNewWorks(){
+      // console.log('test')
+       if((await this.$validate())===false){
+         this.showTooltip({
+          type:'error',
+          text:'Ошибка валидации'
+        });
+        return;
+      }
+      await this.addWork(this.workData);
+      this.showTooltip({
+        type:'success',
+        text:'Работа успешно добавлена'
+      });
+      this.$emit('toogleAddingForm');
+    },
+    async updateCurrentWork(){
+      if((await this.$validate())===false){
+         this.showTooltip({
+          type:'error',
+          text:'Ошибка валидации'
+        });
+        this.workData = {...this.currentWork}
+        return;
+      }
+      try{
+        await this.updateWork(this.workData);
+        this.showTooltip({
+          type:'success',
+          text:'Работа успешно обновлена'
+        });
+        this.$emit('toogleAddingForm');
+      } catch(error){
+        alert(error.message);
+      }
+    },
+    addingMode(){
+      this.workData = {
+        title:'',
+        link:'',
+        description:'',
+        techs:'',
+        photo:''
+      };
+      this.photoURl = '';
+    },
+    editingMode(){
+      this.workData = {...this.currentWork};
+      this.photoURl = getAbsoluteImgPath(this.workData.photo);
+    }
+  },
+  watch:{
+    'workData.techs'(){
+      this.tagsArray = this.workData.techs.split(',');
+    },
+    mode(){
+      if(this.mode == 'add'){
+        alert('вотчер добавления')
+        console.log('Режим добавления')
+        this.addingMode();
+      } else if(this.mode == 'edit'){
+         alert('вотчер редактирования')
+        console.log('Режим редактирования')
+        this.editingMode();
+    }
+    },
+    currentWork(){
+      this.workData = {...this.currentWork};
+    }
+  },
+  computed:{
+    ...mapState('works',{
+      currentWork:state=>{return state.currentWork}
+    }),
+    
+    
+  },
+  created(){
+    if(this.mode == 'add'){
+      console.log('Режим добавления')
+      this.addingMode();
+      console.log(this.workData);
+
+    } else if(this.mode == 'edit'){
+      console.log('Режим редактирования')
+      this.editingMode();
+      console.log(this.workData);
+    }
   }
   
 }
