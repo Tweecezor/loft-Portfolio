@@ -82,6 +82,7 @@ export default {
 <style lang="postcss" scoped>
 @import url("../../../styles/mixins.pcss");
 
+
 .about__content{
   /* padding: 30px; */
 }

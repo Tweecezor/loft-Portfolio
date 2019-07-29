@@ -104,6 +104,11 @@ export default {
 
 
 <style lang="postcss" scoped>
+input[disabled]{
+  &:hover{
+    border-bottom:2px solid transparent;
+  }
+}
 .skills__group{
   /* margin-bottom: 35px; */
 }

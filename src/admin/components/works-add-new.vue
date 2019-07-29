@@ -34,9 +34,9 @@
             button(type="reset" name="cancel" value="Отменить" @click="toogleAddingForm").addWorks__reset Отменить
             button(type="submit" name="submit" value="Сохранить" @click='addNewWorks' v-if="mode=='add'").btn.addWorks__submit Сохранить
             button(type="submit" name="submit" value="Сохранить" @click='updateCurrentWork' v-if="mode=='edit'").btn.addWorks__submit Сохранить
-      //- pre {{photoURl}}
+      pre {{photoURl}}
       //- span WORKDATA
-      //- pre {{workData}}
+      pre {{workData.photo}}
       //- span currentWork
       //- pre {{currentWork}}
       //- pre {{mode}}
@@ -179,6 +179,7 @@ export default {
     },
     currentWork(){
       this.workData = {...this.currentWork};
+      this.photoURl = getAbsoluteImgPath(this.workData.photo);
     }
   },
   computed:{

@@ -21,14 +21,26 @@
                 v-model="userData.password"
               ).login__form-input.login__form-input--password
               .login__form-input-icon-password.login__form-input-icon
-          input(type="submit" name="sumbit" value="Войти").login__form-submit
-        .login__close
+          input(type="submit" name="sumbit" value="Войти" :class="{ activeForm : active }").login__form-submit
+        a(href="index.html").login__close
+    pre {{userData.name}}    
   
 </template>
 
 <script>
-import $axios from "@/requests"
+import $axios from "@/requests";
+import {mapActions} from 'vuex';
+import {Validator} from 'simple-vue-validator';
 export default {
+  mixins:[require('simple-vue-validator').mixin],
+  validators:{
+    'userData.name': value =>{
+      return Validator.value(value).required('Обязательно для заполнения')
+    },
+    'userData.password': value =>{
+      return Validator.value(value).required('Обязательно для заполнения')
+    }
+  },
   components:{
 
   },
@@ -37,24 +49,62 @@ export default {
       userData:{
         name : "tweecz-0719",
         password : "TheNamelessTweecz"
-      }
+      },
+      active:false
     }
   },
   methods:{
-   async login(){
-
-     try{
+    ...mapActions('tooltips',['showTooltip']),
+    async login(){
+      if((await this.$validate())===false){
+        this.showTooltip({
+          type:'error',
+          text:'Заполните все поля'
+        });
+        return;
+      }
+      try{
         const { data: {token} } = await $axios.post('/login',this.userData);
         localStorage.setItem('token',token)
         $axios.defaults.headers["Authorization"] = `Bearer ${token}`
         this.$router.replace('/');
         console.log(localStorage);
-     } catch(error){
-       console.log(error.response);
-       alert(error.response.data.error);
-     }
-        
+      } catch(error){
+        console.log(error.response);
+        this.showTooltip({
+          type:'error',
+          text:error.response.data.error
+        })
+        console.log('after SHOWTOOLTIP');
+        // alert(error.response.data.error);
+        }
+      }
+  },
+  watch:{
+    'userData.name'(){
+      if((this.userData.password!='') && (this.userData.name!='')){
+        console.log('test');
+        this.active = true;
+      } else{
+         this.active = false;
+      }
+    },
+    'userData.password'(){
+      if((this.userData.password!='') && (this.userData.name!='')){
+        console.log('test');
+        this.active = true;
+      } else{
+         this.active = false;
+      }
     }
+  },
+  created(){ 
+       if((this.userData.password!='') && (this.userData.name!='')){
+        console.log('test');
+        this.active = true;
+      } else{
+         this.active = false;
+      }
   }
   
 }
@@ -63,6 +113,9 @@ export default {
 <style lang="postcss" scoped>
 
 @import url("../../../styles/mixins.pcss");
+pre{
+  color:white;
+}
 
 .login{
   background:url('../../../images/content/background-main.jpg') center center;
@@ -115,7 +168,7 @@ line-height: 60px;
     }
 }
 .login__form-submit{
-      background: linear-gradient(90deg,#ea7400 0,#f29400);
+    background:grey;
     color: #fff;
     border: none;
     padding: 1.25rem 6.25rem;
@@ -123,9 +176,13 @@ line-height: 60px;
     font-weight: 700;
     line-height: 3rem;
     cursor: pointer;
-    &:hover{
-      background: linear-gradient(180deg,#ea7400 0,#f29400);
-    }
+   
+}
+.activeForm{
+  background: linear-gradient(90deg,#ea7400 0,#f29400);
+  &:hover{
+    background: linear-gradient(180deg,#ea7400 0,#f29400);
+  }
 }
 .login__form-input{
   width:100%;

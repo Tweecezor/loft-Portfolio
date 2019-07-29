@@ -18,10 +18,10 @@ export default{
       } catch(error){
         // alert(error.message);
         console.log(error.message);
-        // this.showTooltip({
-        //   type:'error',
-        //   text:error.message
-        // });
+        showTooltip({
+          type:'error',
+          text:error.message
+        });
       }
     },
     async fecthWorks(store){

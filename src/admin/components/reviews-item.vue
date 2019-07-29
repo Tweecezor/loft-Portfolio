@@ -2,24 +2,64 @@
 div
   .reviews__preview
     .reviews__avatar
-      img(src="../../images/content/user2.jpg").user__img
+      //- img(src="../../images/content/user2.jpg").user__img
+      img(:src="review.photo").user__img
     .reviews__preview-info
       .reviews__name-wrap 
-        .reviews__name Владимир Сабанцев
+        .reviews__name {{review.author}}
       .reviews__status-wrap
-        .reviews__status Преподаватель
+        .reviews__status {{review.occ}}
   .reviews__desc
     .reviews__desc-text
-      p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+      p {{review.text}}
   .reviews__desc-controls
-    .reviews__desc-correct Править
-    .reviews__desc-remove Удалить
+    .reviews__desc-correct(@click="updateCurrentReview") Править
+    .reviews__desc-remove(@click="removeCurrentReview") Удалить
+  //- pre {{review}}
 </template>
 
 <script>
+import {getAbsoluteImgPath} from "@/helpers/photos.js";
+import {mapActions} from "vuex";
 export default {
   props:{
     review:Object
+  },
+  data(){
+    return{
+      currentReview:{...this.review}
+    }
+  },
+  methods:{
+    ...mapActions('reviews',['removeReview','addCurrentReview']),
+    ...mapActions('tooltips',['showTooltip']),
+    async removeCurrentReview(){
+      try{
+        await this.removeReview(this.review);
+         this.showTooltip({
+          type:'success',
+          text:'Отзыв успешно удален'
+        });
+      } catch(error){
+        console.log(error.message);
+      }
+    },
+    updateCurrentReview(){
+      this.$emit('updateCurrentReview')
+      this.addCurrentReview(this.currentReview);
+    }
+  },
+  created(){
+    this.review.photo = getAbsoluteImgPath(this.review.photo);
+  },
+  computed:{
+    
+  },
+  watch:{
+    review(){
+      this.currentReview = {...this.review};
+      this.review.photo = getAbsoluteImgPath(this.review.photo);
+    },
   }
 }
 </script>
@@ -83,6 +123,7 @@ margin-bottom: 20px;
   padding-right:50px;
   position: relative;
   margin-right: 40px;
+   cursor: pointer;
   &:before{
     content:'';
     background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
@@ -97,6 +138,7 @@ margin-bottom: 20px;
 .reviews__desc-remove{
   padding-right: 3.125rem;
   position: relative;
+  cursor: pointer;
    &:before{
     content:'';
     background: svg-load("remove.svg", fill="red") center center no-repeat / contain;

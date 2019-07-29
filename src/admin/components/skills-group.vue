@@ -164,6 +164,11 @@ export default {
 
 <style lang="postcss">
 @import url("../../styles/mixins.pcss");
+input[disabled]{
+  &:hover{
+    border-bottom: 2px solid #414c63;
+  }
+}
 .skills__form{
   padding:20px;
   display: flex;

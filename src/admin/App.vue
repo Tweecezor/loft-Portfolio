@@ -4,6 +4,7 @@
       .admin__content
         template(v-if="$route.meta.public")
           router-view
+          tooltips
         template(v-else)
           headerComponent
           navComponent
@@ -150,6 +151,7 @@ margin-right: 50px;
   position: relative;
   z-index:5;
 }
+
 
 
 

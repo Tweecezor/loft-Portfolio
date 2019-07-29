@@ -15,8 +15,8 @@
       .addWorks__desc-controls
         .addWorks__desc-correct(@click="updateCurrentWork") Править
         .addWorks__desc-remove(@click="removeCurrentWork") Удалить
-      //- pre {{work.photo}}
-      //- pre {{currentWork}}
+      pre {{work.photo}}
+
       //- pre {{work}}
 </template>
 

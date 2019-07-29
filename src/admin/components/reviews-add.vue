@@ -11,7 +11,7 @@
         )
         //-  icon
         .reviews__user-add
-          h3.reviews__user-text Добавить фото
+          h3.reviews__user-text {{textTitle}}
       .reviews__info
         .reviews__label-wrap.reviews__label-wrap--name
           label(for="name").reviews__label.label Имя автора
@@ -24,13 +24,40 @@
           textarea(name="review" id="review" v-model="reviewData.text").input.reviews__input.reviews__input--desc
         .reviews__buttons
             button(type="reset" name="cancel" value="Отменить" @click='toogleAddingForm').reviews__reset Отменить
-            button(type="submit" name="submit" value="Сохранить" @click='addNewReview').btn.reviews__submit Сохранить
+            button(type="submit" name="submit" value="Сохранить" v-if="mode=='add'" @click='addNewReview').btn.reviews__submit Сохранить
+            button(type="submit" name="submit" value="Сохранить" v-if="mode=='edit'" @click='updateCurrentWork').btn.reviews__submit Сохранить
     pre {{reviewData}}
+    //- pre {{copyImgPath}}
+    pre {{reviewData.photo}}
+    pre {{photoURl}}
+    pre {{currentReview}}
+    //- pre {{mode}}
+
 </template>
 
 <script>
 import { mapActions,mapState } from 'vuex';
+import {getAbsoluteImgPath} from '@/helpers/photos.js'
+import {Validator} from 'simple-vue-validator'
 export default {
+  mixins:[require('simple-vue-validator').mixin],
+  validators:{
+    'reviewData.text'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'reviewData.occ'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    'reviewData.author'(value){
+      return Validator.value(value).required('Поле навык обязательно для заполнения')
+    },
+    "reviewData.photo": value => {
+      return Validator.value(value).required("Вставьте файл");
+    }
+  },
+  props:{
+    mode:String
+  },
   data(){
     return{
       reviewData:{
@@ -40,11 +67,14 @@ export default {
         text: '',
       },
       photoURl:'',
-      hasImage:false
+      hasImage:false,
+      textTitle:'Добавить фото ',
+      copyImgPath:'',
     }
   },
   methods:{
-    ...mapActions('reviews',['addReview']),
+    ...mapActions('reviews',['addReview','updateReveiw']),
+    ...mapActions('tooltips',['showTooltip']),
      loadPhoto(e){
       const file = e.target.files[0];
       this.hasImage = true;
@@ -65,26 +95,105 @@ export default {
       }
     },
     async addNewReview(){
+      if((await this.$validate())===false){
+         this.showTooltip({
+          type:'error',
+          text:'Ошибка валидации'
+        });
+        return;
+      }
       try{
         await this.addReview(this.reviewData);
         this.$emit('toogleAddingForm')
+        this.showTooltip({
+          type:'success',
+          text:'Отзыв успешно добавлен'
+        });
+         
       } catch(error){
 
+      }
+    },
+    async updateCurrentWork(){
+       if((await this.$validate())===false){
+         this.showTooltip({
+          type:'error',
+          text:'Ошибка валидации'
+        });
+        return;
+      }
+      try{  
+        await this.updateReveiw(this.reviewData)
+        this.$emit('toogleAddingForm')
+        this.showTooltip({
+          type:'success',
+          text:'Отзыв успешно обновлен'
+        });
+      } catch(error){
+        console.log(error.message)
       }
     },
     toogleAddingForm(){
       this.$emit('toogleAddingForm');
     },
+    addingMode(){
+      this.reviewData = {
+        photo: '',
+        author: '',
+        occ: '',
+        text: '',
+      };
+      this.photoURl = '';
+      this.hasImage = false;
+      this.textTitle= 'Добавить фото'
+    },
+    editingMode(){
+      this.photoURl='';
+      this.reviewData = {...this.currentReview};
+      this.hasImage = true;
+      this.photoURl = getAbsoluteImgPath(this.reviewData.photo);
+      this.textTitle= 'Изменить фото'
+    }
+  },
+  computed:{
+    ...mapState('reviews',{
+      currentReview:state=>{
+        return state.currentReview;
+      }
+    })
+  },
+  created(){
+    if(this.mode == 'edit'){
+      console.log('edit mode')
+      this.editingMode();
+    } else if(this.mode == 'add'){
+        console.log('add mode')
+      this.addingMode();
+    }
+  },
+  watch:{
+    mode(){
+      if(this.mode == 'add'){
+        alert('вотчер добавления')
+        console.log('Режим добавления')
+        this.addingMode();
+      } else if(this.mode == 'edit'){
+         alert('вотчер редактирования')
+        console.log('Режим редактирования')
+        this.editingMode();
+      }
+    },
+    currentReview(){
+      this.reviewData = {...this.currentReview};
+      this.photoURl='';
+      this.photoURl = getAbsoluteImgPath(this.reviewData.photo);
+    }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
-
-
-
-
 .reviews__user-file{
   width: 0.1px;
 	height: 0.1px;

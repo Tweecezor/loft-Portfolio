@@ -7,22 +7,26 @@
         addReview(
           v-if="showAddingForm"
           @toogleAddingForm="toogleAddingForm"
+          :mode="currentMode"
           )
         section.reviews__change
           ul.reviews__change-list
-            li.reviews__current.reviews__change-item(@click="showAddingForm = true")
+            li.reviews__current.reviews__change-item(@click="showAddingForm = true;currentMode = 'add'")
               .reviews__new
                 .reviews__new-icon
-                .reviews__new-text Добавить работу
+                .reviews__new-text Добавить отзыв
             li.reviews__change-item(v-for="review in reviews")
-              reviewsItem
-        pre {{reviews}}
+              reviewsItem(
+                :review="review"
+                @updateCurrentReview='updateCurrentReview'
+              )
+        //- pre {{reviews}}
 </template>
 
 <script>
 import {mapActions,mapState} from 'vuex';
 export default {
-  ...mapActions('reviews',['fetchReview']),
+  
   components:{
     addReview:()=>import('../reviews-add'),
     reviewsItem:()=>import('../reviews-item')
@@ -30,21 +34,27 @@ export default {
   data(){
     return{
       showAddingForm:false,
-      currentMode:'add'
+      currentMode:'add',
     }
   },
   methods:{
+    ...mapActions('reviews',['fetchReview']),
     toogleAddingForm(){
       this.showAddingForm = !this.showAddingForm;
     },
+    updateCurrentReview(){
+      this.showAddingForm = true;
+      this.currentMode = 'edit'
+    }
     
   },
-  created(){
+  async created(){
+    // console.log('created');
     try{
-      this.fetchReview();
+      await this.fetchReview();
       console.log('fetchReview')
     } catch(error){
-
+      console.log(error.message)
     }
     
   },

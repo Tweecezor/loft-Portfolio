@@ -14,7 +14,7 @@
       .addWorks__change-container.container
         ul.addWorks__change-list
           li.addWorks__current.addWorks__change-item
-            .addWorks__new(@click="showAddingForm = true;currentMode = 'add'")
+            .addWorks__new(@click="showAddingForm = true; currentMode = 'add'")
               .addWorks__new-icon
               .addWorks__new-text Добавить работу
           li.addWorks__change-item(v-for="work in works")
