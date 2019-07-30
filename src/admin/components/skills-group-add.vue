@@ -1,9 +1,11 @@
 <template lang="pug">
   .skills__form
     .skills__new-group-wrap
+      div.error-input {{validation.firstError('skillTitle')}}
       input.skills__new-group(
         type='text' name="groupName" placeholder="Название новой группы"
         v-model="skillTitle"
+        :class="{validError:validation.hasError('skillTitle')}"
         )
       .skills__new-group-actions
         .skills__accept(@click="addNewCategory")
@@ -71,6 +73,7 @@ export default {
           type:'success',
           text:'Категория успешно добавлена'
         })    
+       
         // setTimeout(this.func, 3000);
       } catch(error){
         this.showTooltip({
@@ -91,6 +94,15 @@ export default {
 
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
+
+.error-input{
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    top: -11px;
+    left: 5px;
+
+}
 .skills__form{
   padding:20px;
   display: flex;
@@ -245,6 +257,12 @@ position: relative;
   background: svg-load("remove.svg", fill="white") center center no-repeat / contain;
   transform:rotate(45deg) translate(-70%,0%);
 }
+}
+.validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
 }
 </style>
 

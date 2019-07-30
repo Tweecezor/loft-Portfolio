@@ -7,21 +7,25 @@
       label(for="reviews-avatar").reviews__user
         .reviews__user-avatar(
           :style="{'background-image':`url(${this.photoURl})`}"
-          :class="{imaged:hasImage}"
+          :class="{imaged:hasImage,validErrorImg:validation.hasError('reviewData.photo')}"
         )
         //-  icon
-        .reviews__user-add
+        .reviews__user-add()
+        
           h3.reviews__user-text {{textTitle}}
       .reviews__info
         .reviews__label-wrap.reviews__label-wrap--name
           label(for="name").reviews__label.label Имя автора
-          input(type="text" name="name" id="name" v-model="reviewData.author").input.reviews__input.
+          input(type="text" name="name" id="name" v-model="reviewData.author" :class="{validError:validation.hasError('reviewData.author')}").input.reviews__input.
+          div.error-input {{validation.firstError('reviewData.author')}}
         .reviews__label-wrap.reviews__label-wrap--status
           label(for="status").reviews__label.label Титул автора
-          input(type="text" name="status" id="status" v-model="reviewData.occ").input.reviews__input
+          input(type="text" name="status" id="status" v-model="reviewData.occ" :class="{validError:validation.hasError('reviewData.occ')}").input.reviews__input
+          div.error-input {{validation.firstError('reviewData.occ')}}
         .reviews__label-wrap.reviews__label-wrap--review
           label(for="review").reviews__label.label Отзыв
-          textarea(name="review" id="review" v-model="reviewData.text").input.reviews__input.reviews__input--desc
+          textarea(name="review" id="review" v-model="reviewData.text" :class="{validErrorTextarea:validation.hasError('reviewData.text')}").input.reviews__input.reviews__input--desc
+          div.error-input {{validation.firstError('reviewData.text')}}
         .reviews__buttons
             button(type="reset" name="cancel" value="Отменить" @click='toogleAddingForm').reviews__reset Отменить
             button(type="submit" name="submit" value="Сохранить" v-if="mode=='add'" @click='addNewReview').btn.reviews__submit Сохранить
@@ -43,13 +47,13 @@ export default {
   mixins:[require('simple-vue-validator').mixin],
   validators:{
     'reviewData.text'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле отзыв обязательно для заполнения')
     },
     'reviewData.occ'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле титул обязательно для заполнения')
     },
     'reviewData.author'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле имя автора обязательно для заполнения')
     },
     "reviewData.photo": value => {
       return Validator.value(value).required("Вставьте файл");
@@ -319,6 +323,7 @@ export default {
     }
  }
  .reviews__label-wrap{
+   position: relative;
    &--name{
      width: 47%;
      margin-right: 6%;
@@ -366,4 +371,30 @@ height: 180px;
       color:$orange;
    font-weight: 600;
  }
+ .validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
+}
+.validErrorTextarea{
+  border:2px solid red;
+  &:hover{
+     border:2px solid red;
+  }
+}
+.validErrorImg{
+   border:2px solid red;
+  &:hover{
+     border:2px solid red;
+  }
+}
+.error-input{
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    bottom:7px;
+    top:inherit;
+    /* left: 5px; */
+}
 </style>

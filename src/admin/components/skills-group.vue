@@ -1,7 +1,8 @@
 <template lang="pug">
   .skills__form
     .skills__new-group-wrap
-      input.skills__new-group(type='text' name="groupName" :disabled="!editMode" v-model="currentCategory.category")
+      div.error-input {{validation.firstError('currentCategory.category')}}
+      input.skills__new-group(type='text' name="groupName" :disabled="!editMode" v-model="currentCategory.category"  :class="{validError:validation.hasError('currentCategory.category')}")
       //- pre {{currentCategory.category}}
       //- pre {{currentCategory}}
       .skills__new-group-actions(v-if="!editMode")
@@ -27,11 +28,14 @@
       input(
         type="text" name="newSkillInput" placeholder="Новый навык"
         v-model="skill.title"
+        :class="{validError:validation.hasError('skill.title')}"
       ).skills__group-new-skill-input
+      div.error-input.error-input-skill {{validation.firstError('skill.title')}}
       .skills__group-new-skill-percent-wrap
         input(
           type="number" min="0" max="100" name="newSkillPercent"
            v-model="skill.percent"
+           :class="{validError:validation.hasError('skill.percent')}"
         ).skills__group-new-skill-percent
       button(type="button" @click="addNewSkill").skills__group-new-btn
       //- pre {{validation.firstError('currentCategory.category')}}
@@ -51,7 +55,7 @@ export default {
   mixins:[require('simple-vue-validator').mixin],
   validators:{
     'skill.title'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Заполните поле навык')
     },
     "skill.percent": value => {
       return Validator.value(value)
@@ -61,7 +65,7 @@ export default {
     },
     'currentCategory.category'(value){
       console.log(this.currentCategory.category);
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле категория обязательно для заполнения')
     }
    
   },
@@ -105,6 +109,7 @@ export default {
         //  setTimeout(this.func, 3000);
          this.skill.title ='';
          this.skill.percent='';
+        this.validation.reset();
       } catch(error){
         this.showTooltip({
           type:'error',
@@ -173,7 +178,7 @@ export default {
 }
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
 input[disabled]{
   &:hover{
@@ -301,6 +306,7 @@ input[disabled]{
   display: flex;
   padding-left:20%;
   justify-content: space-between;
+  position: relative;
   @include tablets{
     padding-left: 0;
   }
@@ -359,6 +365,24 @@ position: relative;
    &:hover{
      background: svg-load("trash.svg", fill="#bf2929") center center no-repeat / contain;
   }
+}
+.validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
+}
+.error-input{
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    top: -11px;
+    left: 5px;
+    &-skill{
+      bottom: 5px;
+      left: 20%;
+      top:inherit;
+    }
 }
 </style>
 

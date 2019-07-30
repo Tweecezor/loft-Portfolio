@@ -6,27 +6,33 @@
       .addWorks__form()
         .addWorks__file(
           :style="{'background-image':`url(${this.photoURl})`}"
+          :class="{validErrorTextarea:validation.hasError('workData.photo')}"
         )
-          .addWorks__file-upload
+          label(for="photoFile").addWorks__file-upload
             //- input(type="file")
             //- .addWorks__load-text(v-if="!hasImage")
             .addWorks__load-text()
               p Перетащите или загрузите для загрузки изображения
+              vue-dropzone(id="drop1" :options="dropOptions")
               input(type="file" id="photoFile" @change="loadPhoto" accept="image/*").addWorks__file-input
               label(for="photoFile").addWorks__file-btn.btn Загрузить
         .addWorks__info
           .addWorks__label-wrap
             label(for="input-title").addWorks__label Название
-            input(type="text" name="title" id="input-title" v-model="workData.title").addWorks__input.addWorks__input--title
+            input(type="text" name="title" id="input-title" v-model="workData.title"  :class="{validError:validation.hasError('workData.title')}").addWorks__input.addWorks__input--title
+            div.error-input {{validation.firstError('workData.title')}}
           .addWorks__label-wrap
             label(for="input-link").addWorks__label Ссылка
-            input(type="text" name="link" id="input-link" v-model="workData.link").addWorks__input.addWorks__input--link
+            input(type="text" name="link" id="input-link" v-model="workData.link"  :class="{validError:validation.hasError('workData.link')}").addWorks__input.addWorks__input--link
+            div.error-input {{validation.firstError('workData.link')}}
           .addWorks__label-wrap  
             label(for="input-desc").addWorks__label Описание
-            textarea(name="desc" id="input-desc" v-model='workData.description').addWorks__input.addWorks__input--desc
+            textarea(name="desc" id="input-desc" v-model='workData.description'  :class="{validErrorTextarea:validation.hasError('workData.description')}").addWorks__input.addWorks__input--desc
+            div.error-input {{validation.firstError('workData.description')}}
           .addWorks__label-wrap
             label(for="input-tag").addWorks__label Добавление тега
-            input(type="text" name="tag" id="input-tag" v-model='workData.techs').addWorks__input.addWorks__input--tags
+            input(type="text" name="tag" id="input-tag" v-model='workData.techs'  :class="{validError:validation.hasError('workData.techs')}").addWorks__input.addWorks__input--tags
+            div.error-input {{validation.firstError('workData.techs')}}
           .addWorks__tags-list-wrap
             ul.addWorks__tags-list
               li(v-for="item in tagsArray" v-if="tagsArray!=0 && item!=''" ).addWorks__tags-item {{item}}
@@ -47,28 +53,32 @@
 import { mapActions, mapState } from 'vuex';
 import { getAbsoluteImgPath } from "@/helpers/photos";
 import {Validator} from 'simple-vue-validator';
+import vueDropzone from "vue2-dropzone";
 
 export default {
   mixins:[require('simple-vue-validator').mixin],
   validators:{
      'workData.title'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле название обязательно для заполнения')
     },
     'workData.link'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле ссылка обязательно для заполнения')
     },
     'workData.description'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле описание обязательно для заполнения')
     },
-    'workData.title'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
-    },
+    // 'workData.title'(value){
+    //   return Validator.value(value).required('Поле  обязательно для заполнения')
+    // },
     'workData.techs'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+      return Validator.value(value).required('Поле теги обязательно для заполнения')
     },
     "workData.photo": value => {
       return Validator.value(value).required("Вставьте файл");
     }
+  },
+  components:{
+    vueDropzone
   },
   props:{
     mode:String
@@ -84,7 +94,12 @@ export default {
       },
       photoURl:'',
       hasImage : false,
-      tagsArray:[]
+      tagsArray:[],
+      dropOptions: {
+        url: "https://httpbin.org/post",
+        maxFilesize: 1.5, // MB
+        maxFiles: 1,
+      }
     }
   },
   methods:{
@@ -217,6 +232,12 @@ export default {
 
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
+.addWorks__label-wrap{
+  position: relative;
+}
+.addWorks__file-upload{
+  cursor: pointer;
+}
 .addWorks__file{
   background-size:cover;
 }
@@ -384,4 +405,24 @@ font-weight: 700;
  /* .containerAddWorks{
    background: #fff;
  } */
+ .validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
+}
+.validErrorTextarea{
+  border:2px solid red;
+  &:hover{
+     border:2px solid red;
+  }
+}
+.error-input{
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    bottom:7px;
+    top:inherit;
+    /* left: 5px; */
+}
 </style>

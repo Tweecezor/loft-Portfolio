@@ -11,16 +11,20 @@
               input(
                 type="text" name="login" id="login"
                 v-model="userData.name"
+                :class="{validError:validation.hasError('userData.name')}"
               ).login__form-input.login__form-input--login
               .login__form-input-icon-login.login__form-input-icon
+            div.error-input {{validation.firstError('userData.name')}}
           .login__form-label-wrap
             label(for="").login__form-label Пароль
             .login__form-input-wrap
               input(
                 type="password" name="passowrd" id="password"
                 v-model="userData.password"
+                :class="{validError:validation.hasError('userData.password')}"
               ).login__form-input.login__form-input--password
               .login__form-input-icon-password.login__form-input-icon
+            div.error-input {{validation.firstError('userData.password')}}
           input(type="submit" :disabled="disable" name="sumbit" value="Войти"  :class="{ activeForm : active }").login__form-submit
         a(href="index.html" ).login__close
     pre {{userData.name}}    
@@ -35,10 +39,10 @@ export default {
   mixins:[require('simple-vue-validator').mixin],
   validators:{
     'userData.name': value =>{
-      return Validator.value(value).required('Обязательно для заполнения')
+      return Validator.value(value).required('Логин не может быть пустым ')
     },
     'userData.password': value =>{
-      return Validator.value(value).required('Обязательно для заполнения')
+      return Validator.value(value).required('Пароль не может быть пустым')
     }
   },
   components:{
@@ -112,6 +116,7 @@ export default {
          this.active = false;
         this.disable = true;
       }
+      this.validation.reset();
   }
   
 }
@@ -123,7 +128,11 @@ export default {
 pre{
   color:white;
 }
-
+.error-input{
+  color:red;
+  position: absolute;
+  bottom: 0;
+}
 .login{
   background:url('../../../images/content/background-main.jpg') center center;
   background-size:cover;
@@ -183,6 +192,7 @@ line-height: 60px;
     font-weight: 700;
     line-height: 3rem;
     cursor: pointer;
+    margin-top: 20px;
     &:hover{
       border-bottom:none;
     }
@@ -214,7 +224,11 @@ line-height: 60px;
   &:active{
       border-bottom:2px solid $orange;
   }
+
   
+}
+.login__form-input--password{
+   /* margin-bottom: 50px; */
 }
 .login__form{
       display: flex;
@@ -224,6 +238,7 @@ line-height: 60px;
 }
 .login__form-label-wrap{
   width:100%;
+  position: relative;
 }
 .login__form-label{
    margin-bottom: 20px;
@@ -261,6 +276,13 @@ line-height: 60px;
   &-password{
     background: svg-load("key.svg", fill="$text-color") center center no-repeat / contain;
      width:50px;
+    
+  }
+}
+.validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
   }
 }
 

@@ -1,9 +1,11 @@
 <template lang="pug">
   .skills__group
     .skills__group-row-wrap 
-      input(type="text" name="skill_title" v-model="currentSkill.title" :disabled="!editMode").skills__group-input
+      input(type="text" name="skill_title" v-model="currentSkill.title" :disabled="!editMode" :class="{validError:validation.hasError('currentSkill.title')}").skills__group-input
+      div.error-input {{validation.firstError('currentSkill.title')}}
       .skills__group-percent-wrap
-        input(type="number" name="skill_percent"  v-model="currentSkill.percent" :disabled="!editMode").skills__group-percent
+        input(type="number" name="skill_percent"  v-model="currentSkill.percent" :disabled="!editMode" :class="{validError:validation.hasError('currentSkill.percent')}").skills__group-percent
+      //- div.error-input {{validation.firstError('currentSkill.percent')}}
       .skills__group-actions(v-if="!editMode")
         .skills__group-correct(
           @click="editMode = true"
@@ -126,6 +128,7 @@ input[disabled]{
 .skills__group-row-wrap{
   display: flex;
   margin-bottom: 20px;
+  position: relative;
 }
 .skills__group-input{
   border:none;
@@ -209,6 +212,19 @@ input[disabled]{
   width:15px;
   height:15px;
   cursor: pointer;
+}
+.validError{
+  border-bottom:2px solid red;
+  &:hover{
+     border-bottom:2px solid red;
+  }
+}
+.error-input{
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    top: -11px;
+    left: 5px;
 }
 </style>
 
