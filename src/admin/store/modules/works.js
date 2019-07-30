@@ -23,7 +23,9 @@ export default{
     },
     async fecthWorks(store){
       try{
-        const response = await this.$axios.get('/works/154');
+        const userId = store.rootGetters['user/userId'];
+        // console.log(userId);
+        const response = await this.$axios.get(`/works/${userId}`);
         store.commit('SET_WORK',response.data);
       } catch(error){
         alert(error.message);

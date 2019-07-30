@@ -55,7 +55,8 @@ export default{
     },
     async fetchSkill(store){
       try{
-        const {data : skills} = await this.$axios('/skills/154');
+        const userId = store.rootGetters['user/userId'];
+        const {data : skills} = await this.$axios(`/skills/${userId}`);
         console.log(skills);
         store.commit("SET_SKILLS",skills)
       } catch(error){

@@ -21,6 +21,7 @@
               )
             //- pre {{categories}}
             //- pre {{skills}}
+            //- pre {{user}}
 </template>
 
 <script>
@@ -49,8 +50,12 @@ export default {
 
   },
   computed:{
+    ...mapState('user',{
+      user:state=>{
+        return state.user
+      }
+    }),
     ...mapState('categories', {
-      
       categories: state => {
         // alert('подгрузились категории');
         return state.categories}
@@ -73,8 +78,8 @@ export default {
     } catch(error){
       alert(error.message)
     }
-   
-  }
+  },
+
 }
 
 </script>

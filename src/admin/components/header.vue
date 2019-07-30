@@ -22,12 +22,19 @@ export default {
     ...mapActions('user',['userLogout']),
     ...mapActions('tooltips',['showTooltip']),
     async logout(){
-      await this.userLogout();
-      this.showTooltip({
-        type:'error',
-        text:'Скоро увидимся'
-      })
-      this.$router.push('/login');
+      try{
+        await this.userLogout();
+        this.showTooltip({
+          type:'success',
+          text:'Скоро увидимся'
+        })
+        this.$router.push('/login');
+      } catch(error){
+        this.showTooltip({
+          type:'error',
+          text:error.message
+        })
+      }
       
     }
   }

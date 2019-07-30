@@ -36,7 +36,8 @@ export default {
     },
     async fetchReview(store){
       try{
-        const response = await this.$axios.get('/reviews/154');
+        const userId = store.rootGetters['user/userId'];
+        const response = await this.$axios.get(`/reviews/${userId}`);
         console.log('response.data from fetch')
         console.log(response.data)
         store.commit('SET_REVIEW',response.data);

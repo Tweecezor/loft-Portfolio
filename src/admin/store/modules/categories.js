@@ -39,7 +39,8 @@ export default {
     },
     async fetchCategory(store){
       try{
-        const {data : categories} = await this.$axios.get('/categories/154');
+        const userId = store.rootGetters['user/userId'];
+        const {data : categories} = await this.$axios.get(`/categories/${userId}`);
         console.log(categories);
         store.commit("SET_CATEGORIES",categories)
       } catch(error){

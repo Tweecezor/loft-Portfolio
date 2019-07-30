@@ -20,6 +20,9 @@ export default {
         Object.keys(userObj).length === 0 && userObj.constructor === Object;
       return userObjectIsEmpty === false;
     },
+    userId: state => {
+      return state.user.id
+    }
     // userIsLogout: state => {
     //   const userObj = state.user;
     //   const isUserObjectIsEmpty = Object.keys(userObj).length !== 0 && userObj.constructor !== Object;
@@ -36,7 +39,9 @@ export default {
         const response = await axios.post('/logout');
         store.commit("LOGOUT__USER");
       } catch(error){
-        alert(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     }
   }

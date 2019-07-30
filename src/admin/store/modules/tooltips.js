@@ -6,13 +6,11 @@ export default {
   actions:{
     showTooltip(store,toolObj){
       toolObj.active = true;
-      // console.log(toolObj);
       store.commit("SHOW_TOOLTIP",toolObj);
     },
     hideTooltip(store,status){
       store.commit('HIDE_TOOLTIP',status);
     }
-
   },
   mutations:{
     SHOW_TOOLTIP(state,toolObj){
