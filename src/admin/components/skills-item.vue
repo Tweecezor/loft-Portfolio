@@ -2,9 +2,10 @@
   .skills__group
     .skills__group-row-wrap 
       input(type="text" name="skill_title" v-model="currentSkill.title" :disabled="!editMode" :class="{validError:validation.hasError('currentSkill.title')}").skills__group-input
-      div.error-input {{validation.firstError('currentSkill.title')}}
+      div.error-input(v-if="validation.hasError('currentSkill.title')") {{validation.firstError('currentSkill.title')}}
       .skills__group-percent-wrap
         input(type="number" name="skill_percent"  v-model="currentSkill.percent" :disabled="!editMode" :class="{validError:validation.hasError('currentSkill.percent')}").skills__group-percent
+      div.error-input.error-input-percent(v-if="validation.hasError('currentSkill.percent')") {{validation.firstError('currentSkill.percent')}}
       //- div.error-input {{validation.firstError('currentSkill.percent')}}
       .skills__group-actions(v-if="!editMode")
         .skills__group-correct(
@@ -214,17 +215,36 @@ input[disabled]{
   cursor: pointer;
 }
 .validError{
-  border-bottom:2px solid red;
+  border-bottom:2px solid #cd1515;
   &:hover{
-     border-bottom:2px solid red;
+     border-bottom:2px solid #cd1515;
   }
 }
 .error-input{
-    color: red;
-    font-size: 0.75rem;
-    position: absolute;
-    top: -11px;
-    left: 5px;
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -3.25rem;
+  z-index:5;
+  left: 0;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
+}
+.error-input-percent{
+   left: 20rem;
+  /* white-space: nowrap; */
 }
 </style>
 

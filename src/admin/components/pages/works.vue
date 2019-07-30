@@ -22,7 +22,7 @@
               @updateCurrentWork="updateCurrentWork"
               :work="work"
             )
-          pre {{works}}
+          //- pre {{works}}
            
 </template>
 

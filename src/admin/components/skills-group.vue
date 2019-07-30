@@ -1,7 +1,7 @@
 <template lang="pug">
   .skills__form
     .skills__new-group-wrap
-      div.error-input {{validation.firstError('currentCategory.category')}}
+      div.error-input(v-if="validation.hasError('currentCategory.category')") {{validation.firstError('currentCategory.category')}}
       input.skills__new-group(type='text' name="groupName" :disabled="!editMode" v-model="currentCategory.category"  :class="{validError:validation.hasError('currentCategory.category')}")
       //- pre {{currentCategory.category}}
       //- pre {{currentCategory}}
@@ -30,13 +30,14 @@
         v-model="skill.title"
         :class="{validError:validation.hasError('skill.title')}"
       ).skills__group-new-skill-input
-      div.error-input.error-input-skill {{validation.firstError('skill.title')}}
+      div.error-input.error-input-skill(v-if="validation.hasError('skill.title')") {{validation.firstError('skill.title')}}
       .skills__group-new-skill-percent-wrap
         input(
           type="number" min="0" max="100" name="newSkillPercent"
            v-model="skill.percent"
            :class="{validError:validation.hasError('skill.percent')}"
         ).skills__group-new-skill-percent
+        div.error-input.error-input-percent(v-if="validation.hasError('skill.percent')") {{validation.firstError('skill.percent')}}
       button(type="button" @click="addNewSkill").skills__group-new-btn
       //- pre {{validation.firstError('currentCategory.category')}}
       //- pre {{validation.allErrors('currentCategory.category')}}
@@ -61,7 +62,7 @@ export default {
       return Validator.value(value)
         .integer("Должно быть числом")
         .between(0, 100, "Вне диапазона")
-        .required("Поле нобязательно для заполнения");
+        .required("заполните поле");
     },
     'currentCategory.category'(value){
       console.log(this.currentCategory.category);
@@ -367,22 +368,36 @@ position: relative;
   }
 }
 .validError{
-  border-bottom:2px solid red;
+  border-bottom:2px solid #cd1515;
   &:hover{
-     border-bottom:2px solid red;
+     border-bottom:2px solid #cd1515;
   }
 }
 .error-input{
-    color: red;
-    font-size: 0.75rem;
-    position: absolute;
-    top: -11px;
-    left: 5px;
-    &-skill{
-      bottom: 5px;
-      left: 20%;
-      top:inherit;
-    }
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom:-20px;
+  z-index:5;
+  left: 140px;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
+}
+.error-input-percent{
+   left: -1rem;
+  white-space: nowrap;
 }
 </style>
 

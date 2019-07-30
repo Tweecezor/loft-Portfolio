@@ -14,7 +14,7 @@
                 :class="{validError:validation.hasError('userData.name')}"
               ).login__form-input.login__form-input--login
               .login__form-input-icon-login.login__form-input-icon
-            div.error-input {{validation.firstError('userData.name')}}
+            div.error-input(v-if="validation.firstError('userData.name')") {{validation.firstError('userData.name')}}
           .login__form-label-wrap
             label(for="").login__form-label Пароль
             .login__form-input-wrap
@@ -24,10 +24,10 @@
                 :class="{validError:validation.hasError('userData.password')}"
               ).login__form-input.login__form-input--password
               .login__form-input-icon-password.login__form-input-icon
-            div.error-input {{validation.firstError('userData.password')}}
+            div.error-input(v-if="validation.firstError('userData.password')") {{validation.firstError('userData.password')}}
           input(type="submit" :disabled="disable" name="sumbit" value="Войти"  :class="{ activeForm : active }").login__form-submit
         a(href="index.html" ).login__close
-    pre {{userData.name}}    
+    //- pre {{userData.name}}    
   
 </template>
 
@@ -74,13 +74,17 @@ export default {
         $axios.defaults.headers["Authorization"] = `Bearer ${token}`
         this.$router.replace('/');
         console.log(localStorage);
+        this.showTooltip({
+          type:'success',
+          text:'Добро пожаловать'
+        })
       } catch(error){
         console.log(error.response);
         this.showTooltip({
           type:'error',
           text:error.response.data.error
         })
-        console.log('after SHOWTOOLTIP');
+        // console.log('after SHOWTOOLTIP');
         // alert(error.response.data.error);
         }
       }
@@ -128,11 +132,7 @@ export default {
 pre{
   color:white;
 }
-.error-input{
-  color:red;
-  position: absolute;
-  bottom: 0;
-}
+
 .login{
   background:url('../../../images/content/background-main.jpg') center center;
   background-size:cover;
@@ -279,10 +279,32 @@ line-height: 60px;
     
   }
 }
-.validError{
-  border-bottom:2px solid red;
+.error-input{
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -1.5rem;
+  z-index:5;
+  left: 0;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
+}
+.validErrorTextarea{
+  border:2px solid #cd1515;
   &:hover{
-     border-bottom:2px solid red;
+     border:2px solid #cd1515;
   }
 }
 

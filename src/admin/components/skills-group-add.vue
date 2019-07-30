@@ -1,7 +1,7 @@
 <template lang="pug">
   .skills__form
     .skills__new-group-wrap
-      div.error-input {{validation.firstError('skillTitle')}}
+      div.error-input(v-if="validation.hasError('skillTitle')") {{validation.firstError('skillTitle')}}
       input.skills__new-group(
         type='text' name="groupName" placeholder="Название новой группы"
         v-model="skillTitle"
@@ -96,12 +96,26 @@ export default {
 @import url("../../styles/mixins.pcss");
 
 .error-input{
-    color: red;
-    font-size: 0.75rem;
-    position: absolute;
-    top: -11px;
-    left: 5px;
-
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom:-20px;
+  z-index:5;
+  left: 5px;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
 }
 .skills__form{
   padding:20px;
@@ -259,9 +273,9 @@ position: relative;
 }
 }
 .validError{
-  border-bottom:2px solid red;
+  border-bottom:2px solid #cd1515;
   &:hover{
-     border-bottom:2px solid red;
+     border-bottom:2px solid #cd1515;
   }
 }
 </style>

@@ -15,7 +15,9 @@
       .addWorks__desc-controls
         .addWorks__desc-correct(@click="updateCurrentWork") Править
         .addWorks__desc-remove(@click="removeCurrentWork") Удалить
-      pre {{work.photo}}
+      //- pre {{work.photo}}
+      //- pre {{tagArray}}
+      //- pre {{work}}
 
       //- pre {{work}}
 </template>
@@ -78,6 +80,7 @@ export default {
     work(){
       this.currentWork = {...this.work};
       this.work.photo = getAbsoluteImgPath(this.work.photo);
+      this.tagArray = this.work.techs.split(',');
     }
   }
 }

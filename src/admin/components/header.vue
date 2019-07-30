@@ -20,9 +20,15 @@ import { mapActions, mapState } from "vuex";
 export default {
   methods:{
     ...mapActions('user',['userLogout']),
+    ...mapActions('tooltips',['showTooltip']),
     async logout(){
       await this.userLogout();
+      this.showTooltip({
+        type:'error',
+        text:'Скоро увидимся'
+      })
       this.$router.push('/login');
+      
     }
   }
 }

@@ -18,7 +18,6 @@ export default {
       const userObj = state.user;
       const userObjectIsEmpty =
         Object.keys(userObj).length === 0 && userObj.constructor === Object;
-
       return userObjectIsEmpty === false;
     },
     // userIsLogout: state => {

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode=development --hot",
     "build": "rm -rf dist && webpack --mode=production --progress",
-    "reg": "node reg-util.js"
+    "reg": "node reg-util.js",
+    "test":"jest test/login.test.js"
   },
   "keywords": [],
   "author": "",
@@ -42,6 +43,7 @@
     "terser-webpack-plugin": "^1.2.3",
     "vue-loader": "^15.6.4",
     "vue-template-compiler": "^2.6.7",
+    "webdriverio": "^4.14.4",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.0"
@@ -52,6 +54,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "axios": "^0.19.0",
+    "jest": "^24.8.0",
     "normalize.css": "^8.0.1",
     "promptly": "^3.0.3",
     "pug": "^2.0.3",

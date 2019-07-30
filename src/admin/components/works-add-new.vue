@@ -8,44 +8,46 @@
           :style="{'background-image':`url(${this.photoURl})`}"
           :class="{validErrorTextarea:validation.hasError('workData.photo')}"
         )
-          label(for="photoFile").addWorks__file-upload
+          .addWorks__file-upload
             //- input(type="file")
             //- .addWorks__load-text(v-if="!hasImage")
-            .addWorks__load-text()
+            label(for="photoFile").addWorks__load-text
               p Перетащите или загрузите для загрузки изображения
-              vue-dropzone(id="drop1" :options="dropOptions")
+              vue-dropzone(id="drop1" :options="dropOptions").dropzone
               input(type="file" id="photoFile" @change="loadPhoto" accept="image/*").addWorks__file-input
-              label(for="photoFile").addWorks__file-btn.btn Загрузить
+              .addWorks__file-btn.btn Загрузить
         .addWorks__info
           .addWorks__label-wrap
             label(for="input-title").addWorks__label Название
             input(type="text" name="title" id="input-title" v-model="workData.title"  :class="{validError:validation.hasError('workData.title')}").addWorks__input.addWorks__input--title
-            div.error-input {{validation.firstError('workData.title')}}
+            div.error-input(v-if="validation.firstError('workData.title')") {{validation.firstError('workData.title')}}
           .addWorks__label-wrap
             label(for="input-link").addWorks__label Ссылка
             input(type="text" name="link" id="input-link" v-model="workData.link"  :class="{validError:validation.hasError('workData.link')}").addWorks__input.addWorks__input--link
-            div.error-input {{validation.firstError('workData.link')}}
+            div.error-input(v-if="validation.firstError('workData.link')") {{validation.firstError('workData.link')}}
           .addWorks__label-wrap  
             label(for="input-desc").addWorks__label Описание
             textarea(name="desc" id="input-desc" v-model='workData.description'  :class="{validErrorTextarea:validation.hasError('workData.description')}").addWorks__input.addWorks__input--desc
-            div.error-input {{validation.firstError('workData.description')}}
+            div.error-input(v-if="validation.firstError('workData.description')") {{validation.firstError('workData.description')}}
           .addWorks__label-wrap
             label(for="input-tag").addWorks__label Добавление тега
             input(type="text" name="tag" id="input-tag" v-model='workData.techs'  :class="{validError:validation.hasError('workData.techs')}").addWorks__input.addWorks__input--tags
-            div.error-input {{validation.firstError('workData.techs')}}
+            div.error-input(v-if="validation.firstError('workData.techs')") {{validation.firstError('workData.techs')}}
           .addWorks__tags-list-wrap
             ul.addWorks__tags-list
-              li(v-for="item in tagsArray" v-if="tagsArray!=0 && item!=''" ).addWorks__tags-item {{item}}
+              li(v-for="(item,index) in tagsArray" v-if="tagsArray!=0 && item!=''" ).addWorks__tags-item {{item}}
+                .deleteTag(@click="removeTag(index)") x
           .addWorks__buttons
             button(type="reset" name="cancel" value="Отменить" @click="toogleAddingForm").addWorks__reset Отменить
             button(type="submit" name="submit" value="Сохранить" @click='addNewWorks' v-if="mode=='add'").btn.addWorks__submit Сохранить
             button(type="submit" name="submit" value="Сохранить" @click='updateCurrentWork' v-if="mode=='edit'").btn.addWorks__submit Сохранить
-      pre {{photoURl}}
+      //- pre {{photoURl}}
       //- span WORKDATA
-      pre {{workData.photo}}
+      //- pre {{workData.photo}}
       //- span currentWork
       //- pre {{currentWork}}
       //- pre {{mode}}
+      //- pre {{tagsArray}}
 
 </template>
 
@@ -99,6 +101,8 @@ export default {
         url: "https://httpbin.org/post",
         maxFilesize: 1.5, // MB
         maxFiles: 1,
+        chunking:false,
+        addRemoveLinks:false
       }
     }
   },
@@ -107,6 +111,11 @@ export default {
     ...mapActions('tooltips',['showTooltip','hideTooltip']),
     toogleAddingForm(){
       this.$emit('toogleAddingForm');
+    },
+    removeTag(currentTag){
+      console.log(currentTag);
+      this.tagsArray.splice(currentTag, 1);
+      this.workData.techs = this.tagsArray.join(',')
     },
     loadPhoto(e){
       const file = e.target.files[0];
@@ -232,6 +241,13 @@ export default {
 
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
+
+
+.dropzone{
+  width:100%;
+  height: 100%;
+}
+
 .addWorks__label-wrap{
   position: relative;
 }
@@ -241,13 +257,15 @@ export default {
 .addWorks__file{
   background-size:cover;
 }
-.addWorks__file-input{
-  width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+.addWorks__file-input,
+.dropzone{
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  cursor: pointer;
+  /* z-index: -1; */
 }
 .addWorks__file-input + label {
   cursor: pointer;
@@ -306,16 +324,18 @@ font-weight: 700;
     font-weight: 400;
     line-height: 33.89px;
     text-align: center;
-      height: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    width: 45%;
     justify-content: center;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    position: relative;
     p{
       margin-bottom: 20px;
+       width: 45%;
     }
  }
  .addWorks__info{
@@ -377,13 +397,23 @@ font-weight: 700;
    background-color: #f4f4f4;
    border-radius: 15px;
    margin-right: 10px;
+   padding-right: 30px;
+   position: relative;
+    display: flex;
    &:last-child{
      margin-right: 0px;
    }
    @include phones{
-         padding: 5px 10px;
+      padding: 5px 10px;
     font-size: 12px;
    }
+ }
+ .deleteTag{
+    position: absolute;
+    right: 10%;
+    cursor: pointer;
+    font-weight: 700;
+    top:4px;
  }
  .addWorks__tags-list-wrap{
    margin-bottom: 30px;
@@ -405,24 +435,40 @@ font-weight: 700;
  /* .containerAddWorks{
    background: #fff;
  } */
- .validError{
-  border-bottom:2px solid red;
+.validError{
+  border-bottom:2px solid #cd1515;
   &:hover{
-     border-bottom:2px solid red;
-  }
-}
-.validErrorTextarea{
-  border:2px solid red;
-  &:hover{
-     border:2px solid red;
+     border-bottom:2px solid #cd1515;
   }
 }
 .error-input{
-    color: red;
-    font-size: 0.75rem;
-    position: absolute;
-    bottom:7px;
-    top:inherit;
-    /* left: 5px; */
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -1.5rem;
+  z-index:5;
+  left: 0;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
 }
+.validErrorTextarea{
+  border:2px solid #cd1515;
+  &:hover{
+     border:2px solid #cd1515;
+  }
+}
+
+
 </style>

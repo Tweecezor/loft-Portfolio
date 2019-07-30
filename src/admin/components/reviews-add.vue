@@ -17,24 +17,24 @@
         .reviews__label-wrap.reviews__label-wrap--name
           label(for="name").reviews__label.label Имя автора
           input(type="text" name="name" id="name" v-model="reviewData.author" :class="{validError:validation.hasError('reviewData.author')}").input.reviews__input.
-          div.error-input {{validation.firstError('reviewData.author')}}
+          div.error-input(v-if="validation.firstError('reviewData.author')") {{validation.firstError('reviewData.author')}}
         .reviews__label-wrap.reviews__label-wrap--status
           label(for="status").reviews__label.label Титул автора
           input(type="text" name="status" id="status" v-model="reviewData.occ" :class="{validError:validation.hasError('reviewData.occ')}").input.reviews__input
-          div.error-input {{validation.firstError('reviewData.occ')}}
+          div.error-input(v-if="validation.firstError('reviewData.occ')") {{validation.firstError('reviewData.occ')}}
         .reviews__label-wrap.reviews__label-wrap--review
           label(for="review").reviews__label.label Отзыв
           textarea(name="review" id="review" v-model="reviewData.text" :class="{validErrorTextarea:validation.hasError('reviewData.text')}").input.reviews__input.reviews__input--desc
-          div.error-input {{validation.firstError('reviewData.text')}}
+          div.error-input(v-if="validation.firstError('reviewData.text')") {{validation.firstError('reviewData.text')}}
         .reviews__buttons
             button(type="reset" name="cancel" value="Отменить" @click='toogleAddingForm').reviews__reset Отменить
             button(type="submit" name="submit" value="Сохранить" v-if="mode=='add'" @click='addNewReview').btn.reviews__submit Сохранить
             button(type="submit" name="submit" value="Сохранить" v-if="mode=='edit'" @click='updateCurrentWork').btn.reviews__submit Сохранить
-    pre {{reviewData}}
+    //- pre {{reviewData}}
     //- pre {{copyImgPath}}
-    pre {{reviewData.photo}}
-    pre {{photoURl}}
-    pre {{currentReview}}
+    //- pre {{reviewData.photo}}
+    //- pre {{photoURl}}
+    //- pre {{currentReview}}
     //- pre {{mode}}
 
 </template>
@@ -371,30 +371,46 @@ height: 180px;
       color:$orange;
    font-weight: 600;
  }
- .validError{
-  border-bottom:2px solid red;
-  &:hover{
-     border-bottom:2px solid red;
-  }
-}
-.validErrorTextarea{
-  border:2px solid red;
-  &:hover{
-     border:2px solid red;
-  }
-}
+
 .validErrorImg{
-   border:2px solid red;
+   border:2px solid #cd1515;
   &:hover{
-     border:2px solid red;
+     border:2px solid #cd1515;
+  }
+}
+.validError{
+  border-bottom:2px solid #cd1515;
+  &:hover{
+     border-bottom:2px solid #cd1515;
   }
 }
 .error-input{
-    color: red;
-    font-size: 0.75rem;
-    position: absolute;
-    bottom:7px;
-    top:inherit;
-    /* left: 5px; */
+  background: #cd1515;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -1.5rem;
+  z-index:5;
+  left: 0;
+  color: white;
+  padding: 15px 20px;
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 15px 7.5px;
+    border-color: transparent transparent #cd1515 transparent;
+    position:absolute;
+    top: -0.225rem;
+    left: 50%;
+    transform:translate(0,-50%);
+  }
 }
+.validErrorTextarea{
+  border:2px solid #cd1515;
+  &:hover{
+     border:2px solid #cd1515;
+  }
+}
+
 </style>
