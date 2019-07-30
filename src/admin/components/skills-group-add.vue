@@ -60,7 +60,7 @@ export default {
       if ((await this.$validate()) === false){
       this.showTooltip({
         type:'error',
-        text:'Ошибка валидации'
+        text:'Не все поля заполнены'
       });
       // setTimeout(this.func, 3000);
       return;
@@ -73,8 +73,10 @@ export default {
         })    
         // setTimeout(this.func, 3000);
       } catch(error){
-        alert(error.message)
-        alert('ОШИБКА!!')
+        this.showTooltip({
+          type:'error',
+          text:error.message
+        });
       }
       },
       func() {

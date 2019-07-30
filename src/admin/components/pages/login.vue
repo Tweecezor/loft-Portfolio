@@ -21,8 +21,8 @@
                 v-model="userData.password"
               ).login__form-input.login__form-input--password
               .login__form-input-icon-password.login__form-input-icon
-          input(type="submit" name="sumbit" value="Войти" :class="{ activeForm : active }").login__form-submit
-        a(href="index.html").login__close
+          input(type="submit" :disabled="disable" name="sumbit" value="Войти"  :class="{ activeForm : active }").login__form-submit
+        a(href="index.html" ).login__close
     pre {{userData.name}}    
   
 </template>
@@ -50,7 +50,8 @@ export default {
         name : "tweecz-0719",
         password : "TheNamelessTweecz"
       },
-      active:false
+      active:false,
+      disable:true
     }
   },
   methods:{
@@ -84,17 +85,21 @@ export default {
     'userData.name'(){
       if((this.userData.password!='') && (this.userData.name!='')){
         console.log('test');
-        this.active = true;
+       this.active = true;
+        this.disable = false;
       } else{
-         this.active = false;
+        this.active = false;
+        this.disable = true;
       }
     },
     'userData.password'(){
       if((this.userData.password!='') && (this.userData.name!='')){
         console.log('test');
         this.active = true;
+        this.disable = false;
       } else{
-         this.active = false;
+        this.active = false;
+        this.disable = true;
       }
     }
   },
@@ -102,8 +107,10 @@ export default {
        if((this.userData.password!='') && (this.userData.name!='')){
         console.log('test');
         this.active = true;
+        this.disable = false;
       } else{
          this.active = false;
+        this.disable = true;
       }
   }
   
@@ -176,6 +183,9 @@ line-height: 60px;
     font-weight: 700;
     line-height: 3rem;
     cursor: pointer;
+    &:hover{
+      border-bottom:none;
+    }
    
 }
 .activeForm{

@@ -49,7 +49,12 @@ export default {
         text:'Работа успешно удалена'
       });
       }catch(error){
-        alert(error.message)
+        // alert(error.message)
+         this.showTooltip({
+        type:'error',
+        text:error.message
+      })
+        
       }
     },
     updateCurrentWork(){

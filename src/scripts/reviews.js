@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Flickity from 'vue-flickity';
+const axios = require('axios');
+axios.defaults.baseURL = 'https://webdev-api.loftschool.com';
+// import {mapState} from 'vuex';
  
 new Vue({
   el:".reviews",
@@ -59,9 +62,21 @@ new Vue({
       })
     }
   },
-  created(){
+  // computed:{
+  //   ...mapState('reviews',{
+  //     review: state=>{
+  //       return state.reviews
+  //     }
+  //   })
+  // }
+  async created(){
     const data = require('./reviews.json');
+    // console.log(data)
     this.info = this.makeArrayWithRequiredImages(data);
+    // const response = await axios.get('/reviews/154');
+    // console.log(response.data)
+    // this.info = response.data
+    // console.log(this.info)
   }
 });
 

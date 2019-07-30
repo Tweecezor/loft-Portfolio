@@ -80,6 +80,7 @@ export default {
       this.hasImage = true;
       this.reviewData.photo = file;
       this.hasImage = true;
+      this.textTitle = 'Изменить фото'
       console.log(file);
       console.log(this.reviewData.photo);
       const reader = new FileReader();
@@ -91,14 +92,14 @@ export default {
         }
       } catch(error){
         alert(error.message);
-        console.log(error.message);
+        console.log(error.message.errors.photo);
       }
     },
     async addNewReview(){
       if((await this.$validate())===false){
          this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         return;
       }
@@ -111,14 +112,17 @@ export default {
         });
          
       } catch(error){
-
+        this.showTooltip({
+          type:'error',
+          text:'Размер картинки больше 1,5 МБ'
+        });
       }
     },
     async updateCurrentWork(){
        if((await this.$validate())===false){
          this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         return;
       }
@@ -131,6 +135,10 @@ export default {
         });
       } catch(error){
         console.log(error.message)
+        this.showTooltip({
+          type:'error',
+          text:'Размер картинки больше 1,5 МБ'
+        });
       }
     },
     toogleAddingForm(){
@@ -174,11 +182,11 @@ export default {
   watch:{
     mode(){
       if(this.mode == 'add'){
-        alert('вотчер добавления')
+        // alert('вотчер добавления')
         console.log('Режим добавления')
         this.addingMode();
       } else if(this.mode == 'edit'){
-         alert('вотчер редактирования')
+        //  alert('вотчер редактирования')
         console.log('Режим редактирования')
         this.editingMode();
       }

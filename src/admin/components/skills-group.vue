@@ -91,7 +91,7 @@ export default {
       if ((await this.$validate()) === false){
         this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         // setTimeout(this.func, 3000);
         return;
@@ -106,7 +106,10 @@ export default {
          this.skill.title ='';
          this.skill.percent='';
       } catch(error){
-        alert(error.message)
+        this.showTooltip({
+          type:'error',
+          text:error.message
+        });
       }
     },
     async removeCurrentCategory(){
@@ -118,7 +121,10 @@ export default {
         })
         // setTimeout(this.func, 3000);
       } catch(error){
-         alert(error.message)
+        this.showTooltip({
+          type:'error',
+          text:error.message
+        });
       }
     },
     func() {
@@ -157,6 +163,11 @@ export default {
     category:function(){
        this.currentCategory = {...this.category},
        this.skill.category = this.category.id
+    },
+    'skill.percent'(){
+      if(this.skill.percent>100){
+        this.skill.percent = 100;
+      }
     }
   }
 }

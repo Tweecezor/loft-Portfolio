@@ -1,4 +1,5 @@
 import { wrapIntoFormData } from "@/helpers/forms";
+import { makeErrorTooltip } from "@/helpers/errors";
 
 
 export default {
@@ -15,7 +16,10 @@ export default {
         console.log(response.data)
         store.commit("ADD_REVIEW",response.data);
       } catch(error){
-        alert(error.message);
+      //  makeErrorTooltip(error)
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async removeReview(store,removeReview){
@@ -25,15 +29,22 @@ export default {
         store.commit('REMOVE_REVIEW',removeReview);
       }catch(error){
         console.log(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async fetchReview(store){
       try{
         const response = await this.$axios.get('/reviews/154');
+        console.log('response.data from fetch')
         console.log(response.data)
         store.commit('SET_REVIEW',response.data);
       } catch(error){
         alert(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     addCurrentReview(store,currentReview){
@@ -48,6 +59,9 @@ export default {
         store.commit('UPDATE_CURRENT_REVIEW',response.data.review);
       } catch(error){
         console.log(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     }
   },

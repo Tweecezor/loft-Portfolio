@@ -116,22 +116,29 @@ export default {
        if((await this.$validate())===false){
          this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         return;
       }
-      await this.addWork(this.workData);
-      this.showTooltip({
-        type:'success',
-        text:'Работа успешно добавлена'
-      });
-      this.$emit('toogleAddingForm');
+      try{
+        await this.addWork(this.workData);
+        this.showTooltip({
+          type:'success',
+          text:'Работа успешно добавлена'
+        });
+        this.$emit('toogleAddingForm');
+      } catch(error){
+         this.showTooltip({
+          type:'error',
+          text:'Размер картинки больше 1,5 МБ'
+        });
+      }
     },
     async updateCurrentWork(){
       if((await this.$validate())===false){
          this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         this.workData = {...this.currentWork}
         return;
@@ -144,7 +151,10 @@ export default {
         });
         this.$emit('toogleAddingForm');
       } catch(error){
-        alert(error.message);
+         this.showTooltip({
+          type:'error',
+          text:'Размер картинки больше 1,5 МБ'
+        });
       }
     },
     addingMode(){
@@ -168,11 +178,11 @@ export default {
     },
     mode(){
       if(this.mode == 'add'){
-        alert('вотчер добавления')
+        // alert('вотчер добавления')
         console.log('Режим добавления')
         this.addingMode();
       } else if(this.mode == 'edit'){
-         alert('вотчер редактирования')
+        //  alert('вотчер редактирования')
         console.log('Режим редактирования')
         this.editingMode();
     }

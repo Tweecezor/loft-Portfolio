@@ -1,6 +1,8 @@
 // console.log('this is skills module');
 
 import Vue from 'vue';
+const axios = require('axios');
+axios.defaults.baseURL = 'https://webdev-api.loftschool.com';
 
 const skill = {
   template:"#skill",
@@ -22,6 +24,10 @@ const skills__block_item = {
   },
   components:{
     skill
+  },
+  created(){
+    console.log("skill")
+    console.log(this.skill)
   }
 }
 
@@ -37,8 +43,13 @@ new Vue({
       skills : []
     }
   },
-  created(){
+  async created(){
     const data = require('./skills.json');
     this.skills = data;
+    // const response = await axios.get('/skills/154');
+    // console.log(response.data)
+    // this.skills = response.data
+    // console.log("skillS")
+    // console.log(this.skills)
   }
 });

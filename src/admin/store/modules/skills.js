@@ -38,7 +38,9 @@ export default{
         const response =  await this.$axios.delete(`/skills/${skillId}`)
         store.commit("DELETE_SKILL",skillId);
       } catch(error){
-
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async editSkill(store,skill){
@@ -46,7 +48,9 @@ export default{
         const response = await this.$axios.post(`/skills/${skill.id}`,skill);
         store.commit("EDIT_SKILL",skill)
       } catch(error){
-        alert(error.message)
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async fetchSkill(store){
@@ -55,7 +59,9 @@ export default{
         console.log(skills);
         store.commit("SET_SKILLS",skills)
       } catch(error){
-
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     }
   }

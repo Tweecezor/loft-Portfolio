@@ -1,5 +1,5 @@
 import { wrapIntoFormData } from "@/helpers/forms";
-import { mapActions } from 'vuex';
+// import { mapActions } from 'vuex';
 
 export default{
   namespaced:true,
@@ -8,7 +8,7 @@ export default{
     currentWork:{}
   },
   actions:{
-    ...mapActions('tooltips',['showTooltip']),
+    // ...mapActions('tooltips',['showTooltip']),
     async addWork(store,newWork){
       const data = wrapIntoFormData(newWork);
       // alert("АКШОН В РАБОТЕ")
@@ -16,12 +16,9 @@ export default{
         const response = await this.$axios.post('/works',data);
         store.commit("ADD_WORK",response.data);
       } catch(error){
-        // alert(error.message);
-        console.log(error.message);
-        showTooltip({
-          type:'error',
-          text:error.message
-        });
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async fecthWorks(store){
@@ -30,6 +27,9 @@ export default{
         store.commit('SET_WORK',response.data);
       } catch(error){
         alert(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async removeWork(store,work){
@@ -39,6 +39,9 @@ export default{
 
       } catch(error){
         alert(error.message);
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     },
     async addCurrentWork(store,currentWork){
@@ -51,7 +54,9 @@ export default{
         const response = await this.$axios.post(`/works/${updatedWork.id}`,data);
         store.commit('UPDATE_CURRENT_WORK',response.data.work);
       } catch(error){
-
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        )
       }
     }
   },

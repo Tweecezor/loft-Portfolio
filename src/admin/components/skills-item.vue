@@ -61,14 +61,17 @@ export default {
         })
         // setTimeout(this.func, 3000);
       } catch(error){
-        alert(error.message)
+        this.showTooltip({
+            type:'error',
+            text:error.message
+        });
       }
     },
     async changeCurrentSkill(){
       if((await this.$validate())===false){
          this.showTooltip({
           type:'error',
-          text:'Ошибка валидации'
+          text:'Не все поля заполнены'
         });
         this.currentSkill = {...this.skill};
         return;
@@ -81,7 +84,10 @@ export default {
         });
         this.editMode = false;
       } catch(error){
-         alert(error.message)
+          this.showTooltip({
+            type:'error',
+            text:error.message
+        });
       }
     },
     cancelEditing(){
@@ -95,6 +101,11 @@ export default {
   watch:{
     skill:function(){
        this.currentSkill={...this.skill}
+    },
+    "currentSkill.percent"(){
+      if(this.currentSkill.percent > 100){
+        this.currentSkill.percent = 100;
+      }
     }
   }
  
