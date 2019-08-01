@@ -15,16 +15,6 @@
         //- reviews
         //- login
 
-                          
-      
-      
-
-      
-
-  
-      
-      
-
             
 </template>
 
@@ -37,7 +27,8 @@ import about from "./components/pages/about";
 import works from "./components/pages/works";
 import reviews from "./components/pages/reviews";
 import login from "./components/pages/login";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
+import store from '@/store';
 export default {
   components:{
     headerComponent,
@@ -67,7 +58,10 @@ export default {
         }, 3000);
       }
     }
-  }
+  },
+  // created(){
+  //   const isLoggin = store.getters["user/userIsLogged"];
+  // }
 }
 </script>
 

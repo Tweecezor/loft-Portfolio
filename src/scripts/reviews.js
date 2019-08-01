@@ -10,10 +10,10 @@ new Vue({
     Flickity
   },
   props:{
-    infoName : String,
-    infoText : String,
-    infoImage: String,
-    infoStatus : String
+    // infoName : String,
+    // infoText : String,
+    // infoImage: String,
+    // infoStatus : String
   },
   data() {
     return {
@@ -27,41 +27,53 @@ new Vue({
       contain:true,
       freeScroll:false,
       selectedAttraction: 0.01,
-      friction: 0.15,
-      // autoPlay: true
-      // selectedAttraction:0.1,
-      // friction:0.8
-      // height: '100%'     
-      }
+      friction: 0.15, 
+      },
+      isCreate:false,
+      height:'',
+      sliderCount:0
      
     }
   },
   methods: {
     next() {
+      // this.$refs.flickity.resize();
+      this.sliderCount++;
       this.$refs.flickity.next();
     },
  
     previous() {
+      this.sliderCount--;
       this.$refs.flickity.previous();
     },
     checkArrows(){
       if(this.$refs.flickity.selectedIndex() == 0){
         this.$refs.arrow_left.disabled=true;
+        this.$refs.arrow_right.disabled=false;
       } else if(this.$refs.flickity.selectedIndex() == this.$refs.flickity.slides().length-1){
         this.$refs.arrow_right.disabled=true;
+        this.$refs.arrow_left.disabled=false;
       } else{
         this.$refs.arrow_left.disabled=false;
         this.$refs.arrow_right.disabled=false;
       }
     },
+    // makeArrayWithRequiredImages(data) {
+    //   return data.map(item =>{
+    //     const requirePic = require(`../images/content/${item.avatar}`);
+    //     item.avatar = requirePic;
+    //     return item;
+    //   })
+    // },
     makeArrayWithRequiredImages(data) {
       return data.map(item =>{
-        const requirePic = require(`../images/content/${item.avatar}`);
-        item.avatar = requirePic;
+        const requirePic = (`https://webdev-api.loftschool.com/${item.photo}`);
+        item.photo = requirePic;
         return item;
       })
     }
   },
+
   // computed:{
   //   ...mapState('reviews',{
   //     review: state=>{
@@ -70,13 +82,20 @@ new Vue({
   //   })
   // }
   async created(){
-    const data = require('./reviews.json');
+    // const data = require('./reviews.json');
     // console.log(data)
-    this.info = this.makeArrayWithRequiredImages(data);
-    // const response = await axios.get('/reviews/154');
+    const response = await axios.get('/reviews/154');
+   
     // console.log(response.data)
     // this.info = response.data
+    this.info = this.makeArrayWithRequiredImages(response.data);
+    this.isCreate = true;
     // console.log(this.info)
+  },
+  watch:{
+    isCreate(){
+      this.height="200px"
+    } 
   }
 });
 

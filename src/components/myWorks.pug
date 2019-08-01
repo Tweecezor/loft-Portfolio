@@ -9,14 +9,19 @@ script(type="text/x-template")#myWorks__container
     .myWorks__content
       .myWorks__slider
         display(
+          v-if="isCreate"
           :works="works",
           :currentWork="currentWork"
+          :currentIndex="currentIndex"
           @slide="handleSlide"
           @sliderPreviewClick = "sliderPreviewClick"
         )
         info(
+          v-if="isCreate"
           :currentWork="currentWork"
         )
+    //- pre {{works}}
+    //- pre {{currentWork}}
         
 script(type="text/x-template")#myWorks__display
   .myWorks__slider-pics-wrap
@@ -27,24 +32,27 @@ script(type="text/x-template")#myWorks__display
         preview(
           :works="works",
           :currentWork="currentWork"
+          :currentIndex="currentIndex"
            @sliderPreviewClick="currentId => $emit('sliderPreviewClick',currentId)"
         )
         controls(
           @slide="direction => $emit('slide',direction)"
         )
       .myWorks__slider-number-wrap
-        .myWorks__slider-number {{currentWork.id}}
+        .myWorks__slider-number {{currentIndex+1}}
+    //- pre {{works[0]}}
 
 script(type="text/x-template")#myWorks__preview
   ul.myWorks__slider-preview
     li.myWorks__slider-preview_item(
       ref="slideritems"
       v-for="work in works"
-      @click.prevent="$emit('sliderPreviewClick',work.id)"
+      @click.prevent="$emit('sliderPreviewClick',currentIndex)"
       :class="{myWorks__slider_preview_active:work.id===currentWork.id}"
       )
       a(href="#" ref="slider_link").myWorks__slider-img
         img(:src="work.photo").myWorks__slider-image
+      //- pre {{work}}
 
 script(type="text/x-template")#myWorks__btn_controls
   .myWorks__slider-controls
@@ -59,10 +67,12 @@ script(type="text/x-template")#myWorks__info
     .myWorks__slider-title-wrap
       .myWorks__slider-title {{currentWork.title}}
     .myWorks__slider-text
-      p {{currentWork.desc}}
+      p {{currentWork.description}}
     .myWorks__slider-link-wrap
       +icon('link','myWorks__slider-link-icon')
       a(:href="currentWork.link").myWorks__slider-link Посмотреть сайт
+    //- pre {{currentWork}}
+    //- pre {{devStackArray}}
 
 script(type="text/x-template")#myWorks__dev_stack
   ul.myWorks__slider-tags-list

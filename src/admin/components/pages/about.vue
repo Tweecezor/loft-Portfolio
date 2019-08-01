@@ -19,6 +19,7 @@
                 :category="category"
                 :skills="filterSkillsByCategoryId(category.id)"
               )
+              //- div {{category}}
             //- pre {{categories}}
             //- pre {{skills}}
             //- pre {{user}}

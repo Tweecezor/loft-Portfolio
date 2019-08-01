@@ -9,20 +9,20 @@ section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
         button.reviews__btn--next.reviews__btn(ref="arrow_right" type="button" @click='next()' :disabled="false")
           +icon('arrow-down','reviews__btn--next_link')
     .reviews__content
-      flickity(ref="flickity" :options="flickityOptions").reviews__slider
-        .reviews__item-wrap(v-for="item in info")
+      flickity(ref="flickity" :options="flickityOptions" v-if="isCreate").reviews__slider
+        .reviews__item-wrap(v-for="item in info" :style="{height: height}")
           .reviews__item
             .reviews__text.text 
               p {{item.text}}
             .reviews__user  
               .reviews__user-avatar
                 //- +image('content/dima_avatar.jpg', 'reviews__avatar')
-                img(:src="item.avatar").reviews__avatar
+                img(:src="item.photo").reviews__avatar
               .reviews__user-data
-                h3.reviews__user-name_title {{item.name}}
-                .reviews__user-status_title {{item.status}}
+                h3.reviews__user-name_title {{item.author}}
+                .reviews__user-status_title {{item.occ}}
 
-
+    //- pre {{info}}
 
 
 

@@ -1,19 +1,7 @@
 import Vue from "vue";
-const preview = {
-  template:"#myWorks__preview",
-  data(){
-    return{
-      itemsArr : []
-    }
-  },
-  props:{
-    works:Array,
-    currentWork:Object
-  }
-}
-const controls={
-  template:"#myWorks__btn_controls"
-}
+const axios = require('axios');
+axios.defaults.baseURL = 'https://webdev-api.loftschool.com';
+
 
 const devStack={
   template:"#myWorks__dev_stack",
@@ -21,6 +9,7 @@ const devStack={
     devStack:Array
   }
 }
+
 
 const info ={
   template:"#myWorks__info",
@@ -32,11 +21,31 @@ const info ={
   },
   computed:{
     devStackArray(){
-      return this.currentWork.skills.split(', ');
+      return this.currentWork.techs.split(',');
     }
   }
-  
 }
+
+const controls={
+  template:"#myWorks__btn_controls"
+}
+
+
+const preview = {
+  template:"#myWorks__preview",
+  data(){
+    return{
+      itemsArr : []
+    }
+  },
+  props:{
+    works:Array,
+    currentWork:Object,
+    currentIndex:Number
+  }
+}
+
+
 
 const display ={
   template:"#myWorks__display",
@@ -46,7 +55,8 @@ const display ={
   },
   props:{
     works:Array,
-    currentWork:Object
+    currentWork:Object,
+    currentIndex:Number
   }
 }
 
@@ -60,7 +70,8 @@ components:{
 data(){
   return{
     works:[],
-    currentIndex : 0
+    currentIndex : 0,
+    isCreate:false
   }
 },
 computed:{
@@ -80,7 +91,7 @@ watch:{
 methods:{
   makeArrayWithRequiredImages(data) {
     return data.map(item =>{
-      const requirePic = require(`../images/content/${item.photo}`);
+      const requirePic = (`https://webdev-api.loftschool.com/${item.photo}`);
       item.photo = requirePic;
       return item;
     })
@@ -99,9 +110,13 @@ methods:{
     this.currentIndex = currentId-1;
   }
 },
-created(){
-  const data = require('./myWorks.json');
-  this.works = this.makeArrayWithRequiredImages(data);
+async created(){
+  // const data = require('./myWorks.json');
+  
+  const responseWorks = await axios.get('/works/154');
+  console.log(responseWorks.data)
+  this.works = this.makeArrayWithRequiredImages(responseWorks.data);
+  this.isCreate = true;
 }
 
 });

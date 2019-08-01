@@ -8,18 +8,27 @@ section.skills
             p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
       .skills__block
         #skills__container
+    
        
 script(type="text/x-template")#skills__list
   ul.skills__block_list
-    li.skills__block_item(v-for="skill in skills")
-      skills__block_item(:skill="skill")
+    li.skills__block_item(v-for="category in responseCategory")
+      skills__block_item(
+        :category="category"
+        :skill="filterSkillsByCategoryId(category.id)"
+      )
+    //- pre {{skills}}
+    //- pre {{newSkills}}
+    //- pre {{responseSkills}}
+    //- pre {{responseCategory}}
 
 script(type="text/x-template")#skills__block-item
   .skills__block-caption-wrap
-    h3.skills__block-caption {{skill.skillsGroup}}
+    h3.skills__block-caption {{category.category}}
     ul.skills__bars_list
-      li.skills__bars_item.skill(v-for="(skillPercent,skillName) in skill.skills")
-        skill(:skillName="skillName",:skillPercent="skillPercent")
+      li.skills__bars_item.skill(v-for="currentSkill in skill")
+        skill(:currentSkill="currentSkill")
+    //- pre {{skill}}
       //- +skill('skills__bars',[{tech:'HTML5',value:'animation-delay: -25s'},{tech:'CSS3',value:'animation-delay: -20s'},{tech:'JavaScript',value:'animation-delay: -75s'},{tech:'jQuery и Vue.js',value:'animation-delay: -25s'}])
 
 
@@ -31,5 +40,6 @@ script(type="text/x-template")#skill
       linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0")
         stop(offset="0%" stop-color="#ea7400")
         stop(offset="100%" stop-color="#f29400")
-    .skill__item-tech {{skillName}}
+    .skill__item-tech {{currentSkill.title}}
+    //- pre {{currentSkill}}
 //- +skill('skills__bars',[{tech:'HTML5',value:'animation-delay: -25s'},{tech:'CSS3',value:'animation-delay: -20s'},{tech:'JavaScript',value:'animation-delay: -75s'},{tech:'jQuery и Vue.js',value:'animation-delay: -25s'}])
