@@ -51,8 +51,8 @@ export default {
   data(){
     return{
       userData:{
-        name : "tweecz-0719",
-        password : "TheNamelessTweecz"
+        name : "",
+        password : ""
       },
       active:false,
       disable:true
