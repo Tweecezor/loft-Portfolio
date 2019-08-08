@@ -102,9 +102,9 @@ export default {
     },
   },
   watch:{
-    skill:function(){
-       this.currentSkill={...this.skill}
-    },
+    // skill:function(){
+    //    this.currentSkill={...this.skill}
+    // },
     "currentSkill.percent"(){
       if(this.currentSkill.percent > 100){
         this.currentSkill.percent = 100;

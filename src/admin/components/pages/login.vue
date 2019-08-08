@@ -73,7 +73,7 @@ export default {
         localStorage.setItem('token',token)
         $axios.defaults.headers["Authorization"] = `Bearer ${token}`
         this.$router.replace('/');
-        console.log(localStorage);
+        // console.log(localStorage);
         this.showTooltip({
           type:'success',
           text:'Добро пожаловать'
