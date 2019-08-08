@@ -14,7 +14,11 @@
     .parallax__img{
       object-fit:cover;
       width:100%;
+      background-image:url('../images/content/parallax-top.png');
+      background-size:cover;
       @include tablets{
+         background-image:url('../images/content/parallax-top-mobile.png');
+      background-size:cover;
         /* height: 20%; */
             height: 60%;
       }
@@ -23,20 +27,28 @@
   }
   &:nth-child(2){
     .parallax__img{
+      background-image:url('../images/content/parallax-mountain.png');
+      background-size:cover;
       /* top:210px; */
       @include tablets{
         /* top: 12.125rem;
         height: 20%; */
         top: 1.125rem;
         height: 50%;
+        background-image:url('../images/content/parallax-mountain-mobile.png');
+        background-size:cover;
       }
      
     }
   }
   &:nth-child(3){
     .parallax__img{
+      background-image:url('../images/content/parallax-train.png');
+      background-size:cover;
       /* top:290px; */
       @include tablets{
+        background-image:url('../images/content/parallax-train-mobile.png');
+      background-size:cover;
         /* height: 20%;
         top: 15.125rem; */
         /* height: 43%; */
@@ -49,8 +61,12 @@
   &:nth-child(4){
     z-index:5;
     .parallax__img{
+      background-image:url('../images/content/parallax-bottom.png');
+      background-size:cover;
       /* top:505px; */
       @include tablets{
+         background-image:url('../images/content/parallax-bottom-mobile.png');
+      background-size:cover;
         /* height: 30%;
         top: 30.5625rem; */
         /* height: 30%;
