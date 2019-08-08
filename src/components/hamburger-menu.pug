@@ -1,10 +1,25 @@
 nav.hamburger-nav(id='hamburger-menu')
   ul.hamburger-nav__list
-    -var menu = ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться']
-    each item in menu 
-      li.hamburger-nav__item
-        a(href="#").hamburger-nav__link=item
+    li.hamburger-nav__item
+      a(href="#main-section").hamburger-nav__link Главная
+    li.hamburger-nav__item
+      a(href="#about-section").hamburger-nav__link Обо мне
+    li.hamburger-nav__item
+      a(href="#skills-section").hamburger-nav__link Навыки
+    li.hamburger-nav__item
+      a(href="#works-section").hamburger-nav__link Работы
+    li.hamburger-nav__item
+      a(href="#reviews").hamburger-nav__link Отзывы
+    li.hamburger-nav__item
+      a(href="#contact-section").hamburger-nav__link Связаться
   +socials('hamburger')
   include ./socials.pug
   .hamburger-close(id="close-hamburger")
     a.close-menu(href="#")
+
+
+
+  //- -var menu = ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться']
+  //-   each item in menu 
+  //-     li.hamburger-nav__item
+  //-       a(href="#").hamburger-nav__link=item
