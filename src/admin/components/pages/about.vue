@@ -19,12 +19,7 @@
                 :category="category"
                 :skills="filterSkillsByCategoryId(category.id)"
               )
-              //- div {{category}}
-            //- pre {{categories}}
-            //- pre {{skills}}
-            //- pre {{user}}
 </template>
-
 <script>
 import skillsGroup from "../skills-group.vue";
 import skillsGroupAdd from "../skills-group-add.vue";
@@ -58,11 +53,7 @@ export default {
     }),
     ...mapState('categories', {
       categories: state => {
-        // alert('подгрузились категории');
         return state.categories}
-      // categories = state =>{
-      //   return state.categories
-      // }
     }),
     ...mapState('skills',{
       skills:state=>state.skills
@@ -87,11 +78,6 @@ export default {
 
 <style lang="postcss" scoped>
 @import url("../../../styles/mixins.pcss");
-
-
-.about__content{
-  /* padding: 30px; */
-}
 .container-about{
   margin-bottom: 30px;
   @include phones{
