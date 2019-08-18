@@ -11,6 +11,7 @@ script(type="text/x-template")#myWorks__container
         display(
           v-if="isCreate"
           :works="works",
+          :splicedWorks="splicedWorks"
           :currentWork="currentWork"
           :currentIndex="currentIndex"
           @slide="handleSlide"
@@ -22,6 +23,7 @@ script(type="text/x-template")#myWorks__container
         )
     //- pre {{works}}
     //- pre {{currentWork}}
+    pre {{splicedWorks}}
         
 script(type="text/x-template")#myWorks__display
   .myWorks__slider-pics-wrap
@@ -30,7 +32,8 @@ script(type="text/x-template")#myWorks__display
         img(:src="currentWork.photo").myWorks__slider-current-pic
       .myWorks__slider-preview-wrap
         preview(
-          :works="works",
+          :works="works"
+          :splicedWorks='splicedWorks'
           :currentWork="currentWork"
           :currentIndex="currentIndex"
            @sliderPreviewClick="currentId => $emit('sliderPreviewClick',currentId)"
@@ -40,24 +43,25 @@ script(type="text/x-template")#myWorks__display
         )
       .myWorks__slider-number-wrap
         .myWorks__slider-number {{currentIndex+1}}
+      
     //- pre {{works[0]}}
 
 script(type="text/x-template")#myWorks__preview
   ul.myWorks__slider-preview
     li.myWorks__slider-preview_item(
       ref="slideritems"
-      v-for="work in works"
-      @click.prevent="$emit('sliderPreviewClick',currentIndex)"
+      v-for="(work,index) in splicedWorks"
+      @click.prevent="$emit('sliderPreviewClick',index)"
       :class="{myWorks__slider_preview_active:work.id===currentWork.id}"
       )
       a(href="#" ref="slider_link").myWorks__slider-img
         img(:src="work.photo").myWorks__slider-image
-      //- pre {{work}}
+      div {{index}}
 
 script(type="text/x-template")#myWorks__btn_controls
   .myWorks__slider-controls
-    button.myWorks__slider-btn.myWorks__slider-next(@click.prevent="$emit('slide','next')") >
-    button.myWorks__slider-btn.myWorks__slider-prev(@click.prevent="$emit('slide','prev')") <
+    button.myWorks__slider-btn.myWorks__slider-next( ref='btnNext' @click.prevent="$emit('slide','next')") >
+    button.myWorks__slider-btn.myWorks__slider-prev.disabledBtn(ref='btnPrev' @click.prevent="$emit('slide','prev')") <
 
 script(type="text/x-template")#myWorks__info
   .myWorks__slider-desc
@@ -79,3 +83,4 @@ script(type="text/x-template")#myWorks__dev_stack
     li.myWorks__slider-tags-item(v-for="tag in devStack")
       .myWorks__slider-tag {{tag}}
     
+

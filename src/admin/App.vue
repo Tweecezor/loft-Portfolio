@@ -9,13 +9,7 @@
           headerComponent
           navComponent
           router-view
-          tooltips
-        //- about
-        //- works
-        //- reviews
-        //- login
-
-            
+          tooltips  
 </template>
 
 
