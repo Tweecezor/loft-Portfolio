@@ -96,6 +96,8 @@ watch:{
     this.newSplicePos = this.works.length - 3;
   }
 },
+
+
 methods:{
   makeArrayWithRequiredImages(data) {
     return data.map(item =>{
@@ -104,57 +106,118 @@ methods:{
       return item;
     })
   },
-  handleSlide(direction){
+
+
+  async handleSlide(direction){
    switch(direction){
-     case 'next':
-     document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-enter');
-     document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-leave');
-     setTimeout(this.changeCurrentItemNext,this.interval);
-     break;
+    case 'next':
+      this.animationsAction({
+        imageAction:'leave'
+      });
+      this.blockButtons();
+      setTimeout(this.changeCurrentItemNext,this.interval);
+      break;
       
-     case 'prev':
-     document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-enter');
-     document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-leave');
-     setTimeout(this.changeCurrentItemPrev,this.interval);
-     break;
+    case 'prev':
+      this.animationsAction({
+        imageAction:'leave'
+      });
+      this.blockButtons();
+      setTimeout(this.changeCurrentItemPrev,this.interval);
+      break;
    }
   },
 
-  changeCurrentItemNext(){
-    let worksLength = this.works.length-1;
-    if(this.currentIndex !== worksLength){
-      this.currentIndex++;
-      document.querySelector('.myWorks__slider-prev').classList.remove('disabledBtn')
-      document.querySelector('.myWorks__slider-prev').removeAttribute('disabled')
+
+  animationsAction(obj){
+    if(obj.direction!==undefined){
+
+      let button = document.querySelector(`.myWorks__slider-${obj.direction}`);
+      switch(obj.btnAction){
+        case 'remove':
+          button.classList.remove('disabledBtn')
+          button.removeAttribute('disabled')
+          break;
+        case 'add':
+          button.classList.add('disabledBtn')
+          button.setAttribute('disabled','disabled')
+      }
+    } 
+
+    let image = document.querySelector('.myWorks__slider-current-pic-wrap');
+
+    switch(obj.imageAction){
+      case 'leave':
+        image.classList.remove('slide-enter');
+        image.classList.add('slide-leave');
+        console.log(obj.action);
+        break;
+      case 'enter':
+        image.classList.remove('slide-leave');
+        image.classList.add('slide-enter');
+        console.log(obj.action);
+        break;
     }
-    if(this.currentIndex === worksLength){
-      document.querySelector('.myWorks__slider-next').classList.add('disabledBtn')
-      document.querySelector('.myWorks__slider-next').setAttribute('disabled','disabled')
-    }
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-leave');
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-enter');
   },
 
+
+  changeCurrentItemNext(){
+
+    let worksLength = this.works.length-1;
+
+    if(this.currentIndex !== worksLength){
+      this.currentIndex++;
+      this.animationsAction({
+        direction:'prev',
+        btnAction:'remove'
+      })
+    }
+
+    if(this.currentIndex === worksLength){
+      this.animationsAction({
+        direction:'next',
+        btnAction:'add'
+      })
+    }
+
+    this.animationsAction({
+      imageAction:'enter'
+    })
+    this.unblockButtons();
+  },
+
+
   changeCurrentItemPrev(){
+
     if(this.currentIndex !== 0){
       this.currentIndex--;
-      document.querySelector('.myWorks__slider-next').classList.remove('disabledBtn')
-      document.querySelector('.myWorks__slider-next').removeAttribute('disabled')
+      this.animationsAction({
+        direction:'next',
+        btnAction:'remove'
+      })
     }
 
     if(this.currentIndex === 0){
-      document.querySelector('.myWorks__slider-prev').classList.add('disabledBtn')
-      document.querySelector('.myWorks__slider-prev').setAttribute('disabled','disabled')
+      this.animationsAction({
+        direction:'prev',
+        btnAction:'add'
+      })
     } 
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-leave');
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-enter');
+
+    this.animationsAction({
+      imageAction:'enter'
+    })
+    this.unblockButtons();
   },
+
 
   changeCurrentItemPreview(currentId){
     this.currentIndex = currentId;
-    // console.log('lalaal')
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-leave');
-    document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-enter');
+
+    this.animationsAction({
+      imageAction:'enter'
+    })
+
     if(this.currentIndex!=this.works.length-1)
       document.querySelector('.myWorks__slider-next').classList.remove('disabledBtn')
     else {
@@ -169,24 +232,37 @@ methods:{
     }
   },
 
+
   sliderPreviewClick(currentId){
     if(this.newSplicePos != 0 ){
-      // console.log('timout2s');
-      // setTimeout(this.currentIndex = currentId + this.newSplicePos,2000); 
-      document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-enter');
-      document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-leave');
+      this.animationsAction({
+        imageAction:'leave'
+      })
       setTimeout(this.changeCurrentItemPreview,this.interval,currentId + this.newSplicePos);
     }
     else{
-      document.querySelector('.myWorks__slider-current-pic-wrap').classList.remove('slide-enter');
-      document.querySelector('.myWorks__slider-current-pic-wrap').classList.add('slide-leave');
+      this.animationsAction({
+        imageAction:'leave'
+      })
       setTimeout(this.changeCurrentItemPreview,this.interval,currentId);
     }
+  },
+
+  blockButtons(){
+    document.querySelector('.myWorks__slider-next').setAttribute('disabled','disabled')
+    document.querySelector('.myWorks__slider-prev').setAttribute('disabled','disabled')
+    console.log('blocked')
+  },
+
+  unblockButtons(){
+    document.querySelector('.myWorks__slider-next').removeAttribute('disabled','disabled')
+    document.querySelector('.myWorks__slider-prev').removeAttribute('disabled','disabled')
+    console.log('unblocked')
   }
 },
+
 async created(){
   const responseWorks = await axios.get('/works/154');
-  // console.log(responseWorks.data)
   this.works = this.makeArrayWithRequiredImages(responseWorks.data);
   this.isCreate = true;
 },
