@@ -1,156 +1,165 @@
-.contact{
-  width:80%;
-  @include tablets{
-    width:100%;
+.contact {
+  width: 80%;
+  @include tablets {
+    width: 100%;
   }
 }
-.contact__title-wrap{
+.contact__title-wrap {
   margin-bottom: 100px;
 }
-.contact__form{
+.contact__form {
   display: flex;
   flex-wrap: wrap;
-  @include phones{
+  @include phones {
     flex-direction: column;
   }
 }
-.contact__form-wrap{
+.contact__form-wrap {
   width: 47%;
   margin-bottom: 4.5rem;
   position: relative;
-  &--name{
+  &--name {
     margin-right: 6%;
   }
-  &--text{
-     width:100%;
+  &--text {
+    width: 100%;
     margin-bottom: 5.75rem;
   }
-  @include phones{
-    width:100%;
+  @include phones {
+    width: 100%;
   }
 }
-.contact__form-input-wrap{
+.contact__form-input-wrap {
   margin-bottom: 22px;
 }
 
-.input-error{
+.input-error {
   position: absolute;
   top: 100%;
   left: 0;
   color: white;
   padding: 15px 20px;
-  display:none;
+  display: none;
   /* opacity: 0; */
-   transition: 1s;
+  transition: 1s;
   background-color: #cd1515;
-  &--vis{
+  &--vis {
     display: block;
     /* opacity: 1; */
     transition: 1s;
   }
-  &:after{
-    content:'';
+  &:after {
+    content: "";
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 7.5px 15px 7.5px;
     border-color: transparent transparent #cd1515 transparent;
-    position:absolute;
+    position: absolute;
     top: -0.225rem;
     left: 50%;
-    transform:translate(0,-50%);
+    transform: translate(0, -50%);
   }
 }
-.contact__form-input{
-  width:100%;
-  background:transparent;
-  border:none;
-  border-bottom:2px solid white;
-  padding-right:5px;
-  color:white;
+.contact__form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  padding-right: 5px;
+  color: white;
   font-weight: 700;
   font-size: 18px;
   padding-left: 45px;
   padding-bottom: 19px;
-  color:white;
-  transition:.75s;
-  &--text{
-    resize:none;
-    line-height:36px;
-   @include phones{
+  color: white;
+  transition: 0.75s;
+  &--text {
+    resize: none;
+    line-height: 36px;
+    @include phones {
       height: 150px;
-   }
+    }
   }
-  &:hover{
-     border-bottom:2px solid #f29400;
-     transition:.75s;
+  &:hover {
+    border-bottom: 2px solid #f29400;
+    transition: 0.75s;
   }
-  &:active{
+  &:active {
     /* border-bottom:2px solid #f29400; */
-    outline-color:none;
+    outline-color: none;
   }
-  &:focus{
-     /* border-bottom:2px solid #f29400; */
-     outline-color:none;
+  &:focus {
+    /* border-bottom:2px solid #f29400; */
+    outline-color: none;
+  }
+}
+.contact__form-input {
+  &:before {
+    content: "";
+    width: 30px;
+    height: 50px;
+    color: red;
+    background: green;
   }
 }
 
 .contact__form-input-wrap:hover .form-icon,
 .contact__form-input:focus .form-icon,
-.contact__form-input:active .form-icon{
-  transition:.75s;
-  fill:#ff9a00;
+.contact__form-input:active .form-icon {
+  transition: 0.75s;
+  fill: #ff9a00;
 }
 
-.contact__form-label{
+.contact__form-label {
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
-  padding-left:45px;
+  padding-left: 45px;
   margin-bottom: 30px;
   display: block;
 }
-.contact__form-icon-wrap{
+.contact__form-icon-wrap {
   position: absolute;
   top: 3.25rem;
   left: 0;
   text-align: left;
-  &--text{
-     top: 4.25rem;
+  &--text {
+    top: 4.25rem;
   }
 }
-.form-icon{
-  width:30px;
+.form-icon {
+  width: 30px;
   height: 30px;
-  fill:$text-color;
+  fill: $text-color;
   position: absolute;
-  transition:.75s;
+  transition: 0.75s;
 }
-.contact__form-submit{
-  background:linear-gradient(to right, #ea7400 0%, #f29400 100%);
-  color:white;
-  border:none;
+.contact__form-submit {
+  background: linear-gradient(to right, #ea7400 0%, #f29400 100%);
+  color: white;
+  border: none;
   padding: 20px 100px;
   font-size: 18px;
   font-weight: 700;
   line-height: 48px;
   cursor: pointer;
-  &:hover{
-    background:linear-gradient(to left, #ea7400 0%, #f29400 100%);
+  &:hover {
+    background: linear-gradient(to left, #ea7400 0%, #f29400 100%);
   }
-  @include phones{
+  @include phones {
     width: 100%;
   }
 }
-.contact__form-error{
-  border-bottom:2px solid red;
-  &:hover{
-     border-bottom:2px solid red;
+.contact__form-error {
+  border-bottom: 2px solid red;
+  &:hover {
+    border-bottom: 2px solid red;
   }
 }
- .contact__icon-error{
-  fill:red;
+.contact__icon-error {
+  fill: red;
 }
-.contact__form-input-wrap:hover .contact__icon-error{
-     fill:red;
+.contact__form-input-wrap:hover .contact__icon-error {
+  fill: red;
 }

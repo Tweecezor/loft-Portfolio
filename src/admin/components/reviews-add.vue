@@ -40,377 +40,380 @@
 </template>
 
 <script>
-import { mapActions,mapState } from 'vuex';
-import {getAbsoluteImgPath} from '@/helpers/photos.js'
-import {Validator} from 'simple-vue-validator'
+import { mapActions, mapState } from "vuex";
+import { getAbsoluteImgPath } from "@/helpers/photos.js";
+import { Validator } from "simple-vue-validator";
 export default {
-  mixins:[require('simple-vue-validator').mixin],
-  validators:{
-    'reviewData.text'(value){
-      return Validator.value(value).required('Поле отзыв обязательно для заполнения')
+  mixins: [require("simple-vue-validator").mixin],
+  validators: {
+    "reviewData.text"(value) {
+      return Validator.value(value).required(
+        "Поле отзыв обязательно для заполнения"
+      );
     },
-    'reviewData.occ'(value){
-      return Validator.value(value).required('Поле титул обязательно для заполнения')
+    "reviewData.occ"(value) {
+      return Validator.value(value).required(
+        "Поле титул обязательно для заполнения"
+      );
     },
-    'reviewData.author'(value){
-      return Validator.value(value).required('Поле имя автора обязательно для заполнения')
+    "reviewData.author"(value) {
+      return Validator.value(value).required(
+        "Поле имя автора обязательно для заполнения"
+      );
     },
     "reviewData.photo": value => {
       return Validator.value(value).required("Вставьте файл");
     }
   },
-  props:{
-    mode:String
+  props: {
+    mode: String
   },
-  data(){
-    return{
-      reviewData:{
-        photo: '',
-        author: '',
-        occ: '',
-        text: '',
+  data() {
+    return {
+      reviewData: {
+        photo: "",
+        author: "",
+        occ: "",
+        text: ""
       },
-      photoURl:'',
-      hasImage:false,
-      textTitle:'Добавить фото ',
-      copyImgPath:'',
-    }
+      photoURl: "",
+      hasImage: false,
+      textTitle: "Добавить фото ",
+      copyImgPath: ""
+    };
   },
-  methods:{
-    ...mapActions('reviews',['addReview','updateReveiw']),
-    ...mapActions('tooltips',['showTooltip']),
-     loadPhoto(e){
+  methods: {
+    ...mapActions("reviews", ["addReview", "updateReveiw"]),
+    ...mapActions("tooltips", ["showTooltip"]),
+    loadPhoto(e) {
       const file = e.target.files[0];
       this.hasImage = true;
       this.reviewData.photo = file;
       this.hasImage = true;
-      this.textTitle = 'Изменить фото'
+      this.textTitle = "Изменить фото";
       console.log(file);
       console.log(this.reviewData.photo);
       const reader = new FileReader();
-      try{
+      try {
         reader.readAsDataURL(file);
-        reader.onload = () =>{
+        reader.onload = () => {
           this.photoURl = reader.result;
           console.log(this.photoURl);
-        }
-      } catch(error){
+        };
+      } catch (error) {
         alert(error.message);
         console.log(error.message.errors.photo);
       }
     },
-    async addNewReview(){
-      if((await this.$validate())===false){
-         this.showTooltip({
-          type:'error',
-          text:'Не все поля заполнены'
+    async addNewReview() {
+      if ((await this.$validate()) === false) {
+        this.showTooltip({
+          type: "error",
+          text: "Не все поля заполнены"
         });
         return;
       }
-      try{
+      try {
         await this.addReview(this.reviewData);
-        this.$emit('toogleAddingForm')
+        this.$emit("toogleAddingForm");
         this.showTooltip({
-          type:'success',
-          text:'Отзыв успешно добавлен'
+          type: "success",
+          text: "Отзыв успешно добавлен"
         });
-         
-      } catch(error){
+      } catch (error) {
         this.showTooltip({
-          type:'error',
-          text:'Размер картинки больше 1,5 МБ'
+          type: "error",
+          text: "Размер картинки больше 1,5 МБ"
         });
       }
     },
-    async updateCurrentWork(){
-       if((await this.$validate())===false){
-         this.showTooltip({
-          type:'error',
-          text:'Не все поля заполнены'
+    async updateCurrentWork() {
+      if ((await this.$validate()) === false) {
+        this.showTooltip({
+          type: "error",
+          text: "Не все поля заполнены"
         });
         return;
       }
-      try{  
-        await this.updateReveiw(this.reviewData)
-        this.$emit('toogleAddingForm')
+      try {
+        await this.updateReveiw(this.reviewData);
+        this.$emit("toogleAddingForm");
         this.showTooltip({
-          type:'success',
-          text:'Отзыв успешно обновлен'
+          type: "success",
+          text: "Отзыв успешно обновлен"
         });
-      } catch(error){
-        console.log(error.message)
+      } catch (error) {
+        console.log(error.message);
         this.showTooltip({
-          type:'error',
-          text:'Размер картинки больше 1,5 МБ'
+          type: "error",
+          text: "Размер картинки больше 1,5 МБ"
         });
       }
     },
-    toogleAddingForm(){
-      this.$emit('toogleAddingForm');
+    toogleAddingForm() {
+      this.$emit("toogleAddingForm");
     },
-    addingMode(){
+    addingMode() {
       this.reviewData = {
-        photo: '',
-        author: '',
-        occ: '',
-        text: '',
+        photo: "",
+        author: "",
+        occ: "",
+        text: ""
       };
-      this.photoURl = '';
+      this.photoURl = "";
       this.hasImage = false;
-      this.textTitle= 'Добавить фото'
+      this.textTitle = "Добавить фото";
     },
-    editingMode(){
-      this.photoURl='';
-      this.reviewData = {...this.currentReview};
+    editingMode() {
+      this.photoURl = "";
+      this.reviewData = { ...this.currentReview };
       this.hasImage = true;
       this.photoURl = getAbsoluteImgPath(this.reviewData.photo);
-      this.textTitle= 'Изменить фото'
+      this.textTitle = "Изменить фото";
     }
   },
-  computed:{
-    ...mapState('reviews',{
-      currentReview:state=>{
+  computed: {
+    ...mapState("reviews", {
+      currentReview: state => {
         return state.currentReview;
       }
     })
   },
-  created(){
-    if(this.mode == 'edit'){
-      console.log('edit mode')
+  created() {
+    if (this.mode == "edit") {
+      console.log("edit mode");
       this.editingMode();
-    } else if(this.mode == 'add'){
-        console.log('add mode')
+    } else if (this.mode == "add") {
+      console.log("add mode");
       this.addingMode();
     }
   },
-  watch:{
-    mode(){
-      if(this.mode == 'add'){
+  watch: {
+    mode() {
+      if (this.mode == "add") {
         // alert('вотчер добавления')
-        console.log('Режим добавления')
+        console.log("Режим добавления");
         this.addingMode();
-      } else if(this.mode == 'edit'){
+      } else if (this.mode == "edit") {
         //  alert('вотчер редактирования')
-        console.log('Режим редактирования')
+        console.log("Режим редактирования");
         this.editingMode();
       }
     },
-    currentReview(){
-      this.reviewData = {...this.currentReview};
-      this.photoURl='';
+    currentReview() {
+      this.reviewData = { ...this.currentReview };
+      this.photoURl = "";
       this.photoURl = getAbsoluteImgPath(this.reviewData.photo);
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
-.reviews__user-file{
+.reviews__user-file {
   width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 .reviews__user-file + label {
   cursor: pointer;
 }
 
-.reviews__title{
+.reviews__title {
   padding-bottom: 1.25rem;
-    border-bottom: 1px solid #414c63;
-    margin-bottom: 4.625rem;
-    font-size: 1.125rem;
-    font-weight: 700;
+  border-bottom: 1px solid #414c63;
+  margin-bottom: 4.625rem;
+  font-size: 1.125rem;
+  font-weight: 700;
 }
-.reviews__user-avatar{
+.reviews__user-avatar {
   width: 200px;
   height: 200px;
   background-color: #dee4ed;
   border-radius: 50%;
   margin-bottom: 20px;
   position: relative;
-  background-size:cover;
-  &:before{
-    content:'';
-     background: svg-load("user-admin.svg", fill="#fff") center center no-repeat / contain;
-        width: 5.125rem;
+  background-size: cover;
+  &:before {
+    content: "";
+    background: svg-load("user-admin.svg", fill= "#fff") center center no-repeat /
+      contain;
+    width: 5.125rem;
     height: 5.125rem;
     position: absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
-.imaged{
+.imaged {
   &:before {
     display: none;
   }
 }
 
-.reviews__label{
-   margin-bottom: 20px;
-   display: block;
-   opacity: 0.5;
+.reviews__label {
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.5;
   color: #414c63;
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
- }
- .reviews__input{
-      width:100%;
-   background-color:transparent;
+}
+.reviews__input {
+  width: 100%;
+  background-color: transparent;
   color: #414c63;
   font-size: 16px;
   font-weight: 700;
   line-height: 30px;
   border: none;
   border-bottom: 2px solid #414c63;
-  padding:0px 5px 10px 5px;
-  padding-bottom:10px;
+  padding: 0px 5px 10px 5px;
+  padding-bottom: 10px;
   margin-bottom: 30px;
-    &:hover{
-    border-bottom:2px solid $orange;
+  &:hover {
+    border-bottom: 2px solid $orange;
   }
-  &:active{
-      border-bottom:2px solid $orange;
+  &:active {
+    border-bottom: 2px solid $orange;
   }
- }
- .reviews__content{
-    background-color: white;
- }
- .reviews__form{
-   display: flex;
-   justify-content: space-between;
-   flex-wrap: wrap;
-   @include phones{
-     flex-direction: column;
-    align-items: center;
-   }
- }
- .reviews__user{
-    width: 20%;
-    display: flex;
+}
+.reviews__content {
+  background-color: white;
+}
+.reviews__form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @include phones {
     flex-direction: column;
     align-items: center;
-    @include tablets{
-        width: 24%;
-    }
-    @include phones{
-          width: 100%;
+  }
+}
+.reviews__user {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include tablets {
+    width: 24%;
+  }
+  @include phones {
+    width: 100%;
     margin-bottom: 50px;
+  }
+}
+.reviews__info {
+  width: 75%;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-right: 15%;
+  @include tablets {
+    padding: 0;
+    width: 71%;
+  }
 
+  @include phones {
+    width: 100%;
+  }
+}
+.reviews__label-wrap {
+  position: relative;
+  &--name {
+    width: 47%;
+    margin-right: 6%;
+    @include tablets {
+      width: 75%;
     }
- }
- .reviews__info{
-    width: 75%;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding-right: 15%;
-    @include tablets{
-      padding: 0;
-      width: 71%;
+  }
+  &--status {
+    width: 47%;
+    @include tablets {
+      width: 75%;
     }
-
-    @include phones{
-      width: 100%;
-    }
- }
- .reviews__label-wrap{
-   position: relative;
-   &--name{
-     width: 47%;
-     margin-right: 6%;
-     @include tablets{
-       width: 75%;
-     }
-   }
-   &--status{
-     width:47%;
-      @include tablets{
-       width: 75%;
-     }
-   }
-   &--review{
-     width:100%;
-   }
-   @include phones{
-         width: 100%;
-   }
- }
- .reviews__input--desc{
+  }
+  &--review {
+    width: 100%;
+  }
+  @include phones {
+    width: 100%;
+  }
+}
+.reviews__input--desc {
   border: 1px solid #414c63;
-height: 180px;
-  &:hover{
-    border:1px solid $orange;
+  height: 180px;
+  &:hover {
+    border: 1px solid $orange;
   }
-  &:active{
-      border:1px solid $orange;
+  &:active {
+    border: 1px solid $orange;
   }
- }
- .reviews__buttons{
-   display: flex;
+}
+.reviews__buttons {
+  display: flex;
   justify-content: flex-end;
-      width: 100%;
- }
- .reviews__reset{
-    background: transparent;
-    border: none;
-    color:$orange;
-    margin-right: 30px;
-    cursor: pointer;
- }
- .reviews__user-text{
-    text-align: center;  
-      color:$orange;
-   font-weight: 600;
- }
+  width: 100%;
+}
+.reviews__reset {
+  background: transparent;
+  border: none;
+  color: $orange;
+  margin-right: 30px;
+  cursor: pointer;
+}
+.reviews__user-text {
+  text-align: center;
+  color: $orange;
+  font-weight: 600;
+}
 
-.validErrorImg{
-   border:2px solid #cd1515;
-  &:hover{
-     border:2px solid #cd1515;
+.validErrorImg {
+  border: 2px solid #cd1515;
+  &:hover {
+    border: 2px solid #cd1515;
   }
 }
-.validError{
-  border-bottom:2px solid #cd1515;
-  &:hover{
-     border-bottom:2px solid #cd1515;
+.validError {
+  border-bottom: 2px solid #cd1515;
+  &:hover {
+    border-bottom: 2px solid #cd1515;
   }
 }
-.error-input{
+.error-input {
   background: #cd1515;
   font-size: 0.75rem;
   position: absolute;
   bottom: -1.5rem;
-  z-index:5;
+  z-index: 5;
   left: 0;
   color: white;
   padding: 15px 20px;
-  &:after{
-    content:'';
+  &:after {
+    content: "";
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 7.5px 15px 7.5px;
     border-color: transparent transparent #cd1515 transparent;
-    position:absolute;
+    position: absolute;
     top: -0.225rem;
     left: 50%;
-    transform:translate(0,-50%);
+    transform: translate(0, -50%);
   }
 }
-.validErrorTextarea{
-  border:2px solid #cd1515;
-  &:hover{
-     border:2px solid #cd1515;
+.validErrorTextarea {
+  border: 2px solid #cd1515;
+  &:hover {
+    border: 2px solid #cd1515;
   }
 }
-
 </style>

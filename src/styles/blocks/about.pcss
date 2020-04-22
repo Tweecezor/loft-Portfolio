@@ -1,121 +1,124 @@
-.about-section{
+$color: red;
+
+.about-section {
   /* background:url('../images/content/background-about.png');
   background-size:cover; */
-  background: url('../images/content/background-about.png') 0% 100% no-repeat transparent;
+  background: url("../images/content/background-about.png") 0% 100% no-repeat
+    transparent;
   background-size: cover;
   position: relative;
 }
-.background-wrap{
-   background: url('../images/content/background-about.png') 0% 100% no-repeat transparent;
+.background-wrap {
+  background: url("../images/content/background-about.png") 0% 100% no-repeat
+    transparent;
   background-size: cover;
-  width:100%;
+  width: 100%;
   height: 100%;
   position: absolute;
 }
-.about__wrap{
+.about__wrap {
   display: flex;
-  justify-content:space-between;
-  padding:120px 17% 200px;
-  z-index:10;
+  justify-content: space-between;
+  padding: 120px 17% 200px;
+  z-index: 10;
   position: relative;
-  @include tablets{
-    padding:160px 5% 270px;
+  @include tablets {
+    padding: 160px 5% 270px;
   }
-  @include phones{
-      flex-direction: column;
-      /* padding:160px 5% 110px; */
-      padding-bottom:70px;
+  @include phones {
+    flex-direction: column;
+    /* padding:160px 5% 110px; */
+    padding-bottom: 70px;
   }
-
 }
-.about__data-ask{
+.about__data-ask {
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
 }
-.about__data-answer{
+.about__data-answer {
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
-  color:white;
+  color: white;
 }
 
-.about__name-title{
-  color:white;
+.about__name-title {
+  color: white;
   line-height: 48px;
   margin-bottom: 30px;
-  @include phones{
-    width:30%;
+  @include phones {
+    width: 30%;
   }
 }
-.about__welcome{
+.about__welcome {
   margin-bottom: 15px;
-  @include phones{
+  @include phones {
     margin-bottom: initial;
     font-size: 16px;
   }
 }
-.about__text{
-  @include phones{
+.about__text {
+  @include phones {
     margin-bottom: 45px;
   }
 }
-.about__desc{
+.about__desc {
   display: flex;
-  flex-direction:column;
-  justify-content:space-between;
-  width:55%;
-  @include phones{
-    width:100%;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 55%;
+  @include phones {
+    width: 100%;
   }
 }
-.about__desc-remark{
+.about__desc-remark {
   font-style: italic;
   margin-bottom: 15px;
   position: relative;
-  &:before{
-    content:'';
-    background:url('../images/content/remark.png');
-    background-size:cover;
+  &:before {
+    content: "";
+    background: url("../images/content/remark.png");
+    background-size: cover;
     width: 22px;
     height: 22px;
     position: absolute;
-    top:7%;
-    left:-7%;
+    top: 7%;
+    left: -7%;
   }
 }
-.about__info{
-  width:35%;
-  @include phones{
-    width:100%;
+.about__info {
+  width: 35%;
+  @include phones {
+    width: 100%;
     margin-bottom: 30px;
   }
 }
-.about__avatar{
+.about__avatar {
   display: flex;
   justify-content: center;
   margin-bottom: 75px;
   /* width:100%;
   height:100%; */
-  @include tablets{
+  @include tablets {
     justify-content: flex-start;
   }
-  @include phones{
+  @include phones {
     justify-content: center;
   }
 }
-.about__avatar-img{
-  border-radius:50%;
+.about__avatar-img {
+  border-radius: 50%;
   width: 200px;
   height: 200px;
-  object-fit:cover;
+  object-fit: cover;
 }
-.about__table{
-  width:100%;
+.about__table {
+  width: 100%;
 }
-.bg-shadow{
+.bg-shadow {
   position: absolute;
-  width:100%;
-  height: 40% ;
+  width: 100%;
+  height: 40%;
   /* background-image: linear-gradient(0deg,#1b1f22 55%,rgba(27,31,34,.7) 69%,rgba(27,31,34,0)); */
 }
