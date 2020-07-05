@@ -26,14 +26,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import {Validator} from 'simple-vue-validator';
+import { mapActions } from "vuex";
+import { Validator } from "simple-vue-validator";
 
 export default {
-  mixins:[require('simple-vue-validator').mixin],
-  validators:{
-     'currentSkill.title'(value){
-      return Validator.value(value).required('Поле навык обязательно для заполнения')
+  mixins: [require("simple-vue-validator").mixin],
+  validators: {
+    "currentSkill.title"(value) {
+      return Validator.value(value).required(
+        "Поле навык обязательно для заполнения"
+      );
     },
     "currentSkill.percent": value => {
       return Validator.value(value)
@@ -42,208 +44,211 @@ export default {
         .required("Поле не может быть пустым");
     }
   },
-  props:{
-    skill:Object
+  props: {
+    skill: Object
   },
-  data(){
-    return{
-      editMode:false,
-      currentSkill:{...this.skill},
+  data() {
+    return {
+      editMode: false,
+      currentSkill: { ...this.skill }
       // editedSkill:{...this.skill}
-    }
+    };
   },
   methods: {
-    ...mapActions('skills',['removeSkill','editSkill']),
-    ...mapActions('tooltips',['showTooltip','hideTooltip']),
-    async removeCurrentSkill(){
-      try{
+    ...mapActions("skills", ["removeSkill", "editSkill"]),
+    ...mapActions("tooltips", ["showTooltip", "hideTooltip"]),
+    async removeCurrentSkill() {
+      try {
         await this.removeSkill(this.skill.id);
         this.showTooltip({
-          type:'success',
-          text:'Скилл успешно удален'
-        })
+          type: "success",
+          text: "Скилл успешно удален"
+        });
         // setTimeout(this.func, 3000);
-      } catch(error){
+      } catch (error) {
         this.showTooltip({
-            type:'error',
-            text:error.message
+          type: "error",
+          text: error.message
         });
       }
     },
-    async changeCurrentSkill(){
-      if((await this.$validate())===false){
-         this.showTooltip({
-          type:'error',
-          text:'Не все поля заполнены'
+    async changeCurrentSkill() {
+      if ((await this.$validate()) === false) {
+        this.showTooltip({
+          type: "error",
+          text: "Не все поля заполнены"
         });
-        this.currentSkill = {...this.skill};
+        this.currentSkill = { ...this.skill };
         return;
       }
-      try{
+      try {
         await this.editSkill(this.currentSkill);
-         this.showTooltip({
-          type:'success',
-          text:'Скилл успешно обновлен'
+        this.showTooltip({
+          type: "success",
+          text: "Скилл успешно обновлен"
         });
         this.editMode = false;
-      } catch(error){
-          this.showTooltip({
-            type:'error',
-            text:error.message
+      } catch (error) {
+        this.showTooltip({
+          type: "error",
+          text: error.message
         });
       }
     },
-    cancelEditing(){
-      this.editMode=false;
-      this.currentSkill = {...this.skill};
-    }, 
-    func() {
-      this.hideTooltip(false)
+    cancelEditing() {
+      this.editMode = false;
+      this.currentSkill = { ...this.skill };
     },
+    func() {
+      this.hideTooltip(false);
+    }
   },
-  watch:{
+  watch: {
     // skill:function(){
     //    this.currentSkill={...this.skill}
     // },
-    "currentSkill.percent"(){
-      if(this.currentSkill.percent > 100){
+    "currentSkill.percent"() {
+      if (this.currentSkill.percent > 100) {
         this.currentSkill.percent = 100;
       }
     }
   }
- 
-  
-}
+};
 </script>
 
 
 <style lang="postcss" scoped>
-input[disabled]{
-  &:hover{
-    border-bottom:2px solid transparent;
+input[disabled] {
+  &:hover {
+    border-bottom: 2px solid transparent;
   }
 }
-.skills__group{
+.skills__group {
   /* margin-bottom: 35px; */
 }
-.skills__group-row-wrap{
+.skills__group-row-wrap {
   display: flex;
   margin-bottom: 20px;
   position: relative;
 }
-.skills__group-input{
-  border:none;
-  width:60%;
+.skills__group-input {
+  border: none;
+  width: 60%;
   margin-right: 5%;
   padding-bottom: 5px;
   font-weight: 700;
-   border-bottom:2px solid transparent;
-    &:hover{
-    border-bottom:2px solid $orange;
+  border-bottom: 2px solid transparent;
+  &:hover {
+    border-bottom: 2px solid $orange;
   }
-  &:active{
-      border-bottom:2px solid $orange;
+  &:active {
+    border-bottom: 2px solid $orange;
   }
-   &:focus{
-      border-bottom:2px solid $orange;
+  &:focus {
+    border-bottom: 2px solid $orange;
   }
 }
-.skills__group-percent-wrap{
-  width:20%;
+.skills__group-percent-wrap {
+  width: 20%;
   margin-right: 5%;
   font-size: 16px;
   position: relative;
-  &:before{
-    content:'%';
-    color:black;
-    width:20px;
+  &:before {
+    content: "%";
+    color: black;
+    width: 20px;
     height: 20px;
     position: absolute;
-    right:0;
-    top:3px;
+    right: 0;
+    top: 3px;
   }
-
 }
-.skills__group-percent{
+.skills__group-percent {
   text-align: right;
-   border:none;
-    padding: 0.3125rem 1.375rem 0.3125rem 0.625rem;
-    width:100%;
-     border-bottom: 2px solid transparent;
+  border: none;
+  padding: 0.3125rem 1.375rem 0.3125rem 0.625rem;
+  width: 100%;
+  border-bottom: 2px solid transparent;
 
-    &:hover{
-      border-bottom: 2px solid $orange;
-    }
-    &:focus{
-      border-bottom: 2px solid $orange;
-    }
+  &:hover {
+    border-bottom: 2px solid $orange;
+  }
+  &:focus {
+    border-bottom: 2px solid $orange;
+  }
 }
 
-.skills__group-actions{
+.skills__group-actions {
   display: flex;
   justify-content: space-between;
-  width:10%;
+  width: 10%;
 }
-.skills__group-correct{
-  background: svg-load("pencil.svg", fill="#414c63") center center no-repeat / contain;
-  width:15px;
-  height:15px;
+.skills__group-correct {
+  background: svg-load("pencil.svg", fill= "#414c63") center center no-repeat /
+    contain;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
-  &:hover{
-     background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
+  &:hover {
+    background: svg-load("pencil.svg", fill= "#383bcf") center center no-repeat /
+      contain;
   }
 }
-.skills__group-trash{
-  background: svg-load("trash.svg", fill="#414c63") center center no-repeat / contain;
-  width:15px;
-  height:15px;
+.skills__group-trash {
+  background: svg-load("trash.svg", fill= "#414c63") center center no-repeat /
+    contain;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
-   &:hover{
-     background: svg-load("trash.svg", fill="#bf2929") center center no-repeat / contain;
+  &:hover {
+    background: svg-load("trash.svg", fill= "#bf2929") center center no-repeat /
+      contain;
   }
 }
-.skills__group-save{
-  background: svg-load("tick.svg", fill="#00d70a") center center no-repeat / contain;
-  width:15px;
-  height:15px;
+.skills__group-save {
+  background: svg-load("tick.svg", fill= "#00d70a") center center no-repeat /
+    contain;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
 }
-.skills__group-cancel{
-  background: svg-load("remove.svg", fill="#bf2929") center center no-repeat / contain;
-  width:15px;
-  height:15px;
+.skills__group-cancel {
+  background: svg-load("remove.svg", fill= "#bf2929") center center no-repeat /
+    contain;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
 }
-.validError{
-  border-bottom:2px solid #cd1515;
-  &:hover{
-     border-bottom:2px solid #cd1515;
+.validError {
+  border-bottom: 2px solid #cd1515;
+  &:hover {
+    border-bottom: 2px solid #cd1515;
   }
 }
-.error-input{
+.error-input {
   background: #cd1515;
   font-size: 0.75rem;
   position: absolute;
   bottom: -3.25rem;
-  z-index:5;
+  z-index: 5;
   left: 0;
   color: white;
   padding: 15px 20px;
-  &:after{
-    content:'';
+  &:after {
+    content: "";
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 7.5px 15px 7.5px;
     border-color: transparent transparent #cd1515 transparent;
-    position:absolute;
+    position: absolute;
     top: -0.225rem;
     left: 50%;
-    transform:translate(0,-50%);
+    transform: translate(0, -50%);
   }
 }
-.error-input-percent{
-   left: 20rem;
+.error-input-percent {
+  left: 20rem;
   /* white-space: nowrap; */
 }
 </style>

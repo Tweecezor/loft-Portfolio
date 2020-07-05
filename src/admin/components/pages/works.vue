@@ -9,8 +9,8 @@
           @toogleAddingForm = "toogleAddingForm"
           :mode="currentMode"
         )
-          
-    section.addWorks__change
+    loader(v-if="loading")
+    section.addWorks__change(v-else)
       .addWorks__change-container.container
         ul.addWorks__change-list
           li.addWorks__current.addWorks__change-item
@@ -27,237 +27,235 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
-  components:{
-    addNewWork: () => import('../works-add-new'),
-    workItem: () => import('../works-item'),
+  components: {
+    addNewWork: () => import("../works-add-new"),
+    loader: () => import("../loader"),
+    workItem: () => import("../works-item")
   },
-  data(){
-    return{
-      showAddingForm:false,
-      currentMode:'add'
-    }
+  data() {
+    return {
+      showAddingForm: false,
+      currentMode: "add",
+      loading: true
+    };
   },
-  methods:{
-    ...mapActions('works',['fecthWorks']),
-    toogleAddingForm(){
+  methods: {
+    ...mapActions("works", ["fecthWorks"]),
+    ...mapActions("tooltips", ["showTooltip", "hideTooltip"]),
+    toogleAddingForm() {
       this.showAddingForm = !this.showAddingForm;
     },
-    updateCurrentWork(){
-      this.currentMode = 'edit';
+    updateCurrentWork() {
+      this.currentMode = "edit";
       this.showAddingForm = true;
     }
   },
-  computed:{
-    ...mapState('works',{
-      works:state=>{return state.works}
-    }),
-
+  computed: {
+    ...mapState("works", {
+      works: state => {
+        return state.works;
+      }
+    })
   },
-  created(){
-    try{
-      this.fecthWorks();
-    } catch(error){
-
+  async created() {
+    try {
+      await this.fecthWorks();
+      this.loading = false;
+    } catch (error) {
+      this.showTooltip({
+        type: "error",
+        text: error.message
+      });
     }
-    
   }
-  
-}
+};
 </script>
 
 
 <style lang="postcss" scoped>
-
 @import url("../../../styles/mixins.pcss");
 
-
-
-
-
- 
- .addWorks__content,
- .content{
-   padding:30px 30px;
-   box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.07);
-   margin-bottom: 50px;
- }
- .addWorks__content{
-   background: #fff;
- }
- .addWorks__content-caption{
-    padding-bottom: 20px;
-    border-bottom: 1px solid #414c63;
-    margin-bottom: 74px;
-    font-size: 18px;
-font-weight: 700;
- }
- .addWorks__load-text{
-    color: #414c63;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 33.89px;
-    text-align: center;
-      height: 100%;
-    display: flex;
-    align-items: center;
-    width: 45%;
-    justify-content: center;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    p{
-      margin-bottom: 20px;
-    }
- }
- .addWorks__info{
-   width:48%;
-   @include tablets{
-         width: 80%;
-   }
-   @include phones{
-     width: 100%;
-   }
- }
- .addWorks__label,
- .label{
-   margin-bottom: 20px;
-   display: block;
-   opacity: 0.5;
+.addWorks__content,
+.content {
+  padding: 30px 30px;
+  box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.07);
+  margin-bottom: 50px;
+}
+.addWorks__content {
+  background: #fff;
+}
+.addWorks__content-caption {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #414c63;
+  margin-bottom: 74px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.addWorks__load-text {
+  color: #414c63;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 33.89px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 45%;
+  justify-content: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  p {
+    margin-bottom: 20px;
+  }
+}
+.addWorks__info {
+  width: 48%;
+  @include tablets {
+    width: 80%;
+  }
+  @include phones {
+    width: 100%;
+  }
+}
+.addWorks__label,
+.label {
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.5;
   color: #414c63;
   font-size: 16px;
   font-weight: 400;
   line-height: 30px;
- }
- .addWorks__input,
- .input{
-   width:100%;
-   background-color:transparent;
+}
+.addWorks__input,
+.input {
+  width: 100%;
+  background-color: transparent;
   color: #414c63;
   font-size: 16px;
   font-weight: 700;
   line-height: 30px;
   border: none;
   border-bottom: 2px solid #414c63;
-  padding:0px 5px 10px 5px;
-  padding-bottom:10px;
+  padding: 0px 5px 10px 5px;
+  padding-bottom: 10px;
   margin-bottom: 30px;
 
-    &:hover{
-    border-bottom:2px solid $orange;
+  &:hover {
+    border-bottom: 2px solid $orange;
   }
-  &:active{
-      border-bottom:2px solid $orange;
+  &:active {
+    border-bottom: 2px solid $orange;
   }
 
-  &--desc{
-    border:1px solid black;
+  &--desc {
+    border: 1px solid black;
     height: 145px;
-      &:hover{
-    border:1px solid $orange;
+    &:hover {
+      border: 1px solid $orange;
+    }
+    &:active {
+      border: 1px solid $orange;
+    }
   }
-  &:active{
-      border:1px solid $orange;
+}
+.addWorks__tags-list {
+  display: flex;
+}
+.addWorks__tags-item {
+  padding: 5px 15px;
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0px;
   }
-  }
- }
- .addWorks__tags-list{
-   display: flex;
- }
- .addWorks__tags-item{
-   padding: 5px 15px;
-   background-color: #f4f4f4;
-   border-radius: 15px;
-   margin-right: 10px;
-   &:last-child{
-     margin-right: 0px;
-   }
-   @include phones{
-         padding: 5px 10px;
+  @include phones {
+    padding: 5px 10px;
     font-size: 12px;
-   }
- }
- .addWorks__tags-list-wrap{
-   margin-bottom: 30px;
- }
- .addWorks__buttons{
-   display: flex;
+  }
+}
+.addWorks__tags-list-wrap {
+  margin-bottom: 30px;
+}
+.addWorks__buttons {
+  display: flex;
   justify-content: flex-end;
-  @include tablets{
+  @include tablets {
     justify-content: center;
   }
- }
- .addWorks__reset{
-    background: transparent;
-    border: none;
-    color:$orange;
-    margin-right: 30px;
-    cursor: pointer;
- }
- /* .containerAddWorks{
+}
+.addWorks__reset {
+  background: transparent;
+  border: none;
+  color: $orange;
+  margin-right: 30px;
+  cursor: pointer;
+}
+/* .containerAddWorks{
    background: #fff;
  } */
- 
-.addWorks__change-list{
+
+.addWorks__change-list {
   display: flex;
   flex-wrap: wrap;
 }
-.addWorks__change-item{
+.addWorks__change-item {
   background: white;
-  width:32%;
+  width: 32%;
   margin-right: 2%;
   margin-bottom: 5%;
   padding-bottom: 20px;
   box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.07);
-  &:nth-child(3n){
+  &:nth-child(3n) {
     margin-right: 0px;
   }
-  @include tablets{
-        width:48%;
-        margin-right: 4%;
+  @include tablets {
+    width: 48%;
+    margin-right: 4%;
 
-        &:nth-child(3n){
-        margin-right: 4%;
-      }
-      &:nth-child(2n){
-        margin-right: 0px;
-      }
+    &:nth-child(3n) {
+      margin-right: 4%;
+    }
+    &:nth-child(2n) {
+      margin-right: 0px;
+    }
   }
 
-  @include phones{
-     width:100%;
+  @include phones {
+    width: 100%;
     margin-right: 0%;
-     &:nth-child(3n){
-        margin-right: 0%;
-      }
-
+    &:nth-child(3n) {
+      margin-right: 0%;
+    }
   }
 }
 
-.addWorks__current{
-  background:linear-gradient(to left, #ea7400 0%, #f29400 100%);
-  @include phones{
-    padding-top:20px;
+.addWorks__current {
+  background: linear-gradient(to left, #ea7400 0%, #f29400 100%);
+  @include phones {
+    padding-top: 20px;
   }
-  &:hover{
-     background:linear-gradient(to right, #ea7400 0%, #f29400 100%);
+  &:hover {
+    background: linear-gradient(to right, #ea7400 0%, #f29400 100%);
   }
 }
-.addWorks__new{
+.addWorks__new {
   cursor: pointer;
   height: 100%;
-      display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    @include phones{
-      flex-direction: row;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include phones {
+    flex-direction: row;
     height: 100%;
-
-    }
+  }
 }
-.addWorks__new-icon{
+.addWorks__new-icon {
   display: flex;
   width: 150px;
   height: 150px;
@@ -267,36 +265,37 @@ font-weight: 700;
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-   &:before{
-    content:'';
-    background: svg-load("remove.svg", fill="#fff") center center no-repeat / contain;
+  &:before {
+    content: "";
+    background: svg-load("remove.svg", fill= "#fff") center center no-repeat /
+      contain;
     width: 2.125rem;
     height: 2.125rem;
     position: absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(45deg);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
   }
-  @include phones{
+  @include phones {
     width: 4.375rem;
     height: 4.375rem;
     margin-bottom: 0;
   }
 }
-.addWorks__new-text{
-font-size: 18px;
-font-weight: 700;
-line-height: 30px;
-color:white;
-width: 5.875rem;
-text-align: center;
-@include phones{
-   font-size: 14px;
+.addWorks__new-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 30px;
+  color: white;
+  width: 5.875rem;
+  text-align: center;
+  @include phones {
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.875rem;
     color: #fff;
     width: 9.875rem;
     text-align: center;
-}
+  }
 }
 </style>
