@@ -21,8 +21,7 @@
         .skills__group-cancel(
           @click="cancelEditing"
         )
-    //- pre {{skill}}
-    //- pre {{currentSkill}}
+   
 </template>
 
 <script>

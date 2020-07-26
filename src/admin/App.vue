@@ -117,6 +117,7 @@ export default {
 
 .wrapper__container {
   background: url("../images/content/background-main.jpg") no-repeat;
+  /* background: #f7f8f9; */
   min-height: 100vh;
   background-size: cover;
   position: relative;

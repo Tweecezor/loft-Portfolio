@@ -23,109 +23,106 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import { getAbsoluteImgPath } from "@/helpers/photos";
 // import { Validator } from 'simple-vue-validator';
 
 export default {
-  
-  props:{
-    work:Object
+  props: {
+    work: Object
   },
-  data(){
-    return{
-      photoURL:'',
-      tagArray:[],
-      currentWork: {...this.work}
-    }
+  data() {
+    return {
+      photoURL: "",
+      tagArray: [],
+      currentWork: { ...this.work }
+    };
   },
-  methods:{
-    ...mapActions('works',['removeWork','addCurrentWork']),
-    ...mapActions('tooltips',['showTooltip']),
-    async removeCurrentWork(){
-      try{
+  methods: {
+    ...mapActions("works", ["removeWork", "addCurrentWork"]),
+    ...mapActions("tooltips", ["showTooltip"]),
+    async removeCurrentWork() {
+      try {
         // console.log(this.work)
         await this.removeWork(this.work);
         this.showTooltip({
-        type:'success',
-        text:'Работа успешно удалена'
-      });
-      }catch(error){
+          type: "success",
+          text: "Работа успешно удалена"
+        });
+      } catch (error) {
         // alert(error.message)
-         this.showTooltip({
-        type:'error',
-        text:error.message
-      })
-        
+        this.showTooltip({
+          type: "error",
+          text: error.message
+        });
       }
     },
-    updateCurrentWork(){
-      this.$emit("updateCurrentWork")
+    updateCurrentWork() {
+      this.$emit("updateCurrentWork");
       this.addCurrentWork(this.currentWork);
       // console.log(this.work)
     }
   },
-  created(){
+  created() {
     // const reader = new FileReader();
     // reader.readAsDataURL(this.work.photo);
     //    reader.onload = () => {
     //      this.photoUrl = reader.result;
     //    }
     this.work.photo = getAbsoluteImgPath(this.work.photo);
-    this.tagArray = this.work.techs.split(',');
+    this.tagArray = this.work.techs.split(",");
   },
-  computed:{
-  },
-  watch:{
-    work(){
-      this.currentWork = {...this.work};
+  computed: {},
+  watch: {
+    work() {
+      this.currentWork = { ...this.work };
       this.work.photo = getAbsoluteImgPath(this.work.photo);
-      this.tagArray = this.work.techs.split(',');
+      this.tagArray = this.work.techs.split(",");
     }
   }
-}
+};
 </script>
 <style lang="postcss" scoped>
 @import url("../../styles/mixins.pcss");
-.addWorks__preview{
+.addWorks__preview {
   position: relative;
   margin-bottom: 30px;
 }
-.addWorks__tags-list--preview{
-    position: absolute;
-    right: 5px;
-    bottom: -20px;
-    transform: translate(0, -100%);
+.addWorks__tags-list--preview {
+  position: absolute;
+  right: 5px;
+  bottom: -20px;
+  transform: translate(0, -100%);
 }
-.addWorks__desc-title{
+.addWorks__desc-title {
   color: #414c63;
   font-size: 18px;
   font-weight: 700;
   line-height: 30px;
-  &-wrap{
+  &-wrap {
     margin-bottom: 20px;
   }
 }
-.addWorks__desc{
-  padding:0 5%;
+.addWorks__desc {
+  padding: 0 5%;
 }
-.addWorks__desc-text{
+.addWorks__desc-text {
   opacity: 0.7;
-color: #414c63;
-width: 85%;
-font-size: 16px;
-font-weight: 400;
-line-height: 30px;
-margin-bottom: 20px;
-}
-.addWorks__desc-link-wrap{
+  color: #414c63;
+  width: 85%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
   margin-bottom: 20px;
 }
-.addWorks__desc-link{
-  color:$orange;
-  text-decoration:none;
+.addWorks__desc-link-wrap {
+  margin-bottom: 20px;
 }
-.addWorks__desc-controls{
+.addWorks__desc-link {
+  color: $orange;
+  text-decoration: none;
+}
+.addWorks__desc-controls {
   display: flex;
   justify-content: space-between;
   /* opacity: 0.5; */
@@ -134,72 +131,75 @@ margin-bottom: 20px;
   font-weight: 400;
   line-height: 30px;
 }
-.addWorks__desc-correct{
-  padding-right:50px;
+.addWorks__desc-correct {
+  padding-right: 50px;
   position: relative;
   cursor: pointer;
-  &:before{
-    content:'';
-    background: svg-load("pencil.svg", fill="grey") center center no-repeat / contain;
-    width:20px;
+  &:before {
+    content: "";
+    background: svg-load("pencil.svg", fill= "grey") center center no-repeat /
+      contain;
+    width: 20px;
     height: 20px;
-    opacity:initial;
+    opacity: initial;
     position: absolute;
-   top: 15%;
+    top: 15%;
     left: 63%;
   }
-  &:hover{
-    &:before{
-    background: svg-load("pencil.svg", fill="#383bcf") center center no-repeat / contain;
-
+  &:hover {
+    &:before {
+      background: svg-load("pencil.svg", fill= "#383bcf") center center
+        no-repeat / contain;
     }
   }
 }
-.addWorks__desc-remove{
-    padding-right:50px;
-    cursor: pointer;
+.addWorks__desc-remove {
+  padding-right: 50px;
+  cursor: pointer;
   position: relative;
-  &:before{
-    content:'';
-    background: svg-load("remove.svg", fill="grey") center center no-repeat / contain;
-    width:20px;
+  &:before {
+    content: "";
+    background: svg-load("remove.svg", fill= "grey") center center no-repeat /
+      contain;
+    width: 20px;
     height: 20px;
-    opacity:initial;
+    opacity: initial;
     position: absolute;
-   top: 15%;
+    top: 15%;
     left: 63%;
   }
-  &:hover{
-    &:before{
-      background: svg-load("remove.svg", fill="red") center center no-repeat / contain;
+  &:hover {
+    &:before {
+      background: svg-load("remove.svg", fill= "red") center center no-repeat /
+        contain;
     }
   }
-
 }
-.addWorks__desc-correct-icon{
-   width:20px;
-    height: 20px;
-    position: absolute;
-    top:0;
-    left:0;
+.addWorks__desc-correct-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-.addWorks__tags-list{
-   display: flex;
- }
- .addWorks__tags-item{
-   padding: 5px 15px;
-   background-color: #f4f4f4;
-   border-radius: 15px;
-   margin-right: 10px;
-   &:last-child{
-     margin-right: 0px;
-   }
-   @include phones{
-         padding: 5px 10px;
+.addWorks__tags-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.addWorks__tags-item {
+  padding: 5px 15px;
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0px;
+  }
+  @include phones {
+    padding: 5px 10px;
     font-size: 12px;
-   }
- }
- .addWorks__tags-list-wrap{
-   margin-bottom: 30px;
- }
+  }
+}
+.addWorks__tags-list-wrap {
+  margin-bottom: 30px;
+}
 </style>

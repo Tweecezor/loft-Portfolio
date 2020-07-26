@@ -6,7 +6,6 @@
           v-for="item in ['Обо мне','Работы','Отзывы']"
         )
           a(@click.prevent="clickLink(item)").nav__link {{item}}
-          //- router-link(to="/works") {{item}}
 </template>
 
 <script>
@@ -33,6 +32,7 @@ export default {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 30px;
+  border-bottom: 1px solid #efefef;
 }
 .nav__list {
   display: flex;
@@ -53,4 +53,3 @@ export default {
   /* padding:0 20px; */
 }
 </style>
-
